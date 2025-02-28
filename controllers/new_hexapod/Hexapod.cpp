@@ -42,3 +42,18 @@ void Hexapod::setPose(float* backRightAngles, float* middleRightAngles, float* f
         FrontLeftLeg.setRadAngles(frontLeftAngles);
     }
 }
+
+//只是反向运动学，输入参数需要进行预处理，vector3应为该条腿根部到目标点的向量
+float* Hexapod::ik(Vector3 vector3)
+{
+    float theta1 = atan2(vector3.y, vector3.x);
+    float R = sqrt(vector3.x * vector3.x + vector3.y * vector3.y);
+    float ar = atan2(-vector3.z, (R - COXA_LEN));
+    float Lr = sqrt(vector3.z * vector3.z + (R - COXA_LEN) * (R - COXA_LEN));
+    float a1 = acos(CLIP((FEMUR_LEN * FEMUR_LEN + Lr * Lr - TIBIA_LEN * TIBIA_LEN) / (2 * Lr * FEMUR_LEN), -1, 1));
+    float theta2 = a1 - ar;
+    float a2 = acos(CLIP((Lr * Lr + TIBIA_LEN * TIBIA_LEN - FEMUR_LEN * FEMUR_LEN) / (2 * Lr * TIBIA_LEN), -1, 1));
+    float theta3 = -(a1 + a2);
+    float angles[3] = { theta1,theta2,theta3 };
+    return angles;
+}
