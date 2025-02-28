@@ -1,0 +1,1280 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/Parquetry.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.23649823363657968 -0.40929651853220966 -0.8812178762395769 5.479994528814608
+  position -1.3871309861512928 -0.9511186701770267 0.9000207510823841
+  follow "Hexapod"
+}
+TexturedBackground {
+}
+RectangleArena {
+  floorSize 10 10
+  floorAppearance Parquetry {
+    type "light strip"
+  }
+}
+TexturedBackgroundLight {
+}
+Pose {
+  translation -0.83 0 0
+  children [
+    Group {
+      children [
+        Solid {
+          translation -0.019933880692263206 -0.03998729742886507 0.0496076
+          rotation -3.179011085825313e-13 7.6642485074458e-13 -1 5.0763256632205356e-05
+          children [
+            DEF BOX Shape {
+              appearance PBRAppearance {
+              }
+              geometry Box {
+                size 0.1 0.1 0.1
+              }
+            }
+          ]
+          boundingObject USE BOX
+          physics Physics {
+          }
+          linearVelocity -1.8526777784466746e-18 -4.426905464613258e-17 5.6843418860808e-17
+          angularVelocity 1.0658141036401498e-15 2.664535259100376e-16 -1.9157902748366602e-16
+        }
+        Solid {
+          translation 0.06990678014426754 -0.19993550478438063 0.04960760000000001
+          rotation 1.6462027577465643e-13 8.281752604697621e-13 1 9.931916513755279e-05
+          children [
+            DEF BOX Shape {
+              appearance PBRAppearance {
+              }
+              geometry Box {
+                size 0.1 0.1 0.1
+              }
+            }
+          ]
+          name "solid(1)"
+          boundingObject USE BOX
+          physics Physics {
+          }
+          linearVelocity 2.5725598147562135e-17 -7.183440114471064e-18 0
+          angularVelocity 7.993605777301114e-16 2.664535259100378e-16 -1.5069997386128894e-16
+        }
+        Solid {
+          translation 0.2427788537707931 -0.1300340540610465 0.04960760000000001
+          rotation -1.1235786917915893e-12 1.7408046970288954e-12 -0.9999999999999999 2.4836538398174643e-05
+          children [
+            DEF BOX Shape {
+              appearance PBRAppearance {
+              }
+              geometry Box {
+                size 0.1 0.1 0.1
+              }
+            }
+          ]
+          name "solid(2)"
+          boundingObject USE BOX
+          physics Physics {
+          }
+          linearVelocity 3.299788069709498e-17 9.029021142856656e-17 0
+          angularVelocity -1.598721155460224e-15 7.99360577730112e-16 2.6857532856708926e-16
+        }
+        Solid {
+          translation 0.24010227170996068 0.2200350097607885 0.0496076
+          rotation -1.2228083284949665e-13 -6.324082712645699e-13 1 7.175482358367277e-05
+          children [
+            DEF BOX Shape {
+              appearance PBRAppearance {
+              }
+              geometry Box {
+                size 0.1 0.1 0.1
+              }
+            }
+          ]
+          name "solid(3)"
+          boundingObject USE BOX
+          physics Physics {
+          }
+          linearVelocity 9.258640335109727e-19 2.086448692050155e-17 0
+          angularVelocity -2.66453525910037e-16 2.465190328815662e-31 -4.880977086948026e-17
+        }
+        Solid {
+          translation -0.020051649108723035 0.15992621635509713 0.0496076
+          rotation -4.965819022984939e-13 1.2477839691990308e-13 -1 0.00017334433090605521
+          children [
+            DEF BOX Shape {
+              appearance PBRAppearance {
+              }
+              geometry Box {
+                size 0.1 0.1 0.1
+              }
+            }
+          ]
+          name "solid(4)"
+          boundingObject USE BOX
+          physics Physics {
+          }
+          linearVelocity -1.0861355847123027e-17 3.7897967243075133e-17 5.6843418860808e-17
+          angularVelocity -1.0658141036401496e-15 -3.939946762251522e-49 -1.9100004355935257e-17
+        }
+        Solid {
+          translation 0.23263016943535741 0.05998653481257025 0.04960760000000001
+          rotation 2.81320414509819e-12 -7.173976738527865e-15 -1 2.886579514979141e-05
+          children [
+            DEF BOX Shape {
+              appearance PBRAppearance {
+              }
+              geometry Box {
+                size 0.1 0.1 0.1
+              }
+            }
+          ]
+          name "solid(5)"
+          boundingObject USE BOX
+          physics Physics {
+          }
+          linearVelocity -4.906729257205258e-17 2.012123812941701e-17 1.232595164407831e-32
+          angularVelocity -7.993605777301118e-16 -5.32907051820075e-16 -5.792290752432599e-17
+        }
+      ]
+    }
+  ]
+}
+Robot {
+  translation -0.14797567515427865 0.313298020296977 0.09243505432564032
+  rotation 0.0036913387745980963 0.03401407778299201 -0.9994145368817806 0.2212756138147785
+  children [
+    DEF Leg0BL Pose {
+      translation -0.059 -0.083 0
+      rotation 0 0 1 -2.3561953071795863
+      children [
+        DEF JointBC Pose {
+          translation -0.008 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.101961 0.101961 0.101961
+                roughness 1
+                metalness 0.3
+              }
+              geometry Box {
+                size 0.045 0.02 0.045
+              }
+            }
+          ]
+        }
+        DEF BL_COXA HingeJoint {
+          jointParameters DEF BL_COXA HingeJointParameters {
+            position -5.828673775528139e-06
+            axis 0 0 1
+          }
+          device [
+            PositionSensor {
+              name "S_BL_COXA"
+            }
+            RotationalMotor {
+              name "M_BL_COXA"
+            }
+          ]
+          endPoint Solid {
+            translation 0.019999999999660272 -1.1657347551077012e-07 0
+            rotation 0 0 -1 5.8286973443449214e-06
+            children [
+              DEF JointCF Pose {
+                translation 0.022 -1.67293e-08 -1.67294e-08
+                rotation 0.5773509358554485 -0.5773509358554485 0.5773489358556708 2.0944
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.101961 0.101961 0.101961
+                      roughness 1
+                      metalness 0.3
+                    }
+                    geometry Box {
+                      size 0.045 0.02 0.045
+                    }
+                  }
+                ]
+              }
+              DEF L_SHAPE_COXA Shape {
+                appearance PBRAppearance {
+                  baseColor 0.54902 0.54902 0.54902
+                  roughness 1
+                  metalness 0.3
+                }
+                geometry Mesh {
+                  url [
+                    "../../webotsSTL/left-coxa-webots.stl"
+                  ]
+                }
+              }
+              HingeJoint {
+                jointParameters HingeJointParameters {
+                  position -0.20000314549788054
+                  axis 0 1 0
+                  anchor 0.0229 0 -0.0077
+                }
+                device [
+                  RotationalMotor {
+                    name "M_BL_FEMUR"
+                  }
+                  PositionSensor {
+                    name "S_BL_FEMUR"
+                  }
+                ]
+                endPoint Solid {
+                  translation 0.06067086712753554 0 0.007813271622518771
+                  rotation 0.9900821917246738 -0.09934077997148395 0.0993411448712137 1.5807671521392235
+                  children [
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        position -0.19999811341885554
+                        axis 0 0 1
+                        anchor 0.04 -0.0095 0
+                      }
+                      device [
+                        RotationalMotor {
+                          name "M_BL_TIBIA"
+                        }
+                        PositionSensor {
+                          name "S_BL_TIBIA"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0.05233670551003894 -0.0543447956529916 -8.485299999999985e-07
+                        rotation 0.07076981022999852 0.7053308408892838 0.7053368265236304 3.0002874381352536
+                        children [
+                          DEF JointFT Pose {
+                            translation 0.012 0 0.0354013
+                            rotation 0.8326655851321886 -0.3915794181092338 0.39157832249717783 1.71777
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.101961 0.101961 0.101961
+                                  roughness 1
+                                  metalness 0.3
+                                }
+                                geometry Box {
+                                  size 0.045 0.02 0.045
+                                }
+                              }
+                            ]
+                          }
+                          DEF L_SHAPE_TIBIA Shape {
+                            appearance PBRAppearance {
+                              baseColor 0.513726 0.513726 0.513726
+                              roughness 1
+                              metalness 0.3
+                            }
+                            geometry Mesh {
+                              url [
+                                "../../webotsSTL/left-tibia-webots.stl"
+                              ]
+                            }
+                          }
+                        ]
+                        boundingObject Group {
+                          children [
+                            Pose {
+                              translation -0.033 0 -0.02
+                              children [
+                                Box {
+                                  size 0.01 0.01 0.08
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                        physics Physics {
+                          density -1
+                          mass 0.8
+                        }
+                        linearVelocity 1.2156306651960283e-05 1.3550892639777393e-05 -6.096143578170404e-08
+                        angularVelocity -1.1320739135930445e-07 -1.4617784961133898e-06 -6.449288453156914e-05
+                      }
+                    }
+                    DEF L_SHAPE_FEMUR Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.505882 0.505882 0.505882
+                        roughness 1
+                        metalness 0.3
+                      }
+                      geometry Mesh {
+                        url [
+                          "../../webotsSTL/left-femur-webots.stl"
+                        ]
+                      }
+                    }
+                  ]
+                  boundingObject USE L_SHAPE_FEMUR
+                  physics Physics {
+                    density -1
+                    mass 0.8
+                  }
+                  linearVelocity 9.553131475078356e-06 6.11062115670815e-06 3.17096737123151e-08
+                  angularVelocity -2.2549273652236915e-07 -1.0729719436655897e-06 -6.456633838536079e-05
+                }
+              }
+            ]
+            name "solid(5)"
+            boundingObject USE L_SHAPE_COXA
+            physics Physics {
+              density -1
+              mass 0.8
+            }
+            linearVelocity 5.931574459427589e-06 6.659498746034798e-07 6.753475410715108e-08
+            angularVelocity -3.2137573048729875e-07 -7.404908421825042e-07 -6.472812021323168e-05
+          }
+        }
+      ]
+    }
+    DEF Leg0FL Pose {
+      translation -0.064 0.082 0
+      rotation 0 0 -1 -2.3561953071795863
+      children [
+        DEF JointBC Pose {
+          translation -0.008 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.101961 0.101961 0.101961
+                roughness 1
+                metalness 0.3
+              }
+              geometry Box {
+                size 0.045 0.02 0.045
+              }
+            }
+          ]
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position 5.698520786942355e-06
+            axis 0 0 1
+          }
+          device [
+            PositionSensor {
+              name "S_FL_COXA"
+            }
+            RotationalMotor {
+              name "M_FL_COXA"
+            }
+          ]
+          endPoint Solid {
+            translation 0.01999999999967525 1.1397041573823018e-07 0
+            rotation 0 0 1 5.698559412790038e-06
+            children [
+              DEF JointCF Pose {
+                translation 0.022 -1.67293e-08 -1.67294e-08
+                rotation 0.5773509358554485 -0.5773509358554485 0.5773489358556708 2.0944
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.101961 0.101961 0.101961
+                      roughness 1
+                      metalness 0.3
+                    }
+                    geometry Box {
+                      size 0.045 0.02 0.045
+                    }
+                  }
+                ]
+              }
+              DEF L_SHAPE_COXA Shape {
+                appearance PBRAppearance {
+                  baseColor 0.54902 0.54902 0.54902
+                  roughness 1
+                  metalness 0.3
+                }
+                geometry Mesh {
+                  url [
+                    "../../webotsSTL/left-coxa-webots.stl"
+                  ]
+                }
+              }
+              HingeJoint {
+                jointParameters HingeJointParameters {
+                  position -0.200003003350397
+                  axis 0 1 0
+                  anchor 0.0229 0 -0.0077
+                }
+                device [
+                  RotationalMotor {
+                    name "M_FL_FEMUR"
+                  }
+                  PositionSensor {
+                    name "S_FL_FEMUR"
+                  }
+                ]
+                endPoint Solid {
+                  translation 0.060670869332707766 0 0.007813266253484894
+                  rotation 0.9900822057063561 -0.09934071029733439 0.09934107519680843 1.5807671380181858
+                  children [
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        position -0.19999821039878096
+                        axis 0 0 1
+                        anchor 0.04 -0.0095 0
+                      }
+                      device [
+                        RotationalMotor {
+                          name "M_FL_TIBIA"
+                        }
+                        PositionSensor {
+                          name "S_FL_TIBIA"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0.0523367011609939 -0.054344796849404166 -8.485299999999979e-07
+                        rotation 0.07076984460276113 0.7053308391648919 0.7053368247992237 3.000287369731741
+                        children [
+                          DEF JointFT Pose {
+                            translation 0.012 0 0.0354013
+                            rotation 0.8326655851321886 -0.3915794181092338 0.39157832249717783 1.71777
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.101961 0.101961 0.101961
+                                  roughness 1
+                                  metalness 0.3
+                                }
+                                geometry Box {
+                                  size 0.045 0.02 0.045
+                                }
+                              }
+                            ]
+                          }
+                          DEF L_SHAPE_TIBIA Shape {
+                            appearance PBRAppearance {
+                              baseColor 0.513726 0.513726 0.513726
+                              roughness 1
+                              metalness 0.3
+                            }
+                            geometry Mesh {
+                              url [
+                                "../../webotsSTL/left-tibia-webots.stl"
+                              ]
+                            }
+                          }
+                        ]
+                        boundingObject Group {
+                          children [
+                            Pose {
+                              translation -0.033 0 -0.02
+                              children [
+                                Box {
+                                  size 0.01 0.01 0.08
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                        physics Physics {
+                          density -1
+                          mass 0.8
+                        }
+                        linearVelocity 9.536641495975578e-06 -1.3374638179996546e-05 -2.4784785401517103e-08
+                        angularVelocity 1.017790403097625e-07 -1.468221601698307e-06 4.591905388908951e-05
+                      }
+                    }
+                    DEF L_SHAPE_FEMUR Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.505882 0.505882 0.505882
+                        roughness 1
+                        metalness 0.3
+                      }
+                      geometry Mesh {
+                        url [
+                          "../../webotsSTL/left-femur-webots.stl"
+                        ]
+                      }
+                    }
+                  ]
+                  boundingObject USE L_SHAPE_FEMUR
+                  physics Physics {
+                    density -1
+                    mass 0.8
+                  }
+                  linearVelocity 8.43814252346988e-06 -9.13589775636944e-06 3.3215807595945395e-08
+                  angularVelocity 1.0469332073432647e-07 -1.1186779363430367e-06 4.6086537035539024e-05
+                }
+              }
+            ]
+            name "solid(4)"
+            boundingObject USE L_SHAPE_COXA
+            physics Physics {
+              density -1
+              mass 0.8
+            }
+            linearVelocity 6.0498734591986375e-06 -5.721662607994926e-06 5.989835351963789e-08
+            angularVelocity 1.0705438924157976e-07 -8.195334831574028e-07 4.648290436433031e-05
+          }
+        }
+      ]
+    }
+    DEF Leg0BR Pose {
+      translation 0.059 -0.083 0
+      rotation 0 0 1 -0.785395307179586
+      children [
+        DEF JointBC Pose {
+          translation -0.008 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.101961 0.101961 0.101961
+                roughness 1
+                metalness 0.3
+              }
+              geometry Box {
+                size 0.045 0.02 0.045
+              }
+            }
+          ]
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position 2.2669352137844364e-06
+            axis 0 0 1
+          }
+          device [
+            PositionSensor {
+              name "S_BR_COXA"
+            }
+            RotationalMotor {
+              name "M_BR_COXA"
+            }
+          ]
+          endPoint Solid {
+            translation 0.01999999999994859 4.533870427564985e-08 0
+            rotation 0 0 1 2.26693633267136e-06
+            children [
+              DEF JointCF Pose {
+                translation 0.022 -1.67293e-08 -1.67294e-08
+                rotation 0.5773509358554485 -0.5773509358554485 0.5773489358556708 2.0944
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.101961 0.101961 0.101961
+                      roughness 1
+                      metalness 0.3
+                    }
+                    geometry Box {
+                      size 0.045 0.02 0.045
+                    }
+                  }
+                ]
+              }
+              DEF R_SHAPE_COXA Shape {
+                appearance PBRAppearance {
+                  baseColor 0.54902 0.54902 0.54902
+                  roughness 1
+                  metalness 0.3
+                }
+                geometry Mesh {
+                  url [
+                    "../../webotsSTL/right-coxa-webots.stl"
+                  ]
+                }
+              }
+              HingeJoint {
+                jointParameters HingeJointParameters {
+                  position 0.2000013790744166
+                  axis 0 -1 0
+                  anchor 0.0229 0 -0.0077
+                }
+                device [
+                  RotationalMotor {
+                    name "M_BR_FEMUR"
+                  }
+                  PositionSensor {
+                    name "S_BR_FEMUR"
+                  }
+                ]
+                endPoint Solid {
+                  translation 0.06067089453048359 0 0.00781320490314858
+                  rotation -0.9900823196184618 -0.0993403757368424 -0.09934027444792554 1.5807623303834726
+                  children [
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        position 0.1999992055270201
+                        axis 0 0 1
+                        anchor 0.041 0.008 0
+                      }
+                      device [
+                        RotationalMotor {
+                          name "M_BR_TIBIA"
+                        }
+                        PositionSensor {
+                          name "S_BR_TIBIA"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0.047754258948831854 0.05018269770951267 0
+                        rotation 0.07076939969603212 -0.7053351612416194 0.7053325473724589 3.282887763678048
+                        children [
+                          DEF JointFT Pose {
+                            translation 0.0118 0 0.035
+                            rotation -0.3304330460699165 0.6673877019165089 0.6673886853967165 2.59356
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.101961 0.101961 0.101961
+                                  roughness 1
+                                  metalness 0.3
+                                }
+                                geometry Box {
+                                  size 0.045 0.02 0.045
+                                }
+                              }
+                            ]
+                          }
+                          DEF R_SHAPE_TIBIA Shape {
+                            appearance PBRAppearance {
+                              baseColor 0.513726 0.513726 0.513726
+                              roughness 1
+                              metalness 0.3
+                            }
+                            geometry Mesh {
+                              url [
+                                "../../webotsSTL/right-tibia-webots.stl"
+                              ]
+                            }
+                          }
+                        ]
+                        boundingObject Group {
+                          children [
+                            Pose {
+                              translation -0.033 0 -0.02
+                              children [
+                                Box {
+                                  size 0.01 0.01 0.08
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                        physics Physics {
+                          density -1
+                          mass 0.8
+                        }
+                        linearVelocity -8.050489038729965e-06 1.5959033885394787e-06 4.087651259305293e-08
+                        angularVelocity 3.46937059618895e-07 6.325777883414421e-07 1.7254029632078967e-05
+                      }
+                    }
+                    DEF R_SHAPE_FEMUR Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.505882 0.505882 0.505882
+                        roughness 1
+                        metalness 0.3
+                      }
+                      geometry Mesh {
+                        url [
+                          "../../webotsSTL/right-femur-webots.stl"
+                        ]
+                      }
+                    }
+                  ]
+                  boundingObject USE R_SHAPE_FEMUR
+                  physics Physics {
+                    density -1
+                    mass 0.8
+                  }
+                  linearVelocity -5.568409297415584e-06 -6.149620679536111e-07 8.8135448382773e-08
+                  angularVelocity 2.671029393657766e-07 2.9536517885203813e-07 1.737423480959113e-05
+                }
+              }
+            ]
+            name "solid(2)"
+            boundingObject USE R_SHAPE_COXA
+            physics Physics {
+              density -1
+              mass 0.8
+            }
+            linearVelocity -2.7463775355938777e-06 -2.4758243168664586e-06 1.08378429466712e-07
+            angularVelocity 1.9966640643224734e-07 1.0008504657120796e-08 1.768662045542702e-05
+          }
+        }
+      ]
+    }
+    DEF Leg0FR Pose {
+      translation 0.064 0.082 0
+      rotation 0 0 1 0.785398
+      children [
+        DEF JointBC Pose {
+          translation -0.008 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.101961 0.101961 0.101961
+                roughness 1
+                metalness 0.3
+              }
+              geometry Box {
+                size 0.045 0.02 0.045
+              }
+            }
+          ]
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position 2.8266582647529604e-06
+            axis 0 0 1
+          }
+          device [
+            PositionSensor {
+              name "S_FR_COXA"
+            }
+            RotationalMotor {
+              name "M_FR_COXA"
+            }
+          ]
+          endPoint Solid {
+            translation 0.01999999999992007 5.6533165294983847e-08 0
+            rotation 0 0 1 2.82666819128522e-06
+            children [
+              DEF JointCF Pose {
+                translation 0.022 -1.67293e-08 -1.67294e-08
+                rotation 0.5773509358554485 -0.5773509358554485 0.5773489358556708 2.0944
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.101961 0.101961 0.101961
+                      roughness 1
+                      metalness 0.3
+                    }
+                    geometry Box {
+                      size 0.045 0.02 0.045
+                    }
+                  }
+                ]
+              }
+              DEF R_SHAPE_COXA Shape {
+                appearance PBRAppearance {
+                  baseColor 0.54902 0.54902 0.54902
+                  roughness 1
+                  metalness 0.3
+                }
+                geometry Mesh {
+                  url [
+                    "../../webotsSTL/right-coxa-webots.stl"
+                  ]
+                }
+              }
+              HingeJoint {
+                jointParameters HingeJointParameters {
+                  position 0.20000166924358376
+                  axis 0 -1 0
+                  anchor 0.0229 0 -0.0077
+                }
+                device [
+                  RotationalMotor {
+                    name "M_FR_FEMUR"
+                  }
+                  PositionSensor {
+                    name "S_FR_FEMUR"
+                  }
+                ]
+                endPoint Solid {
+                  translation 0.060670890029028174 0 0.007813215863096913
+                  rotation -0.9900822910773925 -0.09934051796509559 -0.09934041667603363 1.580762359209006
+                  children [
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        position 0.1999989649340149
+                        axis 0 0 1
+                        anchor 0.041 0.008 0
+                      }
+                      device [
+                        PositionSensor {
+                          name "S_FR_TIBIA"
+                        }
+                        RotationalMotor {
+                          name "M_FR_TIBIA"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0.047754269097693675 0.05018269608448393 0
+                        rotation 0.0707693144217537 -0.7053351655198349 0.7053325516502003 3.2828875939799707
+                        children [
+                          DEF JointFT Pose {
+                            translation 0.0118 0 0.035
+                            rotation -0.3304330460699165 0.6673877019165089 0.6673886853967165 2.59356
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.101961 0.101961 0.101961
+                                  roughness 1
+                                  metalness 0.3
+                                }
+                                geometry Box {
+                                  size 0.045 0.02 0.045
+                                }
+                              }
+                            ]
+                          }
+                          DEF R_SHAPE_TIBIA Shape {
+                            appearance PBRAppearance {
+                              baseColor 0.513726 0.513726 0.513726
+                              roughness 1
+                              metalness 0.3
+                            }
+                            geometry Mesh {
+                              url [
+                                "../../webotsSTL/right-tibia-webots.stl"
+                              ]
+                            }
+                          }
+                        ]
+                        boundingObject Group {
+                          children [
+                            Pose {
+                              translation -0.033 0 -0.02
+                              children [
+                                Box {
+                                  size 0.01 0.01 0.08
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                        physics Physics {
+                          density -1
+                          mass 0.8
+                        }
+                        linearVelocity -8.822436433702664e-06 -5.835390622438498e-06 7.018307215695883e-08
+                        angularVelocity -1.603701516658809e-07 2.9597572369573574e-07 1.9010631912338952e-05
+                      }
+                    }
+                    DEF R_SHAPE_FEMUR Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.505882 0.505882 0.505882
+                        roughness 1
+                        metalness 0.3
+                      }
+                      geometry Mesh {
+                        url [
+                          "../../webotsSTL/right-femur-webots.stl"
+                        ]
+                      }
+                    }
+                  ]
+                  boundingObject USE R_SHAPE_FEMUR
+                  physics Physics {
+                    density -1
+                    mass 0.8
+                  }
+                  linearVelocity -4.818210189344083e-06 -5.862318283808122e-06 9.484509087327158e-08
+                  angularVelocity -9.955006686022315e-08 1.0779316312017103e-07 1.8990512321190787e-05
+                }
+              }
+            ]
+            name "solid(1)"
+            boundingObject USE R_SHAPE_COXA
+            physics Physics {
+              density -1
+              mass 0.8
+            }
+            linearVelocity -1.2100092233513988e-06 -5.476662069511112e-06 1.0280949695596638e-07
+            angularVelocity -4.795207679939583e-08 -5.1635644402909835e-08 1.893139059912619e-05
+          }
+        }
+      ]
+    }
+    DEF Leg0ML Pose {
+      translation -0.08 0 0
+      rotation 0 0 -1 3.14159
+      children [
+        DEF JointBC Pose {
+          translation -0.008 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.101961 0.101961 0.101961
+                roughness 1
+                metalness 0.3
+              }
+              geometry Box {
+                size 0.045 0.02 0.045
+              }
+            }
+          ]
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position -1.8560169427077455e-06
+            axis 0 0 1
+          }
+          device [
+            PositionSensor {
+              name "S_ML_COXA"
+            }
+            RotationalMotor {
+              name "M_ML_COXA"
+            }
+          ]
+          endPoint Solid {
+            translation 0.019999999999965566 -3.712033885413362e-08 0
+            rotation 0 0 -1 1.855897602670291e-06
+            children [
+              DEF JointCF Pose {
+                translation 0.022 -1.67293e-08 -1.67294e-08
+                rotation 0.5773509358554485 -0.5773509358554485 0.5773489358556708 2.0944
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.101961 0.101961 0.101961
+                      roughness 1
+                      metalness 0.3
+                    }
+                    geometry Box {
+                      size 0.045 0.02 0.045
+                    }
+                  }
+                ]
+              }
+              DEF L_SHAPE_COXA Shape {
+                appearance PBRAppearance {
+                  baseColor 0.54902 0.54902 0.54902
+                  roughness 1
+                  metalness 0.3
+                }
+                geometry Mesh {
+                  url [
+                    "../../webotsSTL/left-coxa-webots.stl"
+                  ]
+                }
+              }
+              HingeJoint {
+                jointParameters HingeJointParameters {
+                  position -0.2000012218148708
+                  axis 0 1 0
+                  anchor 0.0229 0 -0.0077
+                }
+                device [
+                  RotationalMotor {
+                    name "M_ML_FEMUR"
+                  }
+                  PositionSensor {
+                    name "S_ML_FEMUR"
+                  }
+                ]
+                endPoint Solid {
+                  translation 0.06067089697008264 0 0.007813198963314687
+                  rotation 0.990082380938075 -0.09933983707050305 0.09934020196676938 1.5807669610399593
+                  children [
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        position -0.19999913305654538
+                        axis 0 0 1
+                        anchor 0.04 -0.0095 0
+                      }
+                      device [
+                        RotationalMotor {
+                          name "M_ML_TIBIA"
+                        }
+                        PositionSensor {
+                          name "S_ML_TIBIA"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0.05233665978458864 -0.05434480823193814 -8.48529999999998e-07
+                        rotation 0.07077017162195123 0.7053308227591457 0.705336808393342 3.0002867189472506
+                        children [
+                          DEF JointFT Pose {
+                            translation 0.012 0 0.0354013
+                            rotation 0.8326655851321886 -0.3915794181092338 0.39157832249717783 1.71777
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.101961 0.101961 0.101961
+                                  roughness 1
+                                  metalness 0.3
+                                }
+                                geometry Box {
+                                  size 0.045 0.02 0.045
+                                }
+                              }
+                            ]
+                          }
+                          DEF L_SHAPE_TIBIA Shape {
+                            appearance PBRAppearance {
+                              baseColor 0.513726 0.513726 0.513726
+                              roughness 1
+                              metalness 0.3
+                            }
+                            geometry Mesh {
+                              url [
+                                "../../webotsSTL/left-tibia-webots.stl"
+                              ]
+                            }
+                          }
+                        ]
+                        boundingObject Group {
+                          children [
+                            Pose {
+                              translation -0.033 0 -0.02
+                              children [
+                                Box {
+                                  size 0.01 0.01 0.08
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                        physics Physics {
+                          density -1
+                          mass 0.8
+                        }
+                        linearVelocity 7.875846423934368e-06 -6.695471610115739e-06 -3.9654717559931394e-08
+                        angularVelocity -1.0835845252206857e-06 -4.94714952461568e-07 -3.077428597585415e-05
+                      }
+                    }
+                    DEF L_SHAPE_FEMUR Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.505882 0.505882 0.505882
+                        roughness 1
+                        metalness 0.3
+                      }
+                      geometry Mesh {
+                        url [
+                          "../../webotsSTL/left-femur-webots.stl"
+                        ]
+                      }
+                    }
+                  ]
+                  boundingObject USE L_SHAPE_FEMUR
+                  physics Physics {
+                    density -1
+                    mass 0.8
+                  }
+                  linearVelocity 5.558364075184176e-06 -6.475090794069621e-06 2.2142285193604086e-08
+                  angularVelocity -8.089167682106616e-07 -4.4834479860701916e-07 -3.09211071554917e-05
+                }
+              }
+            ]
+            name "solid(3)"
+            boundingObject USE L_SHAPE_COXA
+            physics Physics {
+              density -1
+              mass 0.8
+            }
+            linearVelocity 3.5631800472670968e-06 -5.278603312639722e-06 5.3829976213107526e-08
+            angularVelocity -5.743480421903107e-07 -4.0894600555368265e-07 -3.126877792580778e-05
+          }
+        }
+      ]
+    }
+    DEF Leg0MR Pose {
+      translation 0.08 0 0
+      children [
+        DEF JointBC Pose {
+          translation -0.008 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.101961 0.101961 0.101961
+                roughness 1
+                metalness 0.3
+              }
+              geometry Box {
+                size 0.045 0.02 0.045
+              }
+            }
+          ]
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position 5.825875650674197e-06
+            axis 0 0 1
+          }
+          device [
+            PositionSensor {
+              name "S_MR_COXA"
+            }
+            RotationalMotor {
+              name "M_MR_COXA"
+            }
+          ]
+          endPoint Solid {
+            translation 0.01999999999966059 1.1651751301282481e-07 0
+            rotation 0 0 1 5.82587762748623e-06
+            children [
+              DEF JointCF Pose {
+                translation 0.022 -1.67293e-08 -1.67294e-08
+                rotation 0.5773509358554485 -0.5773509358554485 0.5773489358556708 2.0944
+                children [
+                  Shape {
+                    appearance PBRAppearance {
+                      baseColor 0.101961 0.101961 0.101961
+                      roughness 1
+                      metalness 0.3
+                    }
+                    geometry Box {
+                      size 0.045 0.02 0.045
+                    }
+                  }
+                ]
+              }
+              DEF R_SHAPE_COXA Shape {
+                appearance PBRAppearance {
+                  baseColor 0.54902 0.54902 0.54902
+                  roughness 1
+                  metalness 0.3
+                }
+                geometry Mesh {
+                  url [
+                    "../../webotsSTL/right-coxa-webots.stl"
+                  ]
+                }
+              }
+              HingeJoint {
+                jointParameters HingeJointParameters {
+                  position 0.2000031036042946
+                  axis 0 -1 0
+                  anchor 0.0229 0 -0.0077
+                }
+                device [
+                  RotationalMotor {
+                    name "M_MR_FEMUR"
+                  }
+                  PositionSensor {
+                    name "S_MR_FEMUR"
+                  }
+                ]
+                endPoint Solid {
+                  translation 0.06067086777744203 0 0.007813270040161642
+                  rotation -0.9900821499929366 -0.09934122102595286 -0.09934111973617411 1.5807625016996452
+                  children [
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        position 0.19999830626836107
+                        axis 0 0 1
+                        anchor 0.041 0.008 0
+                      }
+                      device [
+                        RotationalMotor {
+                          name "M_MR_TIBIA"
+                        }
+                        PositionSensor {
+                          name "S_MR_TIBIA"
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 0.047791000013902775 0.05014685737045945 2.4767050973366273e-05
+                        rotation 0.07076940257104562 -0.7053361494554109 0.7053315588651562 3.2828891109127603
+                        children [
+                          DEF JointFT Pose {
+                            translation 0.0118 0 0.035
+                            rotation -0.3304330460699165 0.6673877019165089 0.6673886853967165 2.59356
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 0.101961 0.101961 0.101961
+                                  roughness 1
+                                  metalness 0.3
+                                }
+                                geometry Box {
+                                  size 0.045 0.02 0.045
+                                }
+                              }
+                            ]
+                          }
+                          DEF R_SHAPE_TIBIA Shape {
+                            appearance PBRAppearance {
+                              baseColor 0.513726 0.513726 0.513726
+                              roughness 1
+                              metalness 0.3
+                            }
+                            geometry Mesh {
+                              url [
+                                "../../webotsSTL/right-tibia-webots.stl"
+                              ]
+                            }
+                          }
+                        ]
+                        boundingObject Group {
+                          children [
+                            Pose {
+                              translation -0.033 0 -0.02
+                              children [
+                                Box {
+                                  size 0.01 0.01 0.08
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                        physics Physics {
+                          density -1
+                          mass 0.8
+                        }
+                        linearVelocity -1.2765703342841114e-05 1.0772291480882863e-05 1.6979547488855492e-08
+                        angularVelocity 9.044398236189346e-07 7.398249609415098e-07 4.536561294389342e-05
+                      }
+                    }
+                    DEF R_SHAPE_FEMUR Shape {
+                      appearance PBRAppearance {
+                        baseColor 0.505882 0.505882 0.505882
+                        roughness 1
+                        metalness 0.3
+                      }
+                      geometry Mesh {
+                        url [
+                          "../../webotsSTL/right-femur-webots.stl"
+                        ]
+                      }
+                    }
+                  ]
+                  boundingObject USE R_SHAPE_FEMUR
+                  physics Physics {
+                    density -1
+                    mass 0.8
+                  }
+                  linearVelocity -8.28485562539694e-06 4.2641061391085616e-06 8.255741043208924e-08
+                  angularVelocity 6.903103582756547e-07 3.991711852330463e-07 4.531258757417309e-05
+                }
+              }
+            ]
+            boundingObject USE R_SHAPE_COXA
+            physics Physics {
+              density -1
+              mass 0.8
+            }
+            linearVelocity -3.7581103421133674e-06 -8.373280900421615e-07 1.1044204842727383e-07
+            angularVelocity 5.086630601079382e-07 1.1008060960878341e-07 4.5152957864302785e-05
+          }
+        }
+      ]
+    }
+    DEF Body Pose {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.533333 0.533333 0.533333
+            roughness 1
+            metalness 0.3
+          }
+          geometry Mesh {
+            url [
+              "../../webotsSTL/frame-webots.stl"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+  name "Hexapod"
+  boundingObject Box {
+    size 0.17 0.2 0.02
+  }
+  physics Physics {
+    density 500
+  }
+  controller "new_hexapod"
+  linearVelocity 1.5163890361524115e-06 -3.7279054963920208e-06 9.046466741203991e-08
+  angularVelocity -1.2919188126570693e-07 -2.9054523759930556e-07 -9.314853459003708e-06
+}

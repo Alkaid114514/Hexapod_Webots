@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<robot name="C:/Users/Alkaid/Desktop/六足机器人/webots_hexapod/controllers/hexapod/Robot.urdf" xmlns:xacro="http://ros.org/wiki/xacro">
+  <link name="base_link">
+  </link>
+  <joint name="M_MR_COXA" type="continuous">
+    <parent link="base_link"/>
+    <child link="solid"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.08 0 0" rpy="0 0 0"/>
+  </joint>
+  <link name="solid">
+  </link>
+  <joint name="M_MR_FEMUR" type="continuous">
+    <parent link="solid"/>
+    <child link="solid_0"/>
+    <axis xyz="0 0.000001 1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.0429 0 -0.0077" rpy="-1.570795 -0.200001 0"/>
+  </joint>
+  <link name="solid_0">
+  </link>
+  <joint name="M_MR_TIBIA" type="continuous">
+    <parent link="solid_0"/>
+    <child link="solid_1"/>
+    <axis xyz="0.000004 -1 -0.000007"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.0811 0.0003 0" rpy="-1.570803 -0.000004 -2.617997"/>
+  </joint>
+  <link name="solid_1">
+    <visual>
+      <origin xyz="-0.048029 -0.000025 -0.059958" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.048029 -0.000025 -0.059958" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="M_ML_COXA" type="continuous">
+    <parent link="base_link"/>
+    <child link="solid(3)"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="-0.135029 -0.000025 -0.039958" rpy="0 0 3.14159"/>
+  </joint>
+  <link name="solid(3)">
+  </link>
+  <joint name="M_ML_FEMUR" type="continuous">
+    <parent link="solid(3)"/>
+    <child link="solid_2"/>
+    <axis xyz="0 -0.000004 -1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.0029 0 -0.0077" rpy="1.5708 -0.200001 0"/>
+  </joint>
+  <link name="solid_2">
+  </link>
+  <joint name="M_ML_TIBIA" type="continuous">
+    <parent link="solid_2"/>
+    <child link="solid_3"/>
+    <axis xyz="0 -1 -0.000008"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.0801 -0.0018 0" rpy="1.570788 0 2.617991"/>
+  </joint>
+  <link name="solid_3">
+    <visual>
+      <origin xyz="-0.054 0 -0.0615" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.054 0 -0.0615" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="M_FR_COXA" type="continuous">
+    <parent link="base_link"/>
+    <child link="solid(1)"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.037142 0.096142 -0.0415" rpy="0 0 0.785398"/>
+  </joint>
+  <link name="solid(1)">
+  </link>
+  <joint name="M_FR_FEMUR" type="continuous">
+    <parent link="solid(1)"/>
+    <child link="solid_4"/>
+    <axis xyz="0 0.000001 1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.037042 -0.014142 -0.0077" rpy="-1.570795 -0.2 0"/>
+  </joint>
+  <link name="solid_4">
+  </link>
+  <joint name="M_FR_TIBIA" type="continuous">
+    <parent link="solid_4"/>
+    <child link="solid_5"/>
+    <axis xyz="0.000005 -1 -0.000004"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.0811 0.0003 0" rpy="-1.570801 -0.000005 -2.617998"/>
+  </joint>
+  <link name="solid_5">
+    <visual>
+      <origin xyz="-0.048 0 -0.06" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.048 0 -0.06" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="M_BR_COXA" type="continuous">
+    <parent link="base_link"/>
+    <child link="solid(2)"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.038142 -0.097142 -0.04" rpy="0 0 -0.785396"/>
+  </joint>
+  <link name="solid(2)">
+  </link>
+  <joint name="M_BR_FEMUR" type="continuous">
+    <parent link="solid(2)"/>
+    <child link="solid_6"/>
+    <axis xyz="0 0.000001 1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.037042 0.014142 -0.0077" rpy="-1.570795 -0.2 0"/>
+  </joint>
+  <link name="solid_6">
+  </link>
+  <joint name="M_BR_TIBIA" type="continuous">
+    <parent link="solid_6"/>
+    <child link="solid_7"/>
+    <axis xyz="0.000005 -1 -0.000004"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.0811 0.0003 0" rpy="-1.570801 -0.000005 -2.617999"/>
+  </joint>
+  <link name="solid_7">
+    <visual>
+      <origin xyz="-0.048 0 -0.06" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.048 0 -0.06" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="M_FL_COXA" type="continuous">
+    <parent link="base_link"/>
+    <child link="solid(4)"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="-0.113142 0.096142 -0.04" rpy="0 0 2.356193"/>
+  </joint>
+  <link name="solid(4)">
+  </link>
+  <joint name="M_FL_FEMUR" type="continuous">
+    <parent link="solid(4)"/>
+    <child link="solid_8"/>
+    <axis xyz="0 -0.000004 -1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.008758 -0.014142 -0.0077" rpy="1.5708 -0.200002 0"/>
+  </joint>
+  <link name="solid_8">
+  </link>
+  <joint name="M_FL_TIBIA" type="continuous">
+    <parent link="solid_8"/>
+    <child link="solid_9"/>
+    <axis xyz="0 -1 -0.000008"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.0801 -0.0018 0" rpy="1.570788 0 2.617991"/>
+  </joint>
+  <link name="solid_9">
+    <visual>
+      <origin xyz="-0.054 0 -0.0615" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.054 0 -0.0615" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="M_BL_COXA" type="continuous">
+    <parent link="base_link"/>
+    <child link="solid(5)"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="-0.114142 -0.097143 -0.0415" rpy="0 0 -2.356193"/>
+  </joint>
+  <link name="solid(5)">
+  </link>
+  <joint name="M_BL_FEMUR" type="continuous">
+    <parent link="solid(5)"/>
+    <child link="solid_10"/>
+    <axis xyz="0 -0.000004 -1"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.008758 0.014142 -0.0077" rpy="1.5708 -0.200002 0"/>
+  </joint>
+  <link name="solid_10">
+  </link>
+  <joint name="M_BL_TIBIA" type="continuous">
+    <parent link="solid_10"/>
+    <child link="solid_11"/>
+    <axis xyz="0 -1 -0.000008"/>
+    <limit effort="10" velocity="10"/>
+    <origin xyz="0.0801 -0.0018 0" rpy="1.570788 0 2.617991"/>
+  </joint>
+  <link name="solid_11">
+    <visual>
+      <origin xyz="-0.054 0 -0.0615" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.054 0 -0.0615" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.08"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>
