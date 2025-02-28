@@ -38,6 +38,8 @@ int main(int argc, char **argv) {
   // - perform simulation steps until Webots is stopping the controller
   while (robot->step(timeStep) != -1) {
     // Read the sensors:
+    // 
+    // 
     // Enter here functions to read sensor data, like:
     //  double val = ds->getValue();
       float rightAngles[3] = { -0.0f, 0.2f, 0.2f };
