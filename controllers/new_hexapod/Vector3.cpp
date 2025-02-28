@@ -15,6 +15,13 @@ Vector3::Vector3(float x, float y, float z)
 	this->z = z;
 }
 
+Vector3::Vector3(int x, int y, int z)
+{
+	this->x = (float)x;
+	this->y = (float)y;
+	this->z = (float)z;
+}
+
 Vector3::~Vector3()
 {
 }
@@ -34,6 +41,11 @@ Vector3 Vector3::operator+(Vector3 vector)
 Vector3 Vector3::operator-(Vector3 vector)
 {
 	return Vector3(this->x - vector.x, this->y - vector.y, this->z - vector.z);
+}
+
+Vector3 Vector3::operator-()
+{
+	return Vector3(-(this->x),-(this->y),-(this->z));
 }
 
 Vector3 Vector3::operator*(float scalar)
