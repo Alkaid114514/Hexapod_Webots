@@ -60,7 +60,7 @@ public:
 	Vector3 initialFL;
 
 	/// <summary>
-	/// 同时设置六条腿所有关节的角度
+	/// 同时设置六条腿所有关节的角度，设置完后不会立即运动，需要调用startMove()函数开始运动
 	/// </summary>
 	/// <param name="BRangles">后右腿的三个关节角度</param>
 	/// <param name="MRangles">中右腿的三个关节角度</param>
@@ -92,7 +92,7 @@ public:
 	/// <param name="bias">以机器人身体中心为原点指向腿根部的向量(机器人坐标系)</param>
 	/// <param name="theta">以机器人身体中心为原点坐标系下，腿根部为原点的坐标系的旋转角</param>
 	/// <returns>以机器人身体中心为原点指向目标点的向量(机器人坐标系)</returns>
-	Vector3 relevant2absolute(Vector3 relevant,Vector3 bias,float theta);
+	Vector3 leg2bodyCoord(Vector3 relevant,Vector3 bias,float theta);
 
 	/// <summary>
 	/// 将以机器人身体中心为原点指向目标点的向量(机器人坐标系)转换为以腿根部为原点的相对向量(腿坐标系)
@@ -101,9 +101,13 @@ public:
 	/// <param name="bias">以机器人身体中心为原点指向腿根部的向量(机器人坐标系)</param>
 	/// <param name="theta">以机器人身体中心为原点坐标系下，腿根部为原点的坐标系的旋转角</param>
 	/// <returns>以腿根部为原点的相对向量(腿坐标系)</returns>
-	Vector3 absolute2relevant(Vector3 absolute, Vector3 bias, float theta);
+	Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
 
 	void move(Vector3 velocity,float omega);
+
+	/// <summary>
+	/// 所有的设置目标点的函数并不会使机器人直接运动，需要设置完目标点后调用startMove()函数开始运动
+	/// </summary>
 	void setTargets(Vector3 BRtarget,Vector3 MRtarget,Vector3 FRtarget,Vector3 BLtarget,Vector3 MLtarget,Vector3 FLtarget);
 	void setBRtarget(Vector3 target);
 	void setMRtarget(Vector3 target);
@@ -111,6 +115,10 @@ public:
 	void setBLtarget(Vector3 target);
 	void setMLtarget(Vector3 target);
 	void setFLtarget(Vector3 target);
+
+	/// <summary>
+	/// 开始按照设置的角度和目标点运动
+	/// </summary>
 	void startMove();
 };
 

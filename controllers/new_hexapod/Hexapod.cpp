@@ -62,7 +62,7 @@ Vector3 Hexapod::fk(Vector3 angles)
 	);
 }
 
-Vector3 Hexapod::relevant2absolute(Vector3 relevant, Vector3 bias, float theta)
+Vector3 Hexapod::leg2bodyCoord(Vector3 relevant, Vector3 bias, float theta)
 {
 	return Vector3(
 		cos(theta) * relevant.x - sin(theta) * relevant.y + bias.x,
@@ -73,7 +73,7 @@ Vector3 Hexapod::relevant2absolute(Vector3 relevant, Vector3 bias, float theta)
 
 
 
-Vector3 Hexapod::absolute2relevant(Vector3 absolute, Vector3 bias, float theta)
+Vector3 Hexapod::body2legCoord(Vector3 absolute, Vector3 bias, float theta)
 {
 	return Vector3(
 		cos(theta) * (absolute.x - bias.x) + sin(theta) * (absolute.y - bias.y),
@@ -116,32 +116,32 @@ void Hexapod::setTargets(Vector3 BRtarget, Vector3 MRtarget, Vector3 FRtarget, V
 
 void Hexapod::setBRtarget(Vector3 target)
 {
-	this->BRleg.setRadAngles(-ik(absolute2relevant(target,ctr2BRroot,ctr2BRrootTheta)));
+	this->BRleg.setRadAngles(-ik(body2legCoord(target,ctr2BRroot,ctr2BRrootTheta)));
 }
 
 void Hexapod::setMRtarget(Vector3 target)
 {
-	this->MRleg.setRadAngles(-ik(absolute2relevant(target, ctr2MRroot, ctr2MRrootTheta)));
+	this->MRleg.setRadAngles(-ik(body2legCoord(target, ctr2MRroot, ctr2MRrootTheta)));
 }
 
 void Hexapod::setFRtarget(Vector3 target)
 {
-	this->FRleg.setRadAngles(-ik(absolute2relevant(target, ctr2FRroot, ctr2FRrootTheta)));
+	this->FRleg.setRadAngles(-ik(body2legCoord(target, ctr2FRroot, ctr2FRrootTheta)));
 }
 
 void Hexapod::setBLtarget(Vector3 target)
 {
-	this->BLleg.setRadAngles(ik(absolute2relevant(target, ctr2BLroot, ctr2BLrootTheta)));
+	this->BLleg.setRadAngles(ik(body2legCoord(target, ctr2BLroot, ctr2BLrootTheta)));
 }
 
 void Hexapod::setMLtarget(Vector3 target)
 {
-	this->MLleg.setRadAngles(ik(absolute2relevant(target, ctr2MLroot, ctr2MLrootTheta)));
+	this->MLleg.setRadAngles(ik(body2legCoord(target, ctr2MLroot, ctr2MLrootTheta)));
 }
 
 void Hexapod::setFLtarget(Vector3 target)
 {
-	this->FLleg.setRadAngles(ik(absolute2relevant(target, ctr2FLroot, ctr2FLrootTheta)));
+	this->FLleg.setRadAngles(ik(body2legCoord(target, ctr2FLroot, ctr2FLrootTheta)));
 }
 
 void Hexapod::startMove()
