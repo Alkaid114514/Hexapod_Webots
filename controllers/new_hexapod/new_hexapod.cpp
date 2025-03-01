@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
 	robot->setPose(rightAngles, rightAngles, rightAngles, leftAngles, leftAngles, leftAngles);
 	robot->startMove();
 
-	float omega = 0.2;
+	float omega = 0.2f;
 	Vector3 velocity = Vector3(0,1,0);
 
 	/*robot->setTargets(
@@ -54,6 +54,14 @@ int main(int argc, char** argv) {
 	);*/
 
 	//robot->startMove();
+
+	/*Vector3 originA = Vector3(0.3f, 0.0f, -0.3f);
+	Vector3 r = robot->body2legCoord(originA, robot->ctr2BRroot, robot->ctr2BRrootTheta);
+	Vector3 a = robot->leg2bodyCoord(r, robot->ctr2BRroot, robot->ctr2BRrootTheta);
+	std::cout << "originA  " << originA.x << " " << originA.y << " " << originA.z << std::endl;
+	std::cout << "r        " << r.x << " " << r.y << " " << r.z << std::endl;
+	std::cout << "a        " << a.x << " " << a.y << " " << a.z << std::endl;*/
+
 
 	while (robot->step(timeStep) != -1) {
 		// Read the sensors:
