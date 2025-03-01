@@ -50,14 +50,28 @@ int main(int argc, char** argv) {
 =======
 	// Main loop:
 	// - perform simulation steps until Webots is stopping the controller
-	float rightAngles[3] = { -0.0f, 0.2f, 0.2f };
-	float leftAngles[3] = { 0.0f, -0.2f, -0.2f };
+	Vector3 rightAngles = Vector3(-0.0f, -0.0f, -0.0f);
+	Vector3 leftAngles = Vector3(0.0f, 0.0f, 0.0f);
 	robot->setPose(rightAngles, rightAngles, rightAngles, leftAngles, leftAngles, leftAngles);
+<<<<<<< HEAD
 >>>>>>> origin/main
+=======
+	robot->startMove();
+>>>>>>> main
 
 	float omega = 0.2;
 	Vector3 velocity = Vector3(0,1,0);
 
+	/*robot->setTargets(
+		Vector3(0.3f * 2.0f / 5.0f, -0.1f * sqrt(3), -0.1f),
+		Vector3(0.3f * 3.0f / 5.0f, 0.0f, -0.1f),
+		Vector3(0.3f * 2.0f / 5.0f, 0.1f * sqrt(3), -0.1f),
+		Vector3(-0.3f * 2.0f / 5.0f, -0.1f * sqrt(3), -0.1f),
+		Vector3(-0.3f * 3.0f / 5.0f, 0.0f, -0.1f),
+		Vector3(-0.3f * 2.0f / 5.0f, 0.1f * sqrt(3), -0.1f)
+	);*/
+
+	//robot->startMove();
 
 	while (robot->step(timeStep) != -1) {
 		// Read the sensors:
