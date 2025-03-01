@@ -11,7 +11,7 @@ private:
 	webots::Motor* femurMotor;
 	webots::Motor* tibiaMotor;
 
-	float angles[3];
+	float angles[3] = {0.0f,0.0f,0.0f};
 
 public:
 	Leg();
