@@ -9,12 +9,12 @@ Hexapod::Hexapod() : Robot()
 	MLleg = Leg(getMotor("M_ML_COXA"), getMotor("M_ML_FEMUR"), getMotor("M_ML_TIBIA"));
 	FLleg = Leg(getMotor("M_FL_COXA"), getMotor("M_FL_FEMUR"), getMotor("M_FL_TIBIA"));
 
-	initialBR = fk(Vector3(0.0f, 0.0f, M_PI / 3.0f));
-	initialMR = fk(Vector3(0.0f, 0.0f, M_PI / 3.0f));
-	initialFR = fk(Vector3(0.0f, 0.0f, M_PI / 3.0f));
-	initialBL = fk(Vector3(0.0f, 0.0f, +M_PI / 3.0f));
-	initialML = fk(Vector3(0.0f, 0.0f, +M_PI / 3.0f));
-	initialFL = fk(Vector3(0.0f, 0.0f, +M_PI / 3.0f));
+	initialBR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	initialMR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	initialFR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	initialBL = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	initialML = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	initialFL = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
 }
 
 Hexapod::~Hexapod()
@@ -33,40 +33,40 @@ void Hexapod::setPose(Vector3 backRightAngles, Vector3 middleRightAngles, Vector
 
 void Hexapod::setBRpose(Vector3 angles)
 {
-	angles.z -= M_PI / 3.0f;
+	angles.z -= (float)M_PI / 3.0f;
 	angles.x = -angles.x;
 	BRleg.setRadAngles(angles);
 }
 
 void Hexapod::setMRpose(Vector3 angles)
 {
-	angles.z -= M_PI / 3.0f;
+	angles.z -= (float)M_PI / 3.0f;
 	angles.x = -angles.x;
 	MRleg.setRadAngles(angles);
 }
 
 void Hexapod::setFRpose(Vector3 angles)
 {
-	angles.z -= M_PI / 3.0f;
+	angles.z -= (float)M_PI / 3.0f;
 	angles.x = -angles.x;
 	FRleg.setRadAngles(angles);
 }
 
 void Hexapod::setBLpose(Vector3 angles)
 {
-	angles.z += M_PI / 3.0f;
+	angles.z += (float)M_PI / 3.0f;
 	BLleg.setRadAngles(angles);
 }
 
 void Hexapod::setMLpose(Vector3 angles)
 {
-	angles.z += M_PI / 3.0f;
+	angles.z += (float)M_PI / 3.0f;
 	MLleg.setRadAngles(angles);
 }
 
 void Hexapod::setFLpose(Vector3 angles)
 {
-	angles.z += M_PI / 3.0f;
+	angles.z += (float)M_PI / 3.0f;
 	FLleg.setRadAngles(angles);
 }
 
