@@ -37,10 +37,23 @@ int main(int argc, char** argv) {
 
 	// Main loop:
 	// - perform simulation steps until Webots is stopping the controller
-	Vector3 rightAngles = Vector3(-0.0f, -0.0f, -0.0f);
+	/*Vector3 rightAngles = Vector3(-0.0f, -0.0f, -0.0f);
 	Vector3 leftAngles = Vector3(0.0f, 0.0f, 0.0f);
 	robot->setPose(rightAngles, rightAngles, rightAngles, leftAngles, leftAngles, leftAngles);
-	robot->startMove();
+	robot->startMove();*/
+
+	
+	
+	/*auto la = robot->body2legCoord(Vector3(0.0f, 0.3f, 0.2f), robot->ctr2FLroot, robot->ctr2FLrootTheta);
+	std::cout << "la " << la.x << " " << la.y << " " << la.z << std::endl;
+	auto l = robot->ik(la);
+	std::cout << "l " << l.x << " " << l.y << " " << l.z << std::endl;
+	auto ra = robot->body2legCoord(Vector3(0.0f, 0.3f, 0.2f), robot->ctr2FRroot, robot->ctr2FRrootTheta);
+	std::cout << "ra " << ra.x << " " << ra.y << " " << ra.z << std::endl;
+	auto r = (robot->ik(ra));
+	std::cout << "r " << r.x << " " << r.y << " " << r.z << std::endl;*/
+	//auto v = robot->fk(Vector3(0.0f, 0.0f, 0.0f));
+	//std::cout << "v " << v.x << " " << v.y << " " << v.z << std::endl;
 
 	float omega = 0.2f;
 	Vector3 velocity = Vector3(0,1,0);
@@ -74,6 +87,32 @@ int main(int argc, char** argv) {
 
 		// Enter here functions to send actuator commands, like:
 		//  motor->setPosition(10.0);
+		robot->setFLbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+		robot->setBRbodyTarget(Vector3(0.0f, -0.3f, 0.2f));
+		robot->startMove();
+		robot->step(500);
+		robot->setFLlegTarget(robot->initialFL);
+		robot->setBRlegTarget(robot->initialBR);
+		robot->startMove();
+		robot->step(500);
+
+		robot->setMRbodyTarget(Vector3(0.2f, 0.1f, 0.2f));
+		robot->setMLbodyTarget(Vector3(-0.2f, 0.1f, 0.2f));
+		robot->startMove();
+		robot->step(500);
+		robot->setMRlegTarget(robot->initialMR);
+		robot->setMLlegTarget(robot->initialML);
+		robot->startMove();
+		robot->step(500);
+
+		robot->setBLbodyTarget(Vector3(0.0f, -0.3f, 0.2f));
+		robot->setFRbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+		robot->startMove();
+		robot->step(500);
+		robot->setBLlegTarget(robot->initialBL);
+		robot->setFRlegTarget(robot->initialFR);
+		robot->startMove();
+		robot->step(500);
 	};
 
 	// Enter here exit cleanup code.

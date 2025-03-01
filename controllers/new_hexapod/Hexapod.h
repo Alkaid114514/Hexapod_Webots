@@ -14,7 +14,12 @@
 class Hexapod : public webots::Robot
 {
 private:
-	
+	Leg BRleg;
+	Leg MRleg;
+	Leg FRleg;
+	Leg BLleg;
+	Leg MLleg;
+	Leg FLleg;
 
 	
 public:
@@ -22,12 +27,7 @@ public:
 	Hexapod();
 	~Hexapod();
 
-	Leg BRleg;
-	Leg MRleg;
-	Leg FRleg;
-	Leg BLleg;
-	Leg MLleg;
-	Leg FLleg;
+	
 
 	/// <summary>
 	/// 以机器人身体中心为原点的坐标系为原点，六条腿根部的向量(机器人坐标系)
@@ -70,6 +70,12 @@ public:
 	/// <param name="FLangles">前左腿的三个关节角度</param>
 	void setPose(Vector3 BRangles, Vector3 MRangles, Vector3 FRangles,
 		Vector3 BLangles, Vector3 MLangles, Vector3 FLangles);
+	void setBRpose(Vector3 angles);
+	void setMRpose(Vector3 angles);
+	void setFRpose(Vector3 angles);
+	void setBLpose(Vector3 angles);
+	void setMLpose(Vector3 angles);
+	void setFLpose(Vector3 angles);
 
 	/// <summary>
 	/// 仅反向运动学，输入参数需要进行预处理，参数vector3应为该条腿根部到目标点的向量(以腿根部为原点的坐标系)
@@ -109,12 +115,19 @@ public:
 	/// 所有的设置目标点的函数并不会使机器人直接运动，需要设置完目标点后调用startMove()函数开始运动
 	/// </summary>
 	void setTargets(Vector3 BRtarget,Vector3 MRtarget,Vector3 FRtarget,Vector3 BLtarget,Vector3 MLtarget,Vector3 FLtarget);
-	void setBRtarget(Vector3 target);
-	void setMRtarget(Vector3 target);
-	void setFRtarget(Vector3 target);
-	void setBLtarget(Vector3 target);
-	void setMLtarget(Vector3 target);
-	void setFLtarget(Vector3 target);
+	void setBRbodyTarget(Vector3 target);
+	void setMRbodyTarget(Vector3 target);
+	void setFRbodyTarget(Vector3 target);
+	void setBLbodyTarget(Vector3 target);
+	void setMLbodyTarget(Vector3 target);
+	void setFLbodyTarget(Vector3 target);
+
+	void setBRlegTarget(Vector3 target);
+	void setMRlegTarget(Vector3 target);
+	void setFRlegTarget(Vector3 target);
+	void setBLlegTarget(Vector3 target);
+	void setMLlegTarget(Vector3 target);
+	void setFLlegTarget(Vector3 target);
 
 	/// <summary>
 	/// 开始按照设置的角度和目标点运动
