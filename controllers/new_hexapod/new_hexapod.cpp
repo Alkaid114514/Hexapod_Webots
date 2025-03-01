@@ -14,6 +14,7 @@
 // All the webots classes are defined in the "webots" namespace
 using namespace webots;
 
+
 // This is the main program of your controller.
 // It creates an instance of your Robot instance, launches its
 // function(s) and destroys it at the end of the execution.
@@ -52,6 +53,7 @@ int main(int argc, char** argv) {
 		Vector3(-0.3f * 3.0f / 5.0f, 0.0f, -0.1f),
 		Vector3(-0.3f * 2.0f / 5.0f, 0.1f * sqrt(3), -0.1f)
 	);*/
+
 
 	//robot->startMove();
 
