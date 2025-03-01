@@ -9,12 +9,12 @@ Hexapod::Hexapod() : Robot()
 	MLleg = Leg(getMotor("M_ML_COXA"), getMotor("M_ML_FEMUR"), getMotor("M_ML_TIBIA"));
 	FLleg = Leg(getMotor("M_FL_COXA"), getMotor("M_FL_FEMUR"), getMotor("M_FL_TIBIA"));
 
-	initialBR = fk(Vector3(0.0f, 0.0f, 0.0f));
-	initialMR = fk(Vector3(0.0f, 0.0f, 0.0f));
-	initialFR = fk(Vector3(0.0f, 0.0f, 0.0f));
-	initialBL = fk(Vector3(0.0f, 0.0f, 0.0f));
-	initialML = fk(Vector3(0.0f, 0.0f, 0.0f));
-	initialFL = fk(Vector3(0.0f, 0.0f, 0.0f));
+	initialBR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	initialMR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	initialFR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	initialBL = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	initialML = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	initialFL = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
 }
 
 Hexapod::~Hexapod()
@@ -33,37 +33,40 @@ void Hexapod::setPose(Vector3 backRightAngles, Vector3 middleRightAngles, Vector
 
 void Hexapod::setBRpose(Vector3 angles)
 {
-	angles.z -= M_PI / 3.0f;
+	angles.z -= (float)M_PI / 3.0f;
+	angles.x = -angles.x;
 	BRleg.setRadAngles(angles);
 }
 
 void Hexapod::setMRpose(Vector3 angles)
 {
-	angles.z -= M_PI / 3.0f;
+	angles.z -= (float)M_PI / 3.0f;
+	angles.x = -angles.x;
 	MRleg.setRadAngles(angles);
 }
 
 void Hexapod::setFRpose(Vector3 angles)
 {
-	angles.z -= M_PI / 3.0f;
+	angles.z -= (float)M_PI / 3.0f;
+	angles.x = -angles.x;
 	FRleg.setRadAngles(angles);
 }
 
 void Hexapod::setBLpose(Vector3 angles)
 {
-	angles.z += M_PI / 3.0f;
+	angles.z += (float)M_PI / 3.0f;
 	BLleg.setRadAngles(angles);
 }
 
 void Hexapod::setMLpose(Vector3 angles)
 {
-	angles.z += M_PI / 3.0f;
+	angles.z += (float)M_PI / 3.0f;
 	MLleg.setRadAngles(angles);
 }
 
 void Hexapod::setFLpose(Vector3 angles)
 {
-	angles.z += M_PI / 3.0f;
+	angles.z += (float)M_PI / 3.0f;
 	FLleg.setRadAngles(angles);
 }
 
@@ -85,11 +88,14 @@ Vector3 Hexapod::ik(Vector3 vector3)
 Vector3 Hexapod::fk(Vector3 angles)
 {
 	float tmp = (COXA_LEN + FEMUR_LEN * cos(angles.y) + TIBIA_LEN * cos(angles.y + angles.z));
-	return Vector3(
+	auto v = Vector3(
 		tmp * cos(angles.x), 
 		tmp * sin(angles.x), 
 		FEMUR_LEN * sin(angles.y) + TIBIA_LEN * sin(angles.y + angles.z)
 	);
+	v.y = -v.y;
+	v.z = -v.z;
+	return v;
 }
 
 Vector3 Hexapod::leg2bodyCoord(Vector3 relevant, Vector3 bias, float theta)
