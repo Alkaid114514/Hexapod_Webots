@@ -53,6 +53,7 @@ int main(int argc, char** argv) {
 		Vector3(-0.3f * 2.0f / 5.0f, 0.1f * sqrt(3), -0.1f)
 	);*/
 
+
 	//robot->startMove();
 
 	/*Vector3 originA = Vector3(0.3f, 0.0f, -0.3f);
