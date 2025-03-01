@@ -45,6 +45,7 @@ public:
 		Vector3 backLeftAngles, Vector3 middleLeftAngles, Vector3 frontLeftAngles);
 
 	Vector3 ik(Vector3 vector3);
+	Vector3 fk(Vector3 angles);
 	void move(Vector3 velocity,float omega);
 	void setTargets(Vector3 BRtarget,Vector3 MRtarget,Vector3 FRtarget,Vector3 BLtarget,Vector3 MLtarget,Vector3 FLtarget);
 	void setBRtarget(Vector3 target);

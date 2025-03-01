@@ -8,8 +8,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.06189849691993742 0.09313374985968283 -0.9937276692918067 1.863233250045233
-  position 0.2749783311889754 1.247153322402929 0.2960531380760573
+  orientation 0.38806751982375265 0.34507272000347367 -0.8545925449986359 1.9888216302056263
+  position 0.12033738382337124 0.7371159530936823 0.9070025543387835
   follow "Hexapod"
 }
 TexturedBackground {
@@ -29,7 +29,7 @@ Pose {
       children [
         Solid {
           translation -0.019933880692263206 -0.039987297428865066 0.0496076
-          rotation 6.89900533285372e-13 5.984842005140641e-13 -1 5.076325663223566e-05
+          rotation 1.865638562124743e-12 1.6063114219185855e-12 -1 5.076325663229e-05
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -42,12 +42,12 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity 2.0574516513107565e-17 -1.8016631462351807e-17 0
-          angularVelocity -1.035379938102578e-30 7.993605777301128e-16 -8.546795295224799e-18
+          linearVelocity -3.0805168241675353e-17 2.390134560014339e-17 0
+          angularVelocity -1.4791141972893971e-30 -5.329070518200742e-16 -2.970285586870008e-16
         }
         Solid {
           translation 0.06990678014426754 -0.19993550478438063 0.04960760000000001
-          rotation -3.5053714409289045e-13 -3.7369387330598314e-13 1 9.931916513745103e-05
+          rotation -3.5048172175983426e-13 7.423512176301586e-13 0.9999999999999999 9.931916513735763e-05
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -61,12 +61,12 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity -9.258016176643311e-18 -1.6420612873714365e-17 0
-          angularVelocity 7.993605777301118e-16 -7.993605777301118e-16 1.399621205978556e-17
+          linearVelocity 4.103453095925552e-17 3.5774274040659085e-19 5.6843418860808e-17
+          angularVelocity 2.664535259100374e-16 1.06581410364015e-15 -1.468429450847428e-16
         }
         Solid {
           translation 0.2427788537707931 -0.1300340540610465 0.04960760000000001
-          rotation -3.5266554193314363e-12 -3.065497972026906e-12 -1 2.483653839818437e-05
+          rotation 9.362738357457394e-13 2.430426718799471e-14 -1 2.483653839817223e-05
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -80,12 +80,12 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity 3.026995909607707e-17 -4.981599639737755e-18 0
-          angularVelocity 2.664535259100375e-16 5.329070518200738e-16 1.972725162761276e-16
+          linearVelocity 1.4055518786149397e-17 -7.996085196082325e-17 -5.6843418860808e-17
+          angularVelocity 1.3322676295501875e-15 2.6645352591003697e-16 2.209166088277317e-16
         }
         Solid {
           translation 0.24010227170996068 0.2200350097607885 0.0496076
-          rotation -2.1424024633729834e-12 -1.701791640078553e-12 1 7.175482358367317e-05
+          rotation -1.7858873391871213e-12 -8.700054399354435e-13 1 7.175482358367162e-05
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -99,12 +99,12 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity -2.147081992147094e-18 -3.138045456705325e-17 5.6843418860808e-17
-          angularVelocity 1.598721155460223e-15 -2.664535259100369e-16 3.315835689163857e-16
+          linearVelocity -3.180545104561023e-17 4.515556834590239e-18 -5.6843418860808e-17
+          angularVelocity 5.329070518200738e-16 -2.6645352591003707e-16 -1.5786588817379345e-16
         }
         Solid {
           translation -0.020051649108723035 0.15992621635509713 0.0496076
-          rotation 6.839884368225959e-13 -4.653788749482198e-13 -1 0.00017334433090602955
+          rotation 3.8883306227303224e-13 -1.702746594756435e-13 -0.9999999999999999 0.00017334433090604115
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -118,12 +118,12 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity -4.910125233816153e-18 -3.328409653617794e-17 0
-          angularVelocity -3.944304526105059e-31 7.888609052210118e-31 -9.517932195597647e-17
+          linearVelocity 1.0713231912085764e-17 1.7301752876059054e-17 0
+          angularVelocity -7.993605777301126e-16 7.99360577730113e-16 1.4865216312747852e-16
         }
         Solid {
           translation 0.23263016943535741 0.05998653481257025 0.04960760000000001
-          rotation 1.9270501918539722e-12 -7.186766507784874e-15 -1 2.8865795149759918e-05
+          rotation -3.3898564746011885e-12 -1.1888021094519153e-12 -1 2.8865795149786667e-05
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -137,16 +137,16 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity 5.689421187362936e-17 -8.39300288658634e-18 1.232595164407831e-32
-          angularVelocity -2.664535259100364e-16 7.993605777301124e-16 4.215282520415781e-17
+          linearVelocity 1.1051225155754395e-17 -4.5426132800676195e-17 1.232595164407831e-32
+          angularVelocity 7.993605777301133e-16 9.860761315262648e-32 6.338070607316566e-17
         }
       ]
     }
   ]
 }
 Robot {
-  translation 0.0008949929529536896 9.088751921883515e-05 0.10845198706546215
-  rotation -0.12459699602631372 0.9921919177414662 -0.0055485988979460865 0.00825409981277055
+  translation 0.0007840371918637465 -1.921923439226517e-05 0.10845646389951807
+  rotation -0.002736014944041268 0.9999779914211456 -0.006044079380442735 0.007176238154633841
   children [
     DEF Leg0FR Pose {
       translation 0.063 0.082 0
@@ -169,7 +169,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position 2.031568583804845e-06
+            position -6.887190904425364e-08
             axis 0 0 -1
           }
           device [
@@ -181,8 +181,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.01999999593682156 -0.0020000406313675488 0
-            rotation 0 0 -1 2.0315917691177124e-06
+            translation 0.020000000137743775 -0.001999998622561815 0
+            rotation 0 0 1 6.664001874625056e-08
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -208,13 +208,13 @@ Robot {
                 }
                 geometry Mesh {
                   url [
-                    "../../webotsSTL/right-coxa-webots.stl"
+                    "../webotsSTL/right-coxa-webots.stl"
                   ]
                 }
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position -1.7016123007411334e-06
+                  position 1.2687637223161715e-06
                   axis 0 -1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -227,12 +227,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.06300001310235646 0 -6.823466440399745e-08
-                  rotation -0.9999999999986564 1.0703170178651092e-06 1.2415851503695167e-06 1.5707953071807839
+                  translation 0.06299999023048687 0 5.087741907199711e-08
+                  rotation -0.9999999999998842 -4.1487250798380817e-07 -2.436028611580823e-07 1.5707953071798104
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position -9.65192092941339e-07
+                        position -5.865085321729384e-07
                         axis 0 0 1
                         anchor 0.041 0.008 0
                       }
@@ -245,8 +245,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.05602889098198091 0.04795757379078979 2.476705097336627e-05
-                        rotation -3.3785714957872247e-07 -0.7071082811858337 0.7071052811839987 3.1415893175075738
+                        translation 0.05602887585070351 0.04795757948198087 2.476705097336627e-05
+                        rotation -2.0397200869453604e-07 -0.7071082811857333 0.7071052811841502 3.1415895852767193
                         children [
                           DEF JointFT Pose {
                             translation 0.0118 0 0.035
@@ -272,7 +272,7 @@ Robot {
                             }
                             geometry Mesh {
                               url [
-                                "../../webotsSTL/right-tibia-webots.stl"
+                                "../webotsSTL/right-tibia-webots.stl"
                               ]
                             }
                           }
@@ -293,8 +293,8 @@ Robot {
                           density -1
                           mass 0.8
                         }
-                        linearVelocity 9.758309295349044e-07 5.809522070227003e-07 6.01543987293951e-06
-                        angularVelocity -1.505794212649569e-06 3.7112550668565953e-06 -5.183258852683156e-06
+                        linearVelocity -2.345966229844267e-07 -2.5350848613350093e-07 4.03759826586009e-06
+                        angularVelocity 9.764172582991162e-06 -9.815110158898274e-06 4.2736370641117794e-07
                       }
                     }
                     DEF R_SHAPE_FEMUR Shape {
@@ -305,7 +305,7 @@ Robot {
                       }
                       geometry Mesh {
                         url [
-                          "../../webotsSTL/right-femur-webots.stl"
+                          "../webotsSTL/right-femur-webots.stl"
                         ]
                       }
                     }
@@ -315,8 +315,8 @@ Robot {
                     density -1
                     mass 0.8
                   }
-                  linearVelocity 1.4052777098195902e-06 -6.69045004591798e-07 5.8912050988987884e-06
-                  angularVelocity -1.656216566086718e-06 3.7662748400949923e-06 -5.215540382391817e-06
+                  linearVelocity -1.00759578913647e-06 -1.0704898390074129e-06 2.6461193570171666e-06
+                  angularVelocity 9.756126085763596e-06 -9.80669915051488e-06 4.277628244016624e-07
                 }
               }
             ]
@@ -326,8 +326,8 @@ Robot {
               density -1
               mass 0.8
             }
-            linearVelocity -3.498686060887657e-07 -2.8661467833512865e-06 6.642842646655822e-06
-            angularVelocity 2.64026523644487e-06 -6.263619558720439e-07 -5.33442141890681e-06
+            linearVelocity -1.0661901670533585e-06 -1.16173848352442e-06 1.7249476545799798e-06
+            angularVelocity 9.747703751923714e-06 -9.798121879405531e-06 4.283819956825722e-07
           }
         }
       ]
@@ -353,7 +353,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position 2.4553582494715952e-06
+            position -3.678971947381412e-09
             axis 0 0 -1
           }
           device [
@@ -365,8 +365,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.01999999508922321 -0.0020000491071589604 0
-            rotation 0 0 -1 2.4553930668887225e-06
+            translation 0.02000000000735794 -0.0019999999264205606 0
+            rotation 0 0 -1 0
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -392,13 +392,13 @@ Robot {
                 }
                 geometry Mesh {
                   url [
-                    "../../webotsSTL/right-coxa-webots.stl"
+                    "../webotsSTL/right-coxa-webots.stl"
                   ]
                 }
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position -1.6638557463094242e-06
+                  position 1.134154076425542e-06
                   axis 0 -1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -411,12 +411,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.06300001281163355 0 -6.672062608219925e-08
-                  rotation -0.9999999999986996 1.0514387214007077e-06 1.2227068731537115e-06 1.570795307180744
+                  translation 0.06299999126698763 0 4.54795735160482e-08
+                  rotation -0.999999999999924 -3.475676164134534e-07 -1.7629803821277943e-07 1.5707953071797591
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position -4.5519391889738743e-07
+                        position -5.405746093789971e-07
                         axis 0 0 1
                         anchor 0.041 0.008 0
                       }
@@ -429,8 +429,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.05602887060368929 0.04795758145549157 2.476705097336627e-05
-                        rotation -1.5754518345060247e-07 -0.7071082811856956 0.7071052811841998 3.141589678129976
+                        translation 0.056028874015295126 0.04795758017231608 2.476705097336627e-05
+                        rotation -1.8773188009706033e-07 -0.7071082811857203 0.7071052811841678 3.1415896177568388
                         children [
                           DEF JointFT Pose {
                             translation 0.0118 0 0.035
@@ -456,7 +456,7 @@ Robot {
                             }
                             geometry Mesh {
                               url [
-                                "../../webotsSTL/right-tibia-webots.stl"
+                                "../webotsSTL/right-tibia-webots.stl"
                               ]
                             }
                           }
@@ -477,8 +477,8 @@ Robot {
                           density -1
                           mass 0.8
                         }
-                        linearVelocity 8.031852773135451e-07 -2.8169927164023446e-06 3.2177574862046754e-06
-                        angularVelocity 1.6539577409350244e-05 1.330631171851369e-05 -8.879858376686171e-06
+                        linearVelocity -3.559226759855413e-07 -4.777943085055109e-07 -1.4328633675119806e-08
+                        angularVelocity 9.717632645395242e-06 -9.766377802072636e-06 9.89061906232692e-07
                       }
                     }
                     DEF R_SHAPE_FEMUR Shape {
@@ -489,7 +489,7 @@ Robot {
                       }
                       geometry Mesh {
                         url [
-                          "../../webotsSTL/right-femur-webots.stl"
+                          "../webotsSTL/right-femur-webots.stl"
                         ]
                       }
                     }
@@ -499,8 +499,8 @@ Robot {
                     density -1
                     mass 0.8
                   }
-                  linearVelocity 1.5833800961584377e-06 -5.5603631595291246e-06 1.8601201990264826e-06
-                  angularVelocity 1.6511533167831494e-05 1.3354490303184235e-05 -8.90761420301191e-06
+                  linearVelocity -1.0570412760244547e-06 -1.2324944178199961e-06 -2.0610561737298526e-07
+                  angularVelocity 9.71634314379731e-06 -9.773005806538589e-06 9.911022755569475e-07
                 }
               }
             ]
@@ -510,8 +510,8 @@ Robot {
               density -1
               mass 0.8
             }
-            linearVelocity 7.357200738344893e-07 -4.509721128349575e-06 5.774729944079127e-06
-            angularVelocity 2.459832786512586e-06 -6.199667111687044e-07 -8.850131830230514e-06
+            linearVelocity -1.0231287167110359e-06 -1.2502480972700017e-06 -2.202775245762999e-07
+            angularVelocity 9.71522711601283e-06 -9.779302258266514e-06 9.962506304594882e-07
           }
         }
       ]
@@ -537,7 +537,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position 7.99359933902158e-06
+            position -1.3224569011686786e-08
             axis 0 0 -1
           }
           device [
@@ -549,8 +549,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.02000001615260626 0.00199983846734901 0
-            rotation 0 0 -1 7.993580666394221e-06
+            translation 0.020000000139610716 0.0019999986038923964 0
+            rotation 0 0 -1 0
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -576,13 +576,13 @@ Robot {
                 }
                 geometry Mesh {
                   url [
-                    "../../webotsSTL/left-coxa-webots.stl"
+                    "../webotsSTL/left-coxa-webots.stl"
                   ]
                 }
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position -3.5015555761575e-06
+                  position -2.3852281276898326e-06
                   axis 0 1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -595,12 +595,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.06299997303777602 0 1.404123314207792e-07
-                  rotation 0.9999999999969348 -1.750771357258464e-06 1.7507777881144248e-06 1.570800000003063
+                  translation 0.06299998163362912 0 9.564762603470056e-08
+                  rotation 0.9999999999985777 -1.192609683273151e-06 1.192614063883038e-06 1.5708000000014204
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position 8.730714285793018e-07
+                        position 1.0946431804541734e-06
                         axis 0 0 1
                         anchor 0.04 -0.0095 0
                       }
@@ -613,8 +613,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.06100003623245627 -0.0509999816654841 -8.485299999999979e-07
-                        rotation -3.120676468844398e-07 0.7071062811858472 0.7071072811868255 3.141590617355164
+                        translation 0.0610000454276794 -0.05099997701246827 -8.485299999999979e-07
+                        rotation -3.904050356264446e-07 0.707106281185754 0.7071072811868798 3.141590774030163
                         children [
                           DEF JointFT Pose {
                             translation 0.012 0 0.0354013
@@ -640,7 +640,7 @@ Robot {
                             }
                             geometry Mesh {
                               url [
-                                "../../webotsSTL/left-tibia-webots.stl"
+                                "../webotsSTL/left-tibia-webots.stl"
                               ]
                             }
                           }
@@ -661,8 +661,8 @@ Robot {
                           density -1
                           mass 0.8
                         }
-                        linearVelocity -3.382875435176125e-06 4.747634075117357e-06 6.647285837502181e-06
-                        angularVelocity 2.095471478358746e-06 4.01093577307426e-07 -6.514240725749241e-05
+                        linearVelocity -6.070088816177575e-07 -3.7252422192989714e-07 7.66328399350889e-07
+                        angularVelocity 9.803839245001828e-06 -9.744971531343995e-06 9.438887586127492e-07
                       }
                     }
                     DEF L_SHAPE_FEMUR Shape {
@@ -673,7 +673,7 @@ Robot {
                       }
                       geometry Mesh {
                         url [
-                          "../../webotsSTL/left-femur-webots.stl"
+                          "../webotsSTL/left-femur-webots.stl"
                         ]
                       }
                     }
@@ -683,8 +683,8 @@ Robot {
                     density -1
                     mass 0.8
                   }
-                  linearVelocity -2.5323540614063943e-06 -1.7321413186612843e-05 6.481010429908451e-06
-                  angularVelocity 2.0879993659505576e-06 1.0635146671443615e-07 -6.52649191309371e-05
+                  linearVelocity -1.267578111761081e-06 -1.1945604774269144e-06 4.595292094933192e-07
+                  angularVelocity 9.789148303597312e-06 -9.743755215277123e-06 9.501358806968201e-07
                 }
               }
             ]
@@ -694,8 +694,8 @@ Robot {
               density -1
               mass 0.8
             }
-            linearVelocity -8.693227128526715e-06 -9.070084381503918e-06 6.194799753451718e-06
-            angularVelocity 2.0346360873634874e-06 -2.395631845651409e-07 -6.555009562540684e-05
+            linearVelocity -1.1879346970583515e-06 -1.2705607400698426e-06 2.902618750511152e-07
+            angularVelocity 9.774059101295489e-06 -9.742784564798327e-06 9.652493904137753e-07
           }
         }
       ]
@@ -721,7 +721,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position 6.135315956679622e-06
+            position -9.970004034239643e-10
             axis 0 0 -1
           }
           device [
@@ -733,8 +733,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.020000012436305135 0.00199987563304322 0
-            rotation 0 0 -1 6.135298656572517e-06
+            translation 0.020000000164065838 0.0019999983593410224 0
+            rotation 0 0 -1 0
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -760,13 +760,13 @@ Robot {
                 }
                 geometry Mesh {
                   url [
-                    "../../webotsSTL/left-coxa-webots.stl"
+                    "../webotsSTL/left-coxa-webots.stl"
                   ]
                 }
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position -2.568501456856609e-06
+                  position -2.4911205477782397e-06
                   axis 0 1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -779,12 +779,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.0629999802224063 0 1.0299688304321597e-07
-                  rotation 0.9999999999983507 -1.284246011256612e-06 1.2842507284661446e-06 1.570800000001647
+                  translation 0.06299998081824713 0 9.989391009518345e-08
+                  rotation 0.9999999999984487 -1.2455556988352653e-06 1.245560273927084e-06 1.5708000000015494
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position 5.802317440129775e-07
+                        position 1.1394336126776835e-06
                         axis 0 0 1
                         anchor 0.04 -0.0095 0
                       }
@@ -797,8 +797,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.06100002407961383 -0.0509999878151263 -8.485299999999979e-07
-                        rotation -2.0853325671579486e-07 0.7071062811859635 0.7071072811867471 3.1415904102860908
+                        translation 0.06100004728648127 -0.050999976071867105 -8.485299999999978e-07
+                        rotation -4.0624083360757294e-07 0.7071062811857346 0.7071072811868901 3.141590805701804
                         children [
                           DEF JointFT Pose {
                             translation 0.012 0 0.0354013
@@ -824,7 +824,7 @@ Robot {
                             }
                             geometry Mesh {
                               url [
-                                "../../webotsSTL/left-tibia-webots.stl"
+                                "../webotsSTL/left-tibia-webots.stl"
                               ]
                             }
                           }
@@ -845,8 +845,8 @@ Robot {
                           density -1
                           mass 0.8
                         }
-                        linearVelocity -1.0637585993078513e-06 -2.2227308109601386e-06 5.406376302907745e-06
-                        angularVelocity 2.047471206593706e-06 -1.1619772003922702e-06 -4.520014975017772e-05
+                        linearVelocity -4.1738305825861374e-07 -5.175058964082659e-07 -3.1532283018976345e-06
+                        angularVelocity 9.731974619401079e-06 -9.72497336761184e-06 8.067725993131526e-07
                       }
                     }
                     DEF L_SHAPE_FEMUR Shape {
@@ -857,7 +857,7 @@ Robot {
                       }
                       geometry Mesh {
                         url [
-                          "../../webotsSTL/left-femur-webots.stl"
+                          "../webotsSTL/left-femur-webots.stl"
                         ]
                       }
                     }
@@ -867,8 +867,8 @@ Robot {
                     density -1
                     mass 0.8
                   }
-                  linearVelocity 1.2516340451691476e-05 -3.2549424726413533e-06 6.157549680168017e-06
-                  angularVelocity 2.1172429136635787e-06 -1.0222234238293453e-06 -4.529003195281226e-05
+                  linearVelocity -1.1221924697492588e-06 -1.2892440784396602e-06 -2.2102875535523217e-06
+                  angularVelocity 9.720461715822505e-06 -9.731091940640582e-06 8.137406453296374e-07
                 }
               }
             ]
@@ -878,8 +878,8 @@ Robot {
               density -1
               mass 0.8
             }
-            linearVelocity 4.759494269983566e-06 -9.422496168220995e-06 5.988961864247244e-06
-            angularVelocity 2.0365842340825183e-06 -7.276962781881634e-07 -4.5497976603433785e-05
+            linearVelocity -1.0513071963819494e-06 -1.3193646075801272e-06 -1.5694282881285214e-06
+            angularVelocity 9.705795630948999e-06 -9.734249509409494e-06 8.305969039190524e-07
           }
         }
       ]
@@ -905,7 +905,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position 3.5769274361266795e-07
+            position 1.6396983845086888e-06
             axis 0 0 -1
           }
           device [
@@ -917,8 +917,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.020000000881443443 0.001999991185545954 0
-            rotation 0 0 -1 3.576278686523442e-07
+            translation 0.02000000344542699 0.0019999655454303626 0
+            rotation 0 0 -1 1.639669502196229e-06
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -944,13 +944,13 @@ Robot {
                 }
                 geometry Mesh {
                   url [
-                    "../../webotsSTL/left-coxa-webots.stl"
+                    "../webotsSTL/left-coxa-webots.stl"
                   ]
                 }
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position -1.6562990889923412e-07
+                  position -9.223349442888213e-07
                   axis 0 1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -963,12 +963,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.06299999872464894 0 6.641759264097713e-09
-                  rotation 0.9999999999999931 -8.281465039124507e-08 8.281495448886893e-08 1.5708000000000049
+                  translation 0.06299999289800363 0 3.698562801249944e-08
+                  rotation 0.9999999999997873 -4.611657783221279e-07 4.6116747218359744e-07 1.5708000000002105
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position 2.0994326897844014e-07
+                        position 5.020867148290526e-07
                         axis 0 0 1
                         anchor 0.04 -0.0095 0
                       }
@@ -981,8 +981,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.06100000871264519 -0.05099999559119034 -8.485299999999978e-07
-                        rotation -7.761660344195748e-08 0.7071062811861 0.7071072811866372 3.141590148452414
+                        translation 0.061000020836596 -0.05099998945617365 -8.485299999999976e-07
+                        rotation -1.809048362260935e-07 0.7071062811859934 0.7071072811867251 3.1415903550291717
                         children [
                           DEF JointFT Pose {
                             translation 0.012 0 0.0354013
@@ -1008,7 +1008,7 @@ Robot {
                             }
                             geometry Mesh {
                               url [
-                                "../../webotsSTL/left-tibia-webots.stl"
+                                "../webotsSTL/left-tibia-webots.stl"
                               ]
                             }
                           }
@@ -1029,8 +1029,8 @@ Robot {
                           density -1
                           mass 0.8
                         }
-                        linearVelocity 3.5846152693752574e-07 -1.5281721663218396e-06 5.931479858318767e-06
-                        angularVelocity 3.1945353565683354e-06 -4.4405062826510205e-07 1.0317068616457645e-05
+                        linearVelocity -6.045845666813786e-07 -2.69296655026839e-07 -2.4215962682914253e-06
+                        angularVelocity 9.558060040794807e-06 -9.745885649395238e-06 -8.246765366317228e-06
                       }
                     }
                     DEF L_SHAPE_FEMUR Shape {
@@ -1041,7 +1041,7 @@ Robot {
                       }
                       geometry Mesh {
                         url [
-                          "../../webotsSTL/left-femur-webots.stl"
+                          "../webotsSTL/left-femur-webots.stl"
                         ]
                       }
                     }
@@ -1051,8 +1051,8 @@ Robot {
                     density -1
                     mass 0.8
                   }
-                  linearVelocity 1.9136263292307555e-07 -2.6984943072116963e-06 5.979653110301797e-06
-                  angularVelocity 3.003073911512975e-06 -4.676023916425777e-07 1.042326825881291e-05
+                  linearVelocity -1.2609355053633613e-06 -1.4142956772814214e-06 -1.6635344841020416e-06
+                  angularVelocity 9.59089895468067e-06 -9.749776687159018e-06 -8.266535506563218e-06
                 }
               }
             ]
@@ -1062,8 +1062,8 @@ Robot {
               density -1
               mass 0.8
             }
-            linearVelocity 4.439873590666999e-08 -3.934348880103578e-06 6.02521885394225e-06
-            angularVelocity 2.8094510995562187e-06 -5.545439380103947e-07 1.0681335670761938e-05
+            linearVelocity -1.1448917272366134e-06 -1.5599766569602399e-06 -1.0715790340398338e-06
+            angularVelocity 9.624177683608313e-06 -9.753832158422814e-06 -8.31236743212774e-06
           }
         }
       ]
@@ -1088,7 +1088,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position -6.36327151060101e-06
+            position 1.9832465644978036e-08
             axis 0 0 -1
           }
           device [
@@ -1100,8 +1100,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.02000001272613811 -0.001999872734529298 0
-            rotation 0 0 1 6.363266926331408e-06
+            translation 0.01999973885541849 -0.001999916047478651 1.1721242531390064e-05
+            rotation -0.005330158588227016 -0.9068451896252463 0.4214301738876506 5.41000401704066e-06
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -1127,13 +1127,13 @@ Robot {
                 }
                 geometry Mesh {
                   url [
-                    "../../webotsSTL/right-coxa-webots.stl"
+                    "../webotsSTL/right-coxa-webots.stl"
                   ]
                 }
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position 3.228774271706764e-06
+                  position 2.6089209616935233e-06
                   axis 0 -1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -1146,12 +1146,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.0629999751382289 0 1.294738081634647e-07
-                  rotation -0.9999999999982785 -1.3948787819061825e-06 -1.2236081358519061e-06 1.5707953071815839
+                  translation 0.06299997991117195 0 1.046177043658586e-07
+                  rotation -0.9999999999989939 -1.0849518108944129e-06 -9.136814808461168e-07 1.5707953071808152
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position -1.234923706405766e-06
+                        position -1.0779024796817115e-06
                         axis 0 0 1
                         anchor 0.041 0.008 0
                       }
@@ -1164,8 +1164,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.056028901759801214 0.04795756973702133 2.476705097336627e-05
-                        rotation -4.3322187836794624e-07 -0.7071082811858973 0.7071052811838829 3.1415891267789253
+                        translation 0.05602889548561442 0.047957572096877434 2.476705097336627e-05
+                        rotation -3.77706373498635e-07 -0.7071082811858611 0.7071052811839512 3.141589237809464
                         children [
                           DEF JointFT Pose {
                             translation 0.0118 0 0.035
@@ -1191,7 +1191,7 @@ Robot {
                             }
                             geometry Mesh {
                               url [
-                                "../../webotsSTL/right-tibia-webots.stl"
+                                "../webotsSTL/right-tibia-webots.stl"
                               ]
                             }
                           }
@@ -1212,8 +1212,6 @@ Robot {
                           density -1
                           mass 0.8
                         }
-                        linearVelocity 2.915665895477648e-06 2.5230360713501823e-07 6.171325219312962e-06
-                        angularVelocity 2.1143542519870566e-06 -6.685733375492154e-07 7.752950534830007e-05
                       }
                     }
                     DEF R_SHAPE_FEMUR Shape {
@@ -1224,7 +1222,7 @@ Robot {
                       }
                       geometry Mesh {
                         url [
-                          "../../webotsSTL/right-femur-webots.stl"
+                          "../webotsSTL/right-femur-webots.stl"
                         ]
                       }
                     }
@@ -1234,8 +1232,6 @@ Robot {
                     density -1
                     mass 0.8
                   }
-                  linearVelocity 2.0243646837503348e-06 -3.251437979973626e-06 6.130527048426871e-06
-                  angularVelocity 2.4506132096833775e-06 -6.165940739070763e-07 7.77047916161116e-05
                 }
               }
             ]
@@ -1244,8 +1240,6 @@ Robot {
               density -1
               mass 0.8
             }
-            linearVelocity 8.461624871625162e-07 -4.682728278029292e-06 6.124769910371697e-06
-            angularVelocity 2.79010089513429e-06 -5.674119874036262e-07 7.815176614761626e-05
           }
         }
       ]
@@ -1260,7 +1254,7 @@ Robot {
           }
           geometry Mesh {
             url [
-              "../../webotsSTL/frame-webots.stl"
+              "../webotsSTL/frame-webots.stl"
             ]
           }
         }
@@ -1275,6 +1269,6 @@ Robot {
     density 500
   }
   controller "new_hexapod"
-  linearVelocity -8.31579635374169e-08 -4.378296247665921e-06 6.095400146180322e-06
-  angularVelocity 2.6342756836203952e-06 -5.348024581493648e-07 1.4974419613771172e-05
+  linearVelocity -1.0750136901680568e-06 -1.3367727743286365e-06 3.61632695658303e-08
+  angularVelocity 9.727751866247508e-06 -9.773095119056902e-06 1.079254569733734e-06
 }

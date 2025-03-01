@@ -44,6 +44,15 @@ Vector3 Hexapod::ik(Vector3 vector3)
     return Vector3(theta1,theta2,theta3);
 }
 
+Vector3 Hexapod::fk(Vector3 angles)
+{
+	float x = (COXA_LEN + FEMUR_LEN * cos(angles.y) + TIBIA_LEN * cos(angles.y + angles.z)) * cos(angles.x);
+	float y = (COXA_LEN + FEMUR_LEN * cos(angles.y) + TIBIA_LEN * cos(angles.y + angles.z)) * sin(angles.x);
+	float z = FEMUR_LEN * sin(angles.y) + TIBIA_LEN * sin(angles.y + angles.z);
+	return Vector3(x, y, z);
+}
+
+
 void Hexapod::move(Vector3 velocity, float omega)
 {
 	Vector3 v = velocity;
