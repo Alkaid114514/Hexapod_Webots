@@ -37,10 +37,16 @@ int main(int argc, char** argv) {
 
 	// Main loop:
 	// - perform simulation steps until Webots is stopping the controller
-	Vector3 rightAngles = Vector3(-0.0f, -0.0f, -0.0f);
+	/*Vector3 rightAngles = Vector3(-0.0f, -0.0f, -0.0f);
 	Vector3 leftAngles = Vector3(0.0f, 0.0f, 0.0f);
 	robot->setPose(rightAngles, rightAngles, rightAngles, leftAngles, leftAngles, leftAngles);
+	robot->startMove();*/
+
+	robot->setFLbodyTarget(Vector3(0.0f,0.3f,0.2f));
 	robot->startMove();
+
+	//auto v = robot->fk(Vector3(0.0f, 0.0f, 0.0f));
+	//std::cout << "v " << v.x << " " << v.y << " " << v.z << std::endl;
 
 	float omega = 0.2f;
 	Vector3 velocity = Vector3(0,1,0);
