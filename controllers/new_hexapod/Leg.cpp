@@ -1,6 +1,9 @@
 #include "Leg.h"
 Leg::Leg()
 {
+	this->coxaMotor = nullptr;
+	this->femurMotor = nullptr;
+	this->tibiaMotor = nullptr;
 }
 Leg::Leg(webots::Motor* coxa, webots::Motor* femur, webots::Motor* tibia)
 {
