@@ -1,9 +1,8 @@
 #include "Hexapod.h"
 
-
 Hexapod::Hexapod() : Robot()
 {
-	BackRightLeg = Leg(getMotor("M_BR_COXA"),getMotor("M_BR_FEMUR"),getMotor("M_BR_TIBIA"));
+	BackRightLeg = Leg(getMotor("M_BR_COXA"), getMotor("M_BR_FEMUR"), getMotor("M_BR_TIBIA"));
 	MiddleRightLeg = Leg(getMotor("M_MR_COXA"), getMotor("M_MR_FEMUR"), getMotor("M_MR_TIBIA"));
 	FrontRightLeg = Leg(getMotor("M_FR_COXA"), getMotor("M_FR_FEMUR"), getMotor("M_FR_TIBIA"));
 	BackLeftLeg = Leg(getMotor("M_BL_COXA"), getMotor("M_BL_FEMUR"), getMotor("M_BL_TIBIA"));
@@ -15,36 +14,24 @@ Hexapod::~Hexapod()
 {
 }
 
-void Hexapod::setPose(float* backRightAngles, float* middleRightAngles, float* frontRightAngles,
-    float* backLeftAngles, float* middleLeftAngles, float* frontLeftAngles) {
-    if (backRightAngles) {
+void Hexapod::setPose(Vector3 backRightAngles, Vector3 middleRightAngles, Vector3 frontRightAngles,
+    Vector3 backLeftAngles, Vector3 middleLeftAngles, Vector3 frontLeftAngles) {
         //backRightAngles[2] += M_PI / 3.0f;
-        BackRightLeg.setRadAngles(backRightAngles);
-    }
-    if (middleRightAngles) {
+        this->BackRightLeg.setRadAngles(backRightAngles);
         //middleRightAngles[2] += M_PI / 3.0f;
         MiddleRightLeg.setRadAngles(middleRightAngles);
-    }
-    if (frontRightAngles) {
         //frontRightAngles[2] += M_PI / 3.0f;
         FrontRightLeg.setRadAngles(frontRightAngles);
-    }
-    if (backLeftAngles) {
         //backLeftAngles[2] -= M_PI / 3.0f;
         BackLeftLeg.setRadAngles(backLeftAngles);
-    }
-    if (middleLeftAngles) {
         //middleLeftAngles[2] -= M_PI / 3.0f;
         MiddleLeftLeg.setRadAngles(middleLeftAngles);
-    }
-    if (frontLeftAngles) {
         //frontLeftAngles[2] -= M_PI / 3.0f;
         FrontLeftLeg.setRadAngles(frontLeftAngles);
-    }
 }
 
 //只是反向运动学，输入参数需要进行预处理，vector3应为该条腿根部到目标点的向量
-float* Hexapod::ik(Vector3 vector3)
+Vector3 Hexapod::ik(Vector3 vector3)
 {
     float theta1 = atan2(vector3.y, vector3.x);
     float R = sqrt(vector3.x * vector3.x + vector3.y * vector3.y);
@@ -54,8 +41,7 @@ float* Hexapod::ik(Vector3 vector3)
     float theta2 = a1 - ar;
     float a2 = acos(CLIP((Lr * Lr + TIBIA_LEN * TIBIA_LEN - FEMUR_LEN * FEMUR_LEN) / (2 * Lr * TIBIA_LEN), -1, 1));
     float theta3 = -(a1 + a2);
-    float angles[3] = { theta1,theta2,theta3 };
-    return angles;
+    return Vector3(theta1,theta2,theta3);
 }
 
 void Hexapod::move(Vector3 velocity, float omega)
@@ -71,13 +57,13 @@ void Hexapod::move(Vector3 velocity, float omega)
 	Vector3 v4 = v - w.cross(Vector3(0, 0, 1).normalize());
 	Vector3 v5 = v + w.cross(Vector3(0, 0, 1).normalize());
 	Vector3 v6 = v - w.cross(Vector3(0, 0, 1).normalize());
-	float* angles1 = ik(v1);
+	/*float* angles1 = ik(v1);
 	float* angles2 = ik(v2);
 	float* angles3 = ik(v3);
 	float* angles4 = ik(v4);
 	float* angles5 = ik(v5);
-	float* angles6 = ik(v6);
-	setPose(angles1, angles2, angles3, angles4, angles5, angles6);
+	float* angles6 = ik(v6);*/
+	//setPose(angles1, angles2, angles3, angles4, angles5, angles6);
 }
 
 void Hexapod::setTargets(Vector3 BRtarget, Vector3 MRtarget, Vector3 FRtarget, Vector3 BLtarget, Vector3 MLtarget, Vector3 FLtarget)
@@ -118,11 +104,95 @@ void Hexapod::setTargets(Vector3 BRtarget, Vector3 MRtarget, Vector3 FRtarget, V
 		-sin(center2FrontLeftRootTheta) * tmp.x + cos(center2FrontLeftRootTheta) * tmp.y,
 		tmp.z
 	);
-	float* angles1 = ik(BRtargetBiased);
-	float* angles2 = ik(MRtargetBiased);
-	float* angles3 = ik(FRtargetBiased);
-	float* angles4 = ik(BLtargetBiased);
-	float* angles5 = ik(MLtargetBiased);
-	float* angles6 = ik(FLtargetBiased);
+	Vector3 angles1 = -ik(BRtargetBiased);
+	//angles1.z -= M_PI / 3.0f;
+	Vector3 angles2 = -ik(MRtargetBiased);
+	//angles2.z -= M_PI / 3.0f;
+	Vector3 angles3 = -ik(FRtargetBiased);
+	//angles3.z -= M_PI / 3.0f;
+	Vector3 angles4 = ik(BLtargetBiased);
+	//angles4.z += M_PI / 3.0f;
+	Vector3 angles5 = ik(MLtargetBiased);
+	//angles5.z += M_PI / 3.0f;
+	Vector3 angles6 = ik(FLtargetBiased);
+	//angles6.z += M_PI / 3.0f;
+	std::cout << "BR: " << angles1.x << " " << angles1.y << " " << angles1.z << std::endl;
+	std::cout << "BL: " << angles4.x << " " << angles4.y << " " << angles4.z << std::endl;
 	setPose(angles1, angles2, angles3, angles4, angles5, angles6);
+}
+
+void Hexapod::setBRtarget(Vector3 target)
+{
+	Vector3 tmp = target - center2BackRightRoot;
+	Vector3 BRtargetBiased = Vector3(
+		cos(center2BackRightRootTheta) * tmp.x + sin(center2BackRightRootTheta) * tmp.y,
+		-sin(center2BackRightRootTheta) * tmp.x + cos(center2BackRightRootTheta) * tmp.y,
+		tmp.z
+	);
+	this->BackRightLeg.setRadAngles(-ik(BRtargetBiased));
+}
+
+void Hexapod::setMRtarget(Vector3 target)
+{
+	Vector3 tmp = target - center2MiddleRightRoot;
+	Vector3 MRtargetBiased = Vector3(
+		cos(center2MiddleRightRootTheta) * tmp.x + sin(center2MiddleRightRootTheta) * tmp.y,
+		-sin(center2MiddleRightRootTheta) * tmp.x + cos(center2MiddleRightRootTheta) * tmp.y,
+		tmp.z
+	);
+	this->MiddleRightLeg.setRadAngles(-ik(MRtargetBiased));
+}
+
+void Hexapod::setFRtarget(Vector3 target)
+{
+	Vector3 tmp = target - center2FrontRightRoot;
+	Vector3 FRtargetBiased = Vector3(
+		cos(center2FrontRightRootTheta) * tmp.x + sin(center2FrontRightRootTheta) * tmp.y,
+		-sin(center2FrontRightRootTheta) * tmp.x + cos(center2FrontRightRootTheta) * tmp.y,
+		tmp.z
+	);
+	this->FrontRightLeg.setRadAngles(-ik(FRtargetBiased));
+}
+
+void Hexapod::setBLtarget(Vector3 target)
+{
+	Vector3 tmp = target - center2BackLeftRoot;
+	Vector3 BLtargetBiased = Vector3(
+		cos(center2BackLeftRootTheta) * tmp.x + sin(center2BackLeftRootTheta) * tmp.y,
+		-sin(center2BackLeftRootTheta) * tmp.x + cos(center2BackLeftRootTheta) * tmp.y,
+		tmp.z
+	);
+	this->BackLeftLeg.setRadAngles(ik(BLtargetBiased));
+}
+
+void Hexapod::setMLtarget(Vector3 target)
+{
+	Vector3 tmp = target - center2MiddleLeftRoot;
+	Vector3 MLtargetBiased = Vector3(
+		cos(center2MiddleLeftRootTheta) * tmp.x + sin(center2MiddleLeftRootTheta) * tmp.y,
+		-sin(center2MiddleLeftRootTheta) * tmp.x + cos(center2MiddleLeftRootTheta) * tmp.y,
+		tmp.z
+	);
+	this->MiddleLeftLeg.setRadAngles(ik(MLtargetBiased));
+}
+
+void Hexapod::setFLtarget(Vector3 target)
+{
+	Vector3 tmp = target - center2FrontLeftRoot;
+	Vector3 FLtargetBiased = Vector3(
+		cos(center2FrontLeftRootTheta) * tmp.x + sin(center2FrontLeftRootTheta) * tmp.y,
+		-sin(center2FrontLeftRootTheta) * tmp.x + cos(center2FrontLeftRootTheta) * tmp.y,
+		tmp.z
+	);
+	this->FrontLeftLeg.setRadAngles(ik(FLtargetBiased));
+}
+
+void Hexapod::startMove()
+{
+	BackRightLeg.startMotor();
+	MiddleRightLeg.startMotor();
+	FrontRightLeg.startMotor();
+	BackLeftLeg.startMotor();
+	MiddleLeftLeg.startMotor();
+	FrontLeftLeg.startMotor();
 }

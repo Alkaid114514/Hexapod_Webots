@@ -2,6 +2,7 @@
 #include <webots/Motor.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "Vector3.h"
 
 class Leg
 {
@@ -9,6 +10,8 @@ private:
 	webots::Motor* coxaMotor;
 	webots::Motor* femurMotor;
 	webots::Motor* tibiaMotor;
+
+	float angles[3];
 
 public:
 	Leg();
@@ -19,9 +22,10 @@ public:
 	void setCoxaOmega(float omega);
 	void setFemurOmega(float omega);
 	void setTibiaOmega(float omega);
-	void setRadAngles(float* angles);
+	void setRadAngles(Vector3 angles);
 	void setCoxaRadAngle(float angle);
 	void setFemurRadAngle(float angle);
 	void setTibiaRadAngle(float angle);
+	void startMotor();
 };
 

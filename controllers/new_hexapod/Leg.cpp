@@ -42,26 +42,33 @@ void Leg::setTibiaOmega(float omega)
 	this->tibiaMotor->setVelocity(omega);
 }
 
-void Leg::setRadAngles(float* angles)
+void Leg::setRadAngles(Vector3 angles)
 {
-	this->coxaMotor->setPosition(angles[0]);
-	this->femurMotor->setPosition(angles[1]);
-	this->tibiaMotor->setPosition(angles[2]);
+	this->angles[0] = angles.x;
+	this->angles[1] = angles.y;
+	this->angles[2] = angles.z;
 }
 
 void Leg::setCoxaRadAngle(float angle)
 {
-	this->coxaMotor->setPosition(angle);
+	this->angles[0] = angle;
 }
 
 void Leg::setFemurRadAngle(float angle)
 {
-	this->femurMotor->setPosition(angle);
+	this->angles[1] = angle;
 }
 
 void Leg::setTibiaRadAngle(float angle)
 {
-	this->tibiaMotor->setPosition(angle);
+	this->angles[2] = angle;
+}
+
+void Leg::startMotor()
+{
+	this->coxaMotor->setPosition(angles[0]);
+	this->femurMotor->setPosition(angles[1]);
+	this->tibiaMotor->setPosition(angles[2]);
 }
 
 
