@@ -96,14 +96,18 @@ public:
 	/// </summary>
 	/// <param name="vector3">该条腿根部到目标点的向量(腿坐标系)</param>
 	/// <returns>三个关节旋转角</returns>
-	Vector3 ik(Vector3 vector3);
+	Vector3 lik(Vector3 vector3);
+
+	Vector3 rik(Vector3 vector3);
 
 	/// <summary>
 	/// 仅正向运动学，输入参数为三个关节的角度，返回腿根部到末端的向量(腿坐标系)
 	/// </summary>
 	/// <param name="angles">三个关节的角度,x为coxa,y为femur,z为tibia</param>
 	/// <returns>腿根部到末端的向量(腿坐标系)</returns>
-	Vector3 fk(Vector3 angles);
+	Vector3 lfk(Vector3 angles);
+
+	Vector3 rfk(Vector3 angles);
 
 	/// <summary>
 	/// 将以腿根部为原点的相对向量(腿坐标系)转换为以机器人身体中心为原点指向目标点的向量(机器人坐标系)
