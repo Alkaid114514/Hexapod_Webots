@@ -58,15 +58,29 @@ int main(int argc, char** argv) {
 	float omega = 0.2f;
 	Vector3 velocity = Vector3(0,1,0);
 
+	//robot->setHeight(0.100459f);
+
+	robot->setHeight(0.13f);
+	robot->startMove();
+
 	/*robot->setTargets(
 		Vector3(0.3f * 2.0f / 5.0f, -0.1f * sqrt(3), -0.1f),
-		Vector3(0.3f * 3.0f / 5.0f, 0.0f, -0.1f),
 		Vector3(0.3f * 2.0f / 5.0f, 0.1f * sqrt(3), -0.1f),
-		Vector3(-0.3f * 2.0f / 5.0f, -0.1f * sqrt(3), -0.1f),
 		Vector3(-0.3f * 3.0f / 5.0f, 0.0f, -0.1f),
-		Vector3(-0.3f * 2.0f / 5.0f, 0.1f * sqrt(3), -0.1f)
 	);*/
+	//robot->setBRbodyTarget(Vector3(0.3f * 4.0f / 5.0f, -0.2f * sqrt(3), 0.1f));
+	/*robot->setFRbodyTarget(Vector3(0.0f, 0.4f, 0.0f));
+	auto leg = robot->body2legCoord(Vector3(0.0f, 0.2f, 0.0f),robot->ctr2FRroot,robot->ctr2FRrootTheta);
+	std::cout << "leg " << leg.x << " " << leg.y << " " << leg.z << " " << std::endl;
+	auto legik = robot->rik(leg);
+	std::cout << "legik " << legik.x << " " << legik.y << " " << legik.z << " " << std::endl;*/
+	//robot->setMLbodyTarget(Vector3(-0.3f * 6.0f / 5.0f, 0.0f, 0.1f));
 
+	robot->startMove();
+
+	//robot->setFLbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+	 //robot->setFRbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+	//robot->setBRbodyTarget(Vector3(0.0f, -0.3f, 0.2f));
 
 	//robot->startMove();
 
@@ -77,6 +91,9 @@ int main(int argc, char** argv) {
 	std::cout << "r        " << r.x << " " << r.y << " " << r.z << std::endl;
 	std::cout << "a        " << a.x << " " << a.y << " " << a.z << std::endl;*/
 
+	/*robot->setFLbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+	robot->setBRbodyTarget(Vector3(0.0f, -0.3f, 0.2f));
+	robot->startMove();*/
 
 	while (robot->step(timeStep) != -1) {
 		// Read the sensors:
@@ -91,8 +108,8 @@ int main(int argc, char** argv) {
 		robot->setBRbodyTarget(Vector3(0.0f, -0.3f, 0.2f));
 		robot->startMove();
 		robot->step(500);
-		robot->setFLlegTarget(robot->initialFL);
-		robot->setBRlegTarget(robot->initialBR);
+		robot->setFLlegTarget(robot->currentStandFL);
+		robot->setBRlegTarget(robot->currentStandBR);
 		robot->startMove();
 		robot->step(500);
 
@@ -100,8 +117,8 @@ int main(int argc, char** argv) {
 		robot->setMLbodyTarget(Vector3(-0.2f, 0.1f, 0.2f));
 		robot->startMove();
 		robot->step(500);
-		robot->setMRlegTarget(robot->initialMR);
-		robot->setMLlegTarget(robot->initialML);
+		robot->setMRlegTarget(robot->currentStandMR);
+		robot->setMLlegTarget(robot->currentStandML);
 		robot->startMove();
 		robot->step(500);
 
@@ -109,8 +126,8 @@ int main(int argc, char** argv) {
 		robot->setFRbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
 		robot->startMove();
 		robot->step(500);
-		robot->setBLlegTarget(robot->initialBL);
-		robot->setFRlegTarget(robot->initialFR);
+		robot->setBLlegTarget(robot->currentStandBL);
+		robot->setFRlegTarget(robot->currentStandFR);
 		robot->startMove();
 		robot->step(500);
 	};

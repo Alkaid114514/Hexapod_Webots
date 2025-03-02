@@ -17,6 +17,9 @@ public:
 	Leg();
 	Leg(webots::Motor* coxa,webots::Motor* femur,webots::Motor* tibia);
 	~Leg();
+
+	bool isOnGround = true;
+
 	void setMotor(webots::Motor* coxa, webots::Motor* femur, webots::Motor* tibia);
 	void setOmega(float* omega);
 	void setCoxaOmega(float omega);

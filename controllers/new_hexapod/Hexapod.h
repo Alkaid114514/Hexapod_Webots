@@ -27,7 +27,12 @@ public:
 	Hexapod();
 	~Hexapod();
 
-	
+	enum GaitType
+	{
+		Tripod,
+		Ripple,
+		Wave
+	};
 
 	/// <summary>
 	/// 以机器人身体中心为原点的坐标系为原点，六条腿根部的向量(机器人坐标系)
@@ -52,12 +57,21 @@ public:
 	/// <summary>
 	/// 机器人正常站立时，自身根部到六条腿末端的向量(腿坐标系)
 	/// </summary>
-	Vector3 initialBR;
-	Vector3 initialMR;
-	Vector3 initialFR;
-	Vector3 initialBL;
-	Vector3 initialML;
-	Vector3 initialFL;
+	Vector3 initStandBR;
+	Vector3 initStandMR;
+	Vector3 initStandFR;
+	Vector3 initStandBL;
+	Vector3 initStandML;
+	Vector3 initStandFL;
+	float initHeight;
+
+	Vector3 currentStandBR;
+	Vector3 currentStandMR;
+	Vector3 currentStandFR;
+	Vector3 currentStandBL;
+	Vector3 currentStandML;
+	Vector3 currentStandFL;
+	float currentHeight;
 
 	/// <summary>
 	/// 同时设置六条腿所有关节的角度，设置完后不会立即运动，需要调用startMove()函数开始运动
@@ -82,14 +96,18 @@ public:
 	/// </summary>
 	/// <param name="vector3">该条腿根部到目标点的向量(腿坐标系)</param>
 	/// <returns>三个关节旋转角</returns>
-	Vector3 ik(Vector3 vector3);
+	Vector3 lik(Vector3 vector3);
+
+	Vector3 rik(Vector3 vector3);
 
 	/// <summary>
 	/// 仅正向运动学，输入参数为三个关节的角度，返回腿根部到末端的向量(腿坐标系)
 	/// </summary>
 	/// <param name="angles">三个关节的角度,x为coxa,y为femur,z为tibia</param>
 	/// <returns>腿根部到末端的向量(腿坐标系)</returns>
-	Vector3 fk(Vector3 angles);
+	Vector3 lfk(Vector3 angles);
+
+	Vector3 rfk(Vector3 angles);
 
 	/// <summary>
 	/// 将以腿根部为原点的相对向量(腿坐标系)转换为以机器人身体中心为原点指向目标点的向量(机器人坐标系)
@@ -109,7 +127,11 @@ public:
 	/// <returns>以腿根部为原点的相对向量(腿坐标系)</returns>
 	Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
 
-	void move(Vector3 velocity,float omega);
+	void move(Vector3 velocity,float omega, float timeStep);
+
+	Vector3 getNextBodyTarget(Vector3 velocity, float omega, Vector3 r0, Vector3 initial,Vector3 legBias,float timeStep);
+
+	//Leg* getLegGroup(GaitType gaitType);
 
 	/// <summary>
 	/// 所有的设置目标点的函数并不会使机器人直接运动，需要设置完目标点后调用startMove()函数开始运动
@@ -128,6 +150,8 @@ public:
 	void setBLlegTarget(Vector3 target);
 	void setMLlegTarget(Vector3 target);
 	void setFLlegTarget(Vector3 target);
+
+	void setHeight(float height);
 
 	/// <summary>
 	/// 开始按照设置的角度和目标点运动
