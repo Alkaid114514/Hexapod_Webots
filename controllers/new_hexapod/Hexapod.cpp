@@ -9,12 +9,14 @@ Hexapod::Hexapod() : Robot()
 	MLleg = Leg(getMotor("M_ML_COXA"), getMotor("M_ML_FEMUR"), getMotor("M_ML_TIBIA"));
 	FLleg = Leg(getMotor("M_FL_COXA"), getMotor("M_FL_FEMUR"), getMotor("M_FL_TIBIA"));
 
-	initialBR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
-	initialMR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
-	initialFR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
-	initialBL = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
-	initialML = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
-	initialFL = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	currentStandBR = initStandBR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	currentStandMR = initStandMR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	currentStandFR = initStandFR = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	currentStandBL = initStandBL = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	currentStandML = initStandML = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	currentStandFL = initStandFL = fk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
+	currentHeight = initHeight = initStandBR.z;
+	std::cout << "initHeight " << initHeight << std::endl;
 }
 
 Hexapod::~Hexapod()
@@ -34,39 +36,42 @@ void Hexapod::setPose(Vector3 backRightAngles, Vector3 middleRightAngles, Vector
 void Hexapod::setBRpose(Vector3 angles)
 {
 	angles.z -= (float)M_PI / 3.0f;
-	angles.x = -angles.x;
+	//angles.x = -angles.x;
 	BRleg.setRadAngles(angles);
 }
 
 void Hexapod::setMRpose(Vector3 angles)
 {
 	angles.z -= (float)M_PI / 3.0f;
-	angles.x = -angles.x;
+	//angles.x = -angles.x;
 	MRleg.setRadAngles(angles);
 }
 
 void Hexapod::setFRpose(Vector3 angles)
 {
 	angles.z -= (float)M_PI / 3.0f;
-	angles.x = -angles.x;
+	//angles.x = -angles.x;
 	FRleg.setRadAngles(angles);
 }
 
 void Hexapod::setBLpose(Vector3 angles)
 {
 	angles.z += (float)M_PI / 3.0f;
+	angles.x = -angles.x;
 	BLleg.setRadAngles(angles);
 }
 
 void Hexapod::setMLpose(Vector3 angles)
 {
 	angles.z += (float)M_PI / 3.0f;
+	angles.x = -angles.x;
 	MLleg.setRadAngles(angles);
 }
 
 void Hexapod::setFLpose(Vector3 angles)
 {
 	angles.z += (float)M_PI / 3.0f;
+	angles.x = -angles.x;
 	FLleg.setRadAngles(angles);
 }
 
@@ -93,14 +98,13 @@ Vector3 Hexapod::fk(Vector3 angles)
 		tmp * sin(angles.x), 
 		FEMUR_LEN * sin(angles.y) + TIBIA_LEN * sin(angles.y + angles.z)
 	);
-	v.y = -v.y;
+	//v.y = -v.y;
 	v.z = -v.z;
 	return v;
 }
 
 Vector3 Hexapod::leg2bodyCoord(Vector3 relevant, Vector3 bias, float theta)
 {
-	relevant.y = -relevant.y;
 	relevant.z = -relevant.z;
 	auto v = Vector3(
 		cos(theta) * relevant.x - sin(theta) * relevant.y,
@@ -119,32 +123,34 @@ Vector3 Hexapod::body2legCoord(Vector3 absolute, Vector3 bias, float theta)
 		-sin(theta) * (absolute.x - bias.x) + cos(theta) * (absolute.y - bias.y),
 		absolute.z - bias.z
 	);
-
-	v.y = -v.y;
 	v.z = -v.z;
 	return v;
 }
 
-void Hexapod::move(Vector3 velocity, float omega)
+void Hexapod::move(Vector3 velocity, float omega,float timeStep)
 {
-	Vector3 v = velocity;
-	v = v.normalize();
-	Vector3 w = Vector3(0.0f, 0.0f, omega);
-    Vector3 r = v.cross(w).normalize() * v.magnitude() / omega;
+	if (velocity == Vector3() && omega == 0.0f)
+	{
+		return;
+	}
 
-	Vector3 v1 = v + w.cross(Vector3(0, 0, 1).normalize());
-	Vector3 v2 = v - w.cross(Vector3(0, 0, 1).normalize());
-	Vector3 v3 = v + w.cross(Vector3(0, 0, 1).normalize());
-	Vector3 v4 = v - w.cross(Vector3(0, 0, 1).normalize());
-	Vector3 v5 = v + w.cross(Vector3(0, 0, 1).normalize());
-	Vector3 v6 = v - w.cross(Vector3(0, 0, 1).normalize());
-	/*float* angles1 = ik(v1);
-	float* angles2 = ik(v2);
-	float* angles3 = ik(v3);
-	float* angles4 = ik(v4);
-	float* angles5 = ik(v5);
-	float* angles6 = ik(v6);*/
-	//setPose(angles1, angles2, angles3, angles4, angles5, angles6);
+	Vector3 w = Vector3(0.0f, 0.0f, omega);
+	Vector3 r0 = velocity.cross(w) / (omega * omega);
+
+
+}
+
+Vector3 Hexapod::getNextBodyTarget(Vector3 velocity, float omega, Vector3 r0,Vector3 initial, Vector3 legBias, float timeStep)
+{
+	initial.z = 0.0f;
+	Vector3 pc = r0 + initial + legBias;
+	float theta = omega * timeStep;
+	Vector3 pt = Vector3(
+		cos(theta) * (pc.x) + sin(theta) * (pc.y),
+		-sin(theta) * (pc.x) + cos(theta) * (pc.y),
+		pc.z
+	);
+	return pt - r0;
 }
 
 void Hexapod::setTargets(Vector3 BRtarget, Vector3 MRtarget, Vector3 FRtarget, Vector3 BLtarget, Vector3 MLtarget, Vector3 FLtarget)
@@ -216,6 +222,23 @@ void Hexapod::setMLlegTarget(Vector3 target)
 void Hexapod::setFLlegTarget(Vector3 target)
 {
 	this->setFLpose(ik(target));
+}
+
+void Hexapod::setHeight(float height)
+{
+	currentHeight = height;
+	currentStandBR.z = height;
+	currentStandMR.z = height;
+	currentStandFR.z = height;
+	currentStandBL.z = height;
+	currentStandML.z = height;
+	currentStandFL.z = height;
+	setBRlegTarget(currentStandBR);
+	setMRlegTarget(currentStandMR);
+	setFRlegTarget(currentStandFR);
+	setBLlegTarget(currentStandBL);
+	setMLlegTarget(currentStandML);
+	setFLlegTarget(currentStandFL);
 }
 
 void Hexapod::startMove()
