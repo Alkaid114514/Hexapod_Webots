@@ -15,19 +15,13 @@ Hexapod::Hexapod() : Robot()
 	currentStandBL = initStandBL = lfk(Vector3(0.0f, 0.0f, -(float)M_PI / 3.0f));
 	currentStandML = initStandML = lfk(Vector3(0.0f, 0.0f, -(float)M_PI / 3.0f));
 	currentStandFL = initStandFL = lfk(Vector3(-0.0f, 0.0f, -(float)M_PI / 3.0f));
-	/*currentStandBR = initStandBR = rfk(Vector3(0.0f, 0.0f, 0.0f));
-	currentStandMR = initStandMR = rfk(Vector3(0.0f, 0.0f, 0.0f));
-	currentStandFR = initStandFR = rfk(Vector3(0.0f, -0.0f, 0.0f));
-	currentStandBL = initStandBL = lfk(Vector3(0.0f, 0.0f, 0.0f));
-	currentStandML = initStandML = lfk(Vector3(0.0f, 0.0f, 0.0f));
-	currentStandFL = initStandFL = lfk(Vector3(-0.3f, 0.3f, 0.0f));*/
-	std::cout << "initStandFL " << initStandFL.x << " " << initStandFL.y << " " << initStandFL.z << std::endl;
+	/*std::cout << "initStandFL " << initStandFL.x << " " << initStandFL.y << " " << initStandFL.z << std::endl;
 	auto i = lik(initStandFL);
 	auto r = this->body2legCoord(this->leg2bodyCoord(initStandFL, ctr2FLroot, ctr2FLrootTheta), ctr2FLroot, ctr2FLrootTheta);
 	std::cout << "i " << i.x << " " << i.y << " " << i.z << std::endl;
-	std::cout << "r " << r.x << " " << r.y << " " << r.z << std::endl;
+	std::cout << "r " << r.x << " " << r.y << " " << r.z << std::endl;*/
 	currentHeight = initHeight = initStandFR.z;
-	std::cout << "initHeight " << initHeight << std::endl;
+	//std::cout << "initHeight " << initHeight << std::endl;
 }
 
 Hexapod::~Hexapod()
@@ -276,9 +270,9 @@ void Hexapod::setHeight(float height)
 	currentStandBL.z = height;
 	currentStandML.z = height;
 	currentStandFL.z = height;
-	std::cout << "currentStandFL.z " << currentStandFL.z << std::endl;
+	/*std::cout << "currentStandFL.z " << currentStandFL.z << std::endl;
 	auto i = lik(currentStandFL);
-	std::cout << "ic " << i.x << " " << i.y << " " << i.z << std::endl;
+	std::cout << "ic " << i.x << " " << i.y << " " << i.z << std::endl;*/
 	setBRlegTarget(currentStandBR);
 	setMRlegTarget(currentStandMR);
 	setFRlegTarget(currentStandFR);
