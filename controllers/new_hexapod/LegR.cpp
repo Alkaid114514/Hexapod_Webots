@@ -116,7 +116,7 @@ void LegR::reInit()
 void LegR::setHeight(float height)
 {
 	initStandTarget.z = height;
-	this->currentStandAngles = this->ik(initStandTarget);
+	this->currentStandAngles = ik(initStandTarget);
 	this->reInit();
 }
 

@@ -80,7 +80,7 @@ void LegL::setTibiaOmega(float omega)
 
 void LegL::setLegTarget(Vector3 target)
 {
-	this->angles = this->ik(target);
+	this->angles = ik(target);
 }
 
 
@@ -119,7 +119,7 @@ void LegL::reInit()
 void LegL::setHeight(float height)
 {
 	initStandTarget.z = height;
-	this->currentStandAngles = this->ik(initStandTarget);
+	this->currentStandAngles = ik(initStandTarget);
 	this->reInit();
 }
 
