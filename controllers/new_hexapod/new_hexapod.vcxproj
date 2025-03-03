@@ -155,13 +155,15 @@
     <ClCompile Include="$(WEBOTS_HOME)\src\controller\cpp\TouchSensor.cpp" />
     <ClCompile Include="$(WEBOTS_HOME)\src\controller\cpp\VacuumGripper.cpp" />
     <ClCompile Include="Hexapod.cpp" />
-    <ClCompile Include="Leg.cpp" />
+    <ClCompile Include="LegL.cpp" />
+    <ClCompile Include="LegR.cpp" />
     <ClCompile Include="new_hexapod.cpp" />
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hexapod.h" />
-    <ClInclude Include="Leg.h" />
+    <ClInclude Include="LegL.h" />
+    <ClInclude Include="LegR.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
