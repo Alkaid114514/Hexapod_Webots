@@ -23,15 +23,12 @@ LegL::~LegL()
 
 Vector3 LegL::fk(Vector3 angles)
 {
-	//angles.z -= (float)M_PI / 3.0f;
 	float tmp = (COXA_LEN + FEMUR_LEN * cos(angles.y) + TIBIA_LEN * cos(-angles.z - angles.y));
 	auto v = Vector3(
 		tmp * cos(angles.x),
 		tmp * sin(angles.x),
 		-FEMUR_LEN * sin(angles.y) + TIBIA_LEN * sin(-angles.z - angles.y)
 	);
-	//v.y = -v.y;
-	//v.z = -v.z;
 	return v;
 }
 

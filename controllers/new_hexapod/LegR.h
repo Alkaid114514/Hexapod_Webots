@@ -28,16 +28,16 @@ public:
 	float ctr2rootTheta;
 
 	/// <summary>
-	/// ½öÕýÏòÔË¶¯Ñ§£¬ÊäÈë²ÎÊýÎªÈý¸ö¹Ø½ÚµÄ½Ç¶È£¬·µ»ØÍÈ¸ù²¿µ½Ä©¶ËµÄÏòÁ¿(ÍÈ×ø±êÏµ)
+	/// ä»…æ­£å‘è¿åŠ¨å­¦ï¼Œè¾“å…¥å‚æ•°ä¸ºä¸‰ä¸ªå…³èŠ‚çš„è§’åº¦ï¼Œè¿”å›žè…¿æ ¹éƒ¨åˆ°æœ«ç«¯çš„å‘é‡(è…¿åæ ‡ç³»)
 	/// </summary>
-	/// <param name="angles">Èý¸ö¹Ø½ÚµÄ½Ç¶È,xÎªcoxa,yÎªfemur,zÎªtibia</param>
-	/// <returns>ÍÈ¸ù²¿µ½Ä©¶ËµÄÏòÁ¿(ÍÈ×ø±êÏµ)</returns>
+	/// <param name="angles">ä¸‰ä¸ªå…³èŠ‚çš„è§’åº¦,xä¸ºcoxa,yä¸ºfemur,zä¸ºtibia</param>
+	/// <returns>è…¿æ ¹éƒ¨åˆ°æœ«ç«¯çš„å‘é‡(è…¿åæ ‡ç³»)</returns>
 	Vector3 fk(Vector3 angles);
 	/// <summary>
-	/// ½ö·´ÏòÔË¶¯Ñ§£¬ÊäÈë²ÎÊýÐèÒª½øÐÐÔ¤´¦Àí£¬²ÎÊývector3Ó¦Îª¸ÃÌõÍÈ¸ù²¿µ½Ä¿±êµãµÄÏòÁ¿(ÒÔÍÈ¸ù²¿ÎªÔ­µãµÄ×ø±êÏµ)
+	/// ä»…åå‘è¿åŠ¨å­¦ï¼Œè¾“å…¥å‚æ•°éœ€è¦è¿›è¡Œé¢„å¤„ç†ï¼Œå‚æ•°vector3åº”ä¸ºè¯¥æ¡è…¿æ ¹éƒ¨åˆ°ç›®æ ‡ç‚¹çš„å‘é‡(ä»¥è…¿æ ¹éƒ¨ä¸ºåŽŸç‚¹çš„åæ ‡ç³»)
 	/// </summary>
-	/// <param name="vector3">¸ÃÌõÍÈ¸ù²¿µ½Ä¿±êµãµÄÏòÁ¿(ÍÈ×ø±êÏµ)</param>
-	/// <returns>Èý¸ö¹Ø½ÚÐý×ª½Ç</returns>
+	/// <param name="vector3">è¯¥æ¡è…¿æ ¹éƒ¨åˆ°ç›®æ ‡ç‚¹çš„å‘é‡(è…¿åæ ‡ç³»)</param>
+	/// <returns>ä¸‰ä¸ªå…³èŠ‚æ—‹è½¬è§’</returns>
 	Vector3 ik(Vector3 vector3);
 
 	void setMotor(webots::Motor* coxa, webots::Motor* femur, webots::Motor* tibia);
