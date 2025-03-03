@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
 	std::cout << "legik " << legik.x << " " << legik.y << " " << legik.z << " " << std::endl;*/
 	//robot->setMLbodyTarget(Vector3(-0.3f * 6.0f / 5.0f, 0.0f, 0.1f));
 
-	robot->startMove();
+	//robot->startMove();
 
 	//robot->setFLbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
 	 //robot->setFRbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
@@ -91,8 +91,8 @@ int main(int argc, char** argv) {
 	std::cout << "r        " << r.x << " " << r.y << " " << r.z << std::endl;
 	std::cout << "a        " << a.x << " " << a.y << " " << a.z << std::endl;*/
 
-	/*robot->setFLbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
-	robot->setBRbodyTarget(Vector3(0.0f, -0.3f, 0.2f));
+	/*robot->FLleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+	robot->BRleg.setBodyTarget(Vector3(0.0f, -0.3f, 0.2f));
 	robot->startMove();*/
 
 	while (robot->step(timeStep) != -1) {
@@ -104,30 +104,30 @@ int main(int argc, char** argv) {
 
 		// Enter here functions to send actuator commands, like:
 		//  motor->setPosition(10.0);
-		robot->setFLbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
-		robot->setBRbodyTarget(Vector3(0.0f, -0.3f, 0.2f));
+		robot->FLleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+		robot->BRleg.setBodyTarget(Vector3(0.0f, -0.3f, 0.2f));
 		robot->startMove();
 		robot->step(500);
-		robot->setFLlegTarget(robot->currentStandFL);
-		robot->setBRlegTarget(robot->currentStandBR);
-		robot->startMove();
-		robot->step(500);
-
-		robot->setMRbodyTarget(Vector3(0.2f, 0.1f, 0.2f));
-		robot->setMLbodyTarget(Vector3(-0.2f, 0.1f, 0.2f));
-		robot->startMove();
-		robot->step(500);
-		robot->setMRlegTarget(robot->currentStandMR);
-		robot->setMLlegTarget(robot->currentStandML);
+		robot->FLleg.reInit();
+		robot->BRleg.reInit();
 		robot->startMove();
 		robot->step(500);
 
-		robot->setBLbodyTarget(Vector3(0.0f, -0.3f, 0.2f));
-		robot->setFRbodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+		robot->MRleg.setBodyTarget(Vector3(0.2f, 0.1f, 0.2f));
+		robot->MLleg.setBodyTarget(Vector3(-0.2f, 0.1f, 0.2f));
 		robot->startMove();
 		robot->step(500);
-		robot->setBLlegTarget(robot->currentStandBL);
-		robot->setFRlegTarget(robot->currentStandFR);
+		robot->MRleg.reInit();
+		robot->MLleg.reInit();
+		robot->startMove();
+		robot->step(500);
+
+		robot->BLleg.setBodyTarget(Vector3(0.0f, -0.3f, 0.2f));
+		robot->FRleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+		robot->startMove();
+		robot->step(500);
+		robot->BLleg.reInit();
+		robot->FRleg.reInit();
 		robot->startMove();
 		robot->step(500);
 	};
