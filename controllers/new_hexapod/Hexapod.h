@@ -111,25 +111,8 @@ public:
 
 	Vector3 rfk(Vector3 angles);*/
 
-	/// <summary>
-	/// 将以腿根部为原点的相对向量(腿坐标系)转换为以机器人身体中心为原点指向目标点的向量(机器人坐标系)
-	/// </summary>
-	/// <param name="relevant">以腿根部为原点的相对向量(腿坐标系)</param>
-	/// <param name="bias">以机器人身体中心为原点指向腿根部的向量(机器人坐标系)</param>
-	/// <param name="theta">以机器人身体中心为原点坐标系下，腿根部为原点的坐标系的旋转角</param>
-	/// <returns>以机器人身体中心为原点指向目标点的向量(机器人坐标系)</returns>
-	Vector3 leg2bodyCoord(Vector3 relevant,Vector3 bias,float theta);
 
-	/// <summary>
-	/// 将以机器人身体中心为原点指向目标点的向量(机器人坐标系)转换为以腿根部为原点的相对向量(腿坐标系)
-	/// </summary>
-	/// <param name="absolute">以机器人身体中心为原点指向目标点的向量(机器人坐标系)</param>
-	/// <param name="bias">以机器人身体中心为原点指向腿根部的向量(机器人坐标系)</param>
-	/// <param name="theta">以机器人身体中心为原点坐标系下，腿根部为原点的坐标系的旋转角</param>
-	/// <returns>以腿根部为原点的相对向量(腿坐标系)</returns>
-	Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
 
-	Vector3 calculateFLtarget(Vector3 velocity, float omega, float timeStep, float omega1, float omega2, float omega3);
 
 	void move(Vector3 velocity,float omega, float timeStep, float omega1, float omega2, float omega3);
 

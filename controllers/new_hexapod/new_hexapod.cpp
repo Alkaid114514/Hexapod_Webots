@@ -56,6 +56,7 @@ int main(int argc, char** argv) {
 	//std::cout << "v " << v.x << " " << v.y << " " << v.z << std::endl;
 
 	float omega = 0.2f;
+	
 	Vector3 velocity = Vector3(0,0,0);
 
 	//robot->setHeight(0.100459f);
@@ -104,7 +105,9 @@ int main(int argc, char** argv) {
 
 		// Enter here functions to send actuator commands, like:
 		//  motor->setPosition(10.0);
-		robot->FLleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+		robot->move(velocity, omega, timeStep, 0.1, 0.1, 0.1);
+		robot->startMove();
+	/*	robot->FLleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
 		robot->BRleg.setBodyTarget(Vector3(0.0f, -0.3f, 0.2f));
 		robot->startMove();
 		robot->step(500);
@@ -129,7 +132,7 @@ int main(int argc, char** argv) {
 		robot->BLleg.reInit();
 		robot->FRleg.reInit();
 		robot->startMove();
-		robot->step(500);
+		robot->step(500);*/
 	};
 
 	// Enter here exit cleanup code.

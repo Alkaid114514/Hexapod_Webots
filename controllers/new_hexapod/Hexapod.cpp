@@ -210,15 +210,15 @@ void Hexapod::move(Vector3 velocity, float omega,float timeStep, float omega1, f
 	Vector3 w = Vector3(0.0f, 0.0f, omega);
 	Vector3 r0 = velocity.cross(w) / (omega * omega);
 	//算机器人坐标系下圆心到脚尖的向量
-	Vector3 initTmpFL = r0 + leg2bodyCoord(initStandFL, ctr2FLroot, ctr2FLrootTheta);
-	Vector3 initTmpML = r0 + leg2bodyCoord(initStandML, ctr2MLroot, ctr2MLrootTheta);
-	Vector3 initTmpBL = r0 + leg2bodyCoord(initStandBL, ctr2BLroot, ctr2BLrootTheta);
-	Vector3 initTmpFR = r0 + leg2bodyCoord(initStandFR, ctr2FRroot, ctr2FRrootTheta);
-	Vector3 initTmpMR = r0 + leg2bodyCoord(initStandMR, ctr2MRroot, ctr2MRrootTheta);
-	Vector3 initTmpBR = r0 + leg2bodyCoord(initStandBR, ctr2BRroot, ctr2BRrootTheta);
+	Vector3 initTmpFL = r0 + leg2bodyCoord(FLleg.initStandTarget, FLleg.ctr2root, FLleg.ctr2rootTheta);
+	//Vector3 initTmpML = r0 + leg2bodyCoord(initStandML, ctr2MLroot, ctr2MLrootTheta);
+	//Vector3 initTmpBL = r0 + leg2bodyCoord(initStandBL, ctr2BLroot, ctr2BLrootTheta);
+	//Vector3 initTmpFR = r0 + leg2bodyCoord(initStandFR, ctr2FRroot, ctr2FRrootTheta);
+	//Vector3 initTmpMR = r0 + leg2bodyCoord(initStandMR, ctr2MRroot, ctr2MRrootTheta);
+	//Vector3 initTmpBR = r0 + leg2bodyCoord(initStandBR, ctr2BRroot, ctr2BRrootTheta);
 	float alpha = omega * 2 * T;
 	for (int n = 0; n < resolution;++n) {
-		float tmp_alpha = omega *  n/resolution ;//alpha细分成20份
+		float tmp_alpha = alpha*  n/resolution ;//alpha细分成20份
 	
 		//z轴抬腿的插值如下
 		float  tmpz = initTmpFL.z + A * sin(tmp_alpha);
@@ -226,7 +226,7 @@ void Hexapod::move(Vector3 velocity, float omega,float timeStep, float omega1, f
 		Vector3 tmpFL = Vector3(initTmpFL.x * cos(tmp_alpha) - initTmpFL.y * sin(tmp_alpha),
 			initTmpFL.x * sin(tmp_alpha) + initTmpFL.y * cos(tmp_alpha),
 			tmpz);
-		Vector3 tmpML = Vector3(initTmpML.x * cos(tmp_alpha) - initTmpML.y * sin(tmp_alpha),
+		/*Vector3 tmpML = Vector3(initTmpML.x * cos(tmp_alpha) - initTmpML.y * sin(tmp_alpha),
 			initTmpML.x * sin(tmp_alpha) + initTmpML.y * cos(tmp_alpha),
 			tmpz);
 		Vector3 tmpBL = Vector3(initTmpBL.x * cos(tmp_alpha) - initTmpBL.y * sin(tmp_alpha),
@@ -240,29 +240,26 @@ void Hexapod::move(Vector3 velocity, float omega,float timeStep, float omega1, f
 			tmpz);
 		Vector3 tmpBR = Vector3(initTmpBR.x * cos(tmp_alpha) - initTmpBR.y * sin(tmp_alpha),
 			initTmpBR.x * sin(tmp_alpha) + initTmpBR.y * cos(tmp_alpha),
-			tmpz);
+			tmpz);*/
 		//则需要带入ik的向量如下（已经转换成腿坐标系
-		Vector3 targetFL = body2legCoord(tmpFL - initTmpFL, ctr2FLroot, ctr2FLrootTheta) + initStandFL;
+	/*	Vector3 targetFL = body2legCoord(tmpFL - initTmpFL, ctr2FLroot, ctr2FLrootTheta) + initStandFL;
 		Vector3 targetML = body2legCoord(tmpML - initTmpML, ctr2MLroot, ctr2MLrootTheta) + initStandML;
 		Vector3 targetBL = body2legCoord(tmpBL - initTmpBL, ctr2BLroot, ctr2BLrootTheta) + initStandBL;
 		Vector3 targetFR = body2legCoord(tmpFR - initTmpFR, ctr2FRroot, ctr2FRrootTheta) + initStandFR;
 		Vector3 targetMR = body2legCoord(tmpMR - initTmpMR, ctr2MRroot, ctr2MRrootTheta) + initStandMR;
-		Vector3 targetBR = body2legCoord(tmpBR - initTmpBR, ctr2BRroot, ctr2BRrootTheta) + initStandBR;
-		Vector3 anglesFL = lik(targetFL);
-		Vector3 anglesBL = lik(targetBL);
-		Vector3 anglesML = lik(targetML);
-		Vector3 anglesFR = lik(targetFR);
-		Vector3 anglesBR = lik(targetBR);
-		Vector3 anglesMR = lik(targetMR);
+		Vector3 targetBR = body2legCoord(tmpBR - initTmpBR, ctr2BRroot, ctr2BRrootTheta) + initStandBR;*/
+
 		//移动过程中的脚尖目标点（连起来就是轨迹，在机器人身体坐标系下）
 		Vector3 FLtarget = Vector3(tmpFL.x - r0.x, tmpFL.y - r0.y, tmpz);
-		Vector3 MLtarget = Vector3(tmpML.x - r0.x, tmpML.y - r0.y, tmpz);
+	/*	Vector3 MLtarget = Vector3(tmpML.x - r0.x, tmpML.y - r0.y, tmpz);
 		Vector3 BLtarget = Vector3(tmpBL.x - r0.x, tmpBL.y - r0.y, tmpz);
 		Vector3 FRtarget = Vector3(tmpFR.x - r0.x, tmpFR.y - r0.y, tmpz);
 		Vector3 MRtarget = Vector3(tmpMR.x - r0.x, tmpMR.y - r0.y, tmpz);
-		Vector3 BRtarget = Vector3(tmpBR.x - r0.x, tmpBR.y - r0.y, tmpz);
+		Vector3 BRtarget = Vector3(tmpBR.x - r0.x, tmpBR.y - r0.y, tmpz);*/
 
-}
+		FLleg.setBodyTarget(FLtarget);
+		
+	}
 		
 
 }
@@ -298,6 +295,7 @@ void Hexapod::setBodyTargets(Vector3 BRtarget, Vector3 MRtarget, Vector3 FRtarge
 	BLleg.setLegTarget(body2legCoord(BLtarget, BLleg.ctr2root, BLleg.ctr2rootTheta));
 	MLleg.setLegTarget(body2legCoord(MLtarget, MLleg.ctr2root, MLleg.ctr2rootTheta));
 	FLleg.setLegTarget(body2legCoord(FLtarget, FLleg.ctr2root, FLleg.ctr2rootTheta));
+
 }
 
 //void Hexapod::setBRbodyTarget(Vector3 target)
