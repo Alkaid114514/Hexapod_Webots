@@ -1,3 +1,4 @@
+
 #include "LegR.h"
 #include "Hexapod.h"
 LegR::LegR()
@@ -13,6 +14,8 @@ LegR::LegR(webots::Motor* coxa, webots::Motor* femur, webots::Motor* tibia, Vect
 	this->tibiaMotor = tibia;
 	this->ctr2root = ctr2root;
 	this->ctr2rootTheta = ctr2rootTheta;
+	this->initStandBodyTarget = Hexapod::leg2bodyCoord(fk(initAngles),ctr2root,ctr2rootTheta);
+	this->currentStandBodyTarget = initStandBodyTarget;
 }
 
 LegR::~LegR()
@@ -21,15 +24,12 @@ LegR::~LegR()
 
 Vector3 LegR::fk(Vector3 angles)
 {
-	//angles.z -= (float)M_PI / 3.0f;
 	float tmp = (COXA_LEN + FEMUR_LEN * cos(angles.y) + TIBIA_LEN * cos(angles.z - angles.y));
 	auto v = Vector3(
 		tmp * cos(angles.x),
 		tmp * sin(angles.x),
 		-FEMUR_LEN * sin(angles.y) + TIBIA_LEN * sin(angles.z - angles.y)
 	);
-	//v.y = -v.y;
-	//v.z = -v.z;
 	return v;
 }
 
@@ -115,9 +115,20 @@ void LegR::reInit()
 
 void LegR::setHeight(float height)
 {
-	initStandTarget.z = height;
-	this->currentStandAngles = ik(initStandTarget);
-	this->reInit();
+	currentStandBodyTarget.z = -height;
+	this->currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget, ctr2root, ctr2rootTheta));
+}
+
+void LegR::setYaw(float yaw)
+{
+	ctr2rootTheta += yaw - currentYaw;
+	currentYaw = yaw;
+	ctr2root = Vector3(
+		cos(yaw) * (ctr2root.x) - sin(yaw) * (ctr2root.y),
+		sin(yaw) * (ctr2root.x) + cos(yaw) * (ctr2root.y),
+		ctr2root.z
+	);
+	currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget, ctr2root, ctr2rootTheta));
 }
 
 void LegR::startMotor()
