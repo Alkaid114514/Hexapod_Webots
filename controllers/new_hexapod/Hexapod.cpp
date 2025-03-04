@@ -9,7 +9,7 @@ Hexapod::Hexapod() : Robot()
 	MLleg = LegL(getMotor("M_ML_COXA"), getMotor("M_ML_FEMUR"), getMotor("M_ML_TIBIA"), ctr2MLroot, ctr2MLrootTheta);
 	FLleg = LegL(getMotor("M_FL_COXA"), getMotor("M_FL_FEMUR"), getMotor("M_FL_TIBIA"), ctr2FLroot, ctr2FLrootTheta);
 	
-	currentHeight = initHeight = FLleg.initStandTarget.z;
+	currentHeight = initHeight = body2legCoord(FLleg.initStandBodyTarget,FLleg.ctr2root,FLleg.ctr2rootTheta).z;
 }
 
 Hexapod::~Hexapod()
@@ -89,6 +89,16 @@ void Hexapod::setBodyTargets(Vector3 BRtarget, Vector3 MRtarget, Vector3 FRtarge
 	FLleg.setLegTarget(body2legCoord(FLtarget, FLleg.ctr2root, FLleg.ctr2rootTheta));
 }
 
+void Hexapod::reInit()
+{
+	BRleg.reInit();
+	MRleg.reInit();
+	FRleg.reInit();
+	BLleg.reInit();
+	MLleg.reInit();
+	FLleg.reInit();
+}
+
 void Hexapod::setHeight(float height)
 {
 	currentHeight = height;
@@ -100,6 +110,27 @@ void Hexapod::setHeight(float height)
 	this->MLleg.setHeight(height);
 	this->FLleg.setHeight(height);
 	
+}
+
+void Hexapod::setYaw(float yaw)
+{
+	BRleg.setYaw(yaw);
+	MRleg.setYaw(yaw);
+	FRleg.setYaw(yaw);
+	BLleg.setYaw(yaw);
+	MLleg.setYaw(yaw);
+	FLleg.setYaw(yaw);
+
+}
+
+Vector3 Hexapod::yawBias(Vector3 bias,float theta)
+{
+	auto v = Vector3(
+		cos(theta) * (bias.x) - sin(theta) * (bias.y),
+		sin(theta) * (bias.x) + cos(theta) * (bias.y),
+		bias.z
+	);
+	return v;
 }
 
 void Hexapod::startMove()

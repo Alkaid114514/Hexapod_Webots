@@ -25,6 +25,8 @@ int main(int argc, char** argv) {
 
 	//robot->setHeight(0.100459f);
 	robot->setHeight(0.13f);
+	robot->setYaw(0.4f);
+	robot->reInit();
 	robot->startMove();
 	
 
@@ -37,7 +39,7 @@ int main(int argc, char** argv) {
 		robot->BRleg.reInit();
 		robot->startMove();
 		robot->step(500);
-
+		
 		robot->MRleg.setBodyTarget(Vector3(0.2f, 0.1f, 0.2f));
 		robot->MLleg.setBodyTarget(Vector3(-0.2f, 0.1f, 0.2f));
 		robot->startMove();
@@ -46,7 +48,7 @@ int main(int argc, char** argv) {
 		robot->MLleg.reInit();
 		robot->startMove();
 		robot->step(500);
-
+		
 		robot->BLleg.setBodyTarget(Vector3(0.0f, -0.3f, 0.2f));
 		robot->FRleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
 		robot->startMove();

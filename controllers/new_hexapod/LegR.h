@@ -1,7 +1,8 @@
-#pragma once
+﻿#pragma once
 #include <webots/Motor.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
+
 #include "Vector3.h"
 
 class LegR
@@ -23,10 +24,12 @@ public:
 	bool isOnGround = true;
 	Vector3 initAngles = Vector3(0.0f, 0.0f, (float)M_PI / 3.0f);
 	Vector3 currentStandAngles = initAngles;
-	Vector3 initStandTarget = fk(initAngles);
+	float currentYaw = 0.0f;
+	
 	Vector3 ctr2root;
 	float ctr2rootTheta;
-
+	Vector3 initStandBodyTarget;
+	Vector3 currentStandBodyTarget;
 	/// <summary>
 	/// 仅正向运动学，输入参数为三个关节的角度，返回腿根部到末端的向量(腿坐标系)
 	/// </summary>
@@ -54,6 +57,7 @@ public:
 
 	void reInit();
 	void setHeight(float height);
+	void setYaw(float yaw);
 	void startMotor();
 };
 

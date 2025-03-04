@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <webots/Robot.hpp>
 #include "LegR.h"
 #include "LegL.h"
@@ -29,7 +29,7 @@ public:
 	LegL MLleg;
 	LegL FLleg;
 
-	enum GaitType
+	enum GaitType : std::int8_t
 	{
 		Tripod,
 		Ripple,
@@ -123,26 +123,15 @@ public:
 	/// 所有的设置目标点的函数并不会使机器人直接运动，需要设置完目标点后调用startMove()函数开始运动
 	/// </summary>
 	void setBodyTargets(Vector3 BRtarget,Vector3 MRtarget,Vector3 FRtarget,Vector3 BLtarget,Vector3 MLtarget,Vector3 FLtarget);
-	/*void setBRbodyTarget(Vector3 target);
-	void setMRbodyTarget(Vector3 target);
-	void setFRbodyTarget(Vector3 target);
-	void setBLbodyTarget(Vector3 target);
-	void setMLbodyTarget(Vector3 target);
-	void setFLbodyTarget(Vector3 target);*/
 
-	void setBodyTarget(Vector3 target, LegL leg);
-	void setBodyTarget(Vector3 target, LegR leg);
-
-	/*void setBRlegTarget(Vector3 target);
-	void setMRlegTarget(Vector3 target);
-	void setFRlegTarget(Vector3 target);
-	void setBLlegTarget(Vector3 target);
-	void setMLlegTarget(Vector3 target);
-	void setFLlegTarget(Vector3 target);*/
-
-
-
+	void reInit();
+	
+	/// <summary>
+	/// 设置机器人高度
+	/// </summary>
 	void setHeight(float height);
+
+	void setYaw(float yaw);
 
 	/// <summary>
 	/// 开始按照设置的角度和目标点运动
@@ -165,5 +154,7 @@ public:
 	/// <param name="theta">以机器人身体中心为原点坐标系下，腿根部为原点的坐标系的旋转角</param>
 	/// <returns>以腿根部为原点的相对向量(腿坐标系)</returns>
 	static Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
+
+	static  Vector3 yawBias(Vector3 bias,float theta);
 };
 
