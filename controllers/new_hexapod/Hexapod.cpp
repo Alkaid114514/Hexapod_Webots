@@ -1,4 +1,4 @@
-#include "Hexapod.h"
+ï»¿#include "Hexapod.h"
 
 Hexapod::Hexapod() : Robot()
 {
@@ -53,59 +53,40 @@ Vector3 Hexapod::body2legCoord(Vector3 absolute, Vector3 bias, float theta)
 	return v;
 }
 
-//Vector3 Hexapod::calculateFLtarget(Vector3 velocity, float omega, float timeStep, float omega1, float omega2, float omega3){
-//	float T = 0.5;//»úÆ÷ÈËÌ§ÍÈµ½·ÅÏÂµÄÊ±¼ä£¨Õâ¸öÊıÊÇÏ¹ÌîµÄ£¬»¹Ã»µ÷ÊÔ
-//	float A = FEMUR_LEN * sin(omega2) * T;-(omega3 * TIBIA_LEN * sin(omega3 - omega2) * T) / 2 * (omega3 - omega2);
-//	float lambda = 2 * omega1 * COXA_LEN * sin(T * omega / 2) * T / (T * omega);//²½³¤
-//	float Phase;//ÏàÎ»£¨ÓÃÓÚ¸øÍÈ·Ö×éµÄ£¿£©
-//	int resolution = 20;//²åÖµ²å20¸öµã
-//	if (velocity == Vector3() && omega == 0.0f)
-//	{
-//		return;
-//	};
-//	Vector3 w = Vector3(0.0f, 0.0f, omega);
-//	Vector3 r0 = velocity.cross(w) / (omega * omega);
-//	//Ëã»úÆ÷ÈË×ø±êÏµÏÂÔ²ĞÄµ½½Å¼âµÄÏòÁ¿
-//	Vector3 initTmpFL = r0 + leg2bodyCoord(initStandFL, ctr2FLroot, ctr2FLrootTheta);
-//	float alpha = omega * 2 * T;
-//	for (int n = 0; n < resolution;++n) {
-//		float tmp_alpha = omega * n / resolution;//alphaÏ¸·Ö³É20·İ
-//		//zÖáÌ§ÍÈµÄ²åÖµÈçÏÂ
-//		float  tmpz = initTmpFL.z + A * sin(tmp_alpha);
-//		Vector3 tmpFL = Vector3(initTmpFL.x * cos(tmp_alpha) - initTmpFL.y * sin(tmp_alpha),
-//			initTmpFL.x * sin(tmp_alpha) + initTmpFL.y * cos(tmp_alpha),
-//			tmpz);
-//		Vector3 targetFL = body2legCoord(tmpFL - initTmpFL, ctr2FLroot, ctr2FLrootTheta) + initStandFL;
-//}
-
-void Hexapod::move(Vector3 velocity, float omega,float timeStep, float omega1, float omega2, float omega3)//omega123Ö¸µÄÊÇ¶æ»úµÄ½ÇËÙ¶È
-{	
-	float T = 0.5;//»úÆ÷ÈËÌ§ÍÈµ½·ÅÏÂµÄÊ±¼ä£¨Õâ¸öÊıÊÇÏ¹ÌîµÄ£¬»¹Ã»µ÷ÊÔ
-	float A = FEMUR_LEN * sin(omega2) * T;-(omega3 * TIBIA_LEN * sin(omega3 - omega2) * T) / 2 * (omega3 - omega2);
-	float lambda = 2 * omega1 * COXA_LEN * sin(T * omega / 2) * T / (T * omega);//²½³¤
-	float Phase;//ÏàÎ»£¨ÓÃÓÚ¸øÍÈ·Ö×éµÄ£¿£©
-	int resolution = 20;//²åÖµ²å20¸öµã
+void Hexapod::move(Vector3 velocity, float omega,float timeStep)
+{
+	double omega1=0.1;
+	double omega2=0.01;
+	double omega3=0.02;
+	static float t=0.0;
+	float frequency = 1.0f;
+	float T = 0.5;//ä»æŠ¬è…¿åˆ°è½ä¸‹
+	float A = FEMUR_LEN * sin(omega2 * T)-(omega3 * TIBIA_LEN * sin(omega3 - omega2) * T) /( 2 * (omega3 - omega2));
+	float lambda = 2 * omega1 * COXA_LEN * sin(T * omega / 2) * T / (T * omega);
+	float Phase;
+	int resolution = 20;
 	if (velocity == Vector3() && omega == 0.0f)
 	{
 		return;
 	};
+	
 	Vector3 w = Vector3(0.0f, 0.0f, omega);
 	Vector3 r0 = velocity.cross(w) / (omega * omega);
-	//Ëã»úÆ÷ÈË×ø±êÏµÏÂÔ²ĞÄµ½½Å¼âµÄÏòÁ¿
-	Vector3 initTmpFL = r0 + leg2bodyCoord(FLleg.initStandTarget, FLleg.ctr2root, FLleg.ctr2rootTheta);
-	//Vector3 initTmpML = r0 + leg2bodyCoord(initStandML, ctr2MLroot, ctr2MLrootTheta);
-	//Vector3 initTmpBL = r0 + leg2bodyCoord(initStandBL, ctr2BLroot, ctr2BLrootTheta);
-	//Vector3 initTmpFR = r0 + leg2bodyCoord(initStandFR, ctr2FRroot, ctr2FRrootTheta);
-	//Vector3 initTmpMR = r0 + leg2bodyCoord(initStandMR, ctr2MRroot, ctr2MRrootTheta);
-	//Vector3 initTmpBR = r0 + leg2bodyCoord(initStandBR, ctr2BRroot, ctr2BRrootTheta);
-	float alpha = omega * 2 * T;
-	for (int n = 0; n < resolution;++n) {
-		float tmp_alpha = alpha*  n/resolution ;//alphaÏ¸·Ö³É20·İ
-	
-		//zÖáÌ§ÍÈµÄ²åÖµÈçÏÂ
-		float  tmpz = initTmpFL.z + A * sin(tmp_alpha);
-		//ÔÙËãÄÚ×ªtmp_alpha½Ç¶ÈºóµÄÏòÁ¿
-		Vector3 tmpFL = Vector3(initTmpFL.x * cos(tmp_alpha) - initTmpFL.y * sin(tmp_alpha),
+	t += timeStep;
+
+	Vector3 initTmpFL = r0 + FLleg.currentStandBodyTarget;
+	// Vector3 initTmpML = r0 + MLleg.currentStandBodyTarget;
+	// Vector3 initTmpBL = r0 + BLleg.currentStandBodyTarget;
+	// Vector3 initTmpFR = r0 + FRleg.currentStandBodyTarget;
+	// Vector3 initTmpMR = r0 + MRleg.currentStandBodyTarget;
+	// Vector3 initTmpBR = r0 + BRleg.currentStandBodyTarget;
+	float alpha = omega * T;
+	for (int n = 1; n < resolution;n++) {
+		float tmp_alpha = alpha*n/resolution;
+		float  tmpz = initTmpFL.z + A * sin(2*M_PI*frequency*t);
+		
+		
+		Vector3 tmpFL = Vector3(initTmpFL.x * cos(tmp_alpha) - initTmpFL.y * sin(tmp_alpha),  // NOLINT(clang-diagnostic-invalid-utf8)
 			initTmpFL.x * sin(tmp_alpha) + initTmpFL.y * cos(tmp_alpha),
 			tmpz);
 		/*Vector3 tmpML = Vector3(initTmpML.x * cos(tmp_alpha) - initTmpML.y * sin(tmp_alpha),
@@ -123,15 +104,15 @@ void Hexapod::move(Vector3 velocity, float omega,float timeStep, float omega1, f
 		Vector3 tmpBR = Vector3(initTmpBR.x * cos(tmp_alpha) - initTmpBR.y * sin(tmp_alpha),
 			initTmpBR.x * sin(tmp_alpha) + initTmpBR.y * cos(tmp_alpha),
 			tmpz);*/
-		//ÔòĞèÒª´øÈëikµÄÏòÁ¿ÈçÏÂ£¨ÒÑ¾­×ª»»³ÉÍÈ×ø±êÏµ
-	/*	Vector3 targetFL = body2legCoord(tmpFL - initTmpFL, ctr2FLroot, ctr2FLrootTheta) + initStandFL;
+		
+	/*	Vector3 targetFL = body2legCoord(tmpFL - initTmpFL, ctr2FLroot, ctr2FLrootTheta) + initStandFL;  // NOLINT(clang-diagnostic-invalid-utf8)
 		Vector3 targetML = body2legCoord(tmpML - initTmpML, ctr2MLroot, ctr2MLrootTheta) + initStandML;
 		Vector3 targetBL = body2legCoord(tmpBL - initTmpBL, ctr2BLroot, ctr2BLrootTheta) + initStandBL;
 		Vector3 targetFR = body2legCoord(tmpFR - initTmpFR, ctr2FRroot, ctr2FRrootTheta) + initStandFR;
 		Vector3 targetMR = body2legCoord(tmpMR - initTmpMR, ctr2MRroot, ctr2MRrootTheta) + initStandMR;
 		Vector3 targetBR = body2legCoord(tmpBR - initTmpBR, ctr2BRroot, ctr2BRrootTheta) + initStandBR;*/
 
-		//ÒÆ¶¯¹ı³ÌÖĞµÄ½Å¼âÄ¿±êµã£¨Á¬ÆğÀ´¾ÍÊÇ¹ì¼££¬ÔÚ»úÆ÷ÈËÉíÌå×ø±êÏµÏÂ£©
+		//ç§»åŠ¨è¿‡ç¨‹ä¸­çš„è„šå°–ç›®æ ‡ç‚¹ï¼ˆè¿èµ·æ¥å°±æ˜¯è½¨è¿¹ï¼Œåœ¨æœºå™¨äººèº«ä½“åæ ‡ç³»ä¸‹ï¼‰  // NOLINT(clang-diagnostic-invalid-utf8)
 		Vector3 FLtarget = Vector3(tmpFL.x - r0.x, tmpFL.y - r0.y, tmpz);
 	/*	Vector3 MLtarget = Vector3(tmpML.x - r0.x, tmpML.y - r0.y, tmpz);
 		Vector3 BLtarget = Vector3(tmpBL.x - r0.x, tmpBL.y - r0.y, tmpz);
@@ -140,6 +121,7 @@ void Hexapod::move(Vector3 velocity, float omega,float timeStep, float omega1, f
 		Vector3 BRtarget = Vector3(tmpBR.x - r0.x, tmpBR.y - r0.y, tmpz);*/
 
 		FLleg.setBodyTarget(FLtarget);
+		
 		
 	}
 		

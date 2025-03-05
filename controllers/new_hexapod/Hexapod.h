@@ -114,7 +114,7 @@ public:
 
 
 
-	void move(Vector3 velocity,float omega, float timeStep, float omega1, float omega2, float omega3);
+	void move(Vector3 velocity,float omega, float timeStep);
 
 	Vector3 getNextBodyTarget(Vector3 velocity, float omega, Vector3 r0, Vector3 initial,Vector3 legBias,float legBiasTheta,float timeStep);
 

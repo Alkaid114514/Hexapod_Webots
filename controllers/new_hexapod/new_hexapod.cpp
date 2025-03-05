@@ -21,42 +21,48 @@ int main(int argc, char** argv) {
 	robot->startMove();*/
 
 	float omega = 0.2f;
-	Vector3 velocity = Vector3(0,1,0);
+	Vector3 velocity = Vector3(0,2,0);
 
-	//robot->setHeight(0.100459f);
-	robot->setHeight(0.13f);
-	robot->setYaw(0.4f);
+	robot->setHeight(0.100459f);
+	// robot->setHeight(0.13f);
+	// robot->setYaw(0.4f);
 	robot->reInit();
 	robot->startMove();
 	
 
 	while (robot->step(timeStep) != -1) {
-		robot->FLleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
-		robot->BRleg.setBodyTarget(Vector3(0.0f, -0.3f, 0.2f));
+		// robot->FLleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+		// robot->BRleg.setBodyTarget(Vector3(0.0f, -0.3f, 0.2f));
+		// robot->startMove();
+		// robot->step(500);
+		// robot->FLleg.reInit();
+		// robot->BRleg.reInit();
+		// robot->startMove();
+		// robot->step(500);
+		//
+		// robot->MRleg.setBodyTarget(Vector3(0.2f, 0.1f, 0.2f));
+		// robot->MLleg.setBodyTarget(Vector3(-0.2f, 0.1f, 0.2f));
+		// robot->startMove();
+		// robot->step(500);
+		// robot->MRleg.reInit();
+		// robot->MLleg.reInit();
+		// robot->startMove();
+		// robot->step(500);
+		//
+		// robot->BLleg.setBodyTarget(Vector3(0.0f, -0.3f, 0.2f));
+		// robot->FRleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
+		// robot->startMove();
+		// robot->step(500);
+		// robot->BLleg.reInit();
+		// robot->FRleg.reInit();
+		// robot->startMove();
+		// robot->step(500);
+		robot->move(velocity,omega,timeStep);
 		robot->startMove();
-		robot->step(500);
+		robot->step(1000);
 		robot->FLleg.reInit();
-		robot->BRleg.reInit();
 		robot->startMove();
-		robot->step(500);
-		
-		robot->MRleg.setBodyTarget(Vector3(0.2f, 0.1f, 0.2f));
-		robot->MLleg.setBodyTarget(Vector3(-0.2f, 0.1f, 0.2f));
-		robot->startMove();
-		robot->step(500);
-		robot->MRleg.reInit();
-		robot->MLleg.reInit();
-		robot->startMove();
-		robot->step(500);
-		
-		robot->BLleg.setBodyTarget(Vector3(0.0f, -0.3f, 0.2f));
-		robot->FRleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
-		robot->startMove();
-		robot->step(500);
-		robot->BLleg.reInit();
-		robot->FRleg.reInit();
-		robot->startMove();
-		robot->step(500);
+		robot->step(1000);
 	};
 
 	// Enter here exit cleanup code.
