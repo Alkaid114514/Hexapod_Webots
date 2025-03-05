@@ -3,6 +3,7 @@
 #include "LegR.h"
 #include "LegL.h"
 #include "Vector3.h"
+#include <vector>
 
 #define COXA_LEN (38.0f/1000.0f)
 #define FEMUR_LEN (79.2f/1000.0f)
@@ -29,11 +30,12 @@ public:
 	LegL MLleg;
 	LegL FLleg;
 
-	enum GaitType : std::int8_t
+	enum GaitStatus : std::int8_t
 	{
 		Tripod,
 		Ripple,
-		Wave
+		Wave,
+		Stop
 	};
 
 	/// <summary>
@@ -55,25 +57,19 @@ public:
 	const float ctr2BLrootTheta = -3.0f * (float)M_PI_4;	//-2.3562f
 	const float ctr2MLrootTheta = (float)M_PI;		//3.14159f
 	const float ctr2FLrootTheta = 3.0f * (float)M_PI_4;	//2.3562f
-
-	/// <summary>
-	/// 机器人正常站立时，自身根部到六条腿末端的向量(腿坐标系)
-	/// </summary>
-	/*Vector3 initStandBR;
-	Vector3 initStandMR;
-	Vector3 initStandFR;
-	Vector3 initStandBL;
-	Vector3 initStandML;
-	Vector3 initStandFL;*/
+	
 	float initHeight;
-
-	/*Vector3 currentStandBR;
-	Vector3 currentStandMR;
-	Vector3 currentStandFR;
-	Vector3 currentStandBL;
-	Vector3 currentStandML;
-	Vector3 currentStandFL;*/
 	float currentHeight;
+	float coxaOmega = 0.1f;
+	float femurOmega = 0.1f;
+	float tibiaOmega = 0.1f;
+	int moveFrame = 4;
+	float stepTheta = M_PI / 6.0f;
+	float dtheta = stepTheta / (float)moveFrame;
+	
+	GaitStatus gaitStatus = Stop;
+
+	
 
 	/// <summary>
 	/// 同时设置六条腿所有关节的角度，设置完后不会立即运动，需要调用startMove()函数开始运动
@@ -115,8 +111,10 @@ public:
 
 
 	void move(Vector3 velocity,float omega, float timeStep);
+	void moveTripod(Vector3 velocity,float omega, float timeStep);
 
-	Vector3 getNextBodyTarget(Vector3 velocity, float omega, Vector3 r0, Vector3 initial,Vector3 legBias,float legBiasTheta,float timeStep);
+	Vector3 getSwagNextBodyTarget(Vector3 velocity, float omega, Vector3 r0, Vector3 initialBodyTarget,float timeStep);
+	Vector3 getStandNextBodyTarget(Vector3 velocity, float omega, Vector3 r0, Vector3 initialBodyTarget,float timeStep);
 
 	//LegL* getLegGroup(GaitType gaitType);
 
