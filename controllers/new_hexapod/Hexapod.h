@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <webots/Robot.hpp>
 #include "LegR.h"
 #include "LegL.h"
@@ -13,157 +13,124 @@
 
 class Hexapod : public webots::Robot
 {
-private:
-	
-
-	
 public:
-	
-	Hexapod();
-	~Hexapod();
+    Hexapod();
+    ~Hexapod() override;
 
-	LegR BRleg;
-	LegR MRleg;
-	LegR FRleg;
-	LegL BLleg;
-	LegL MLleg;
-	LegL FLleg;
+    LegR BRleg;
+    LegR MRleg;
+    LegR FRleg;
+    LegL BLleg;
+    LegL MLleg;
+    LegL FLleg;
 
-	enum GaitType
-	{
-		Tripod,
-		Ripple,
-		Wave
-	};
+    enum GaitStatus : std::int8_t
+    {
+        Tripod,
+        Ripple,
+        Wave,
+        Ready,
+        Stop
+    };
 
-	/// <summary>
-	/// ÒÔ»úÆ÷ÈËÉíÌåÖĞĞÄÎªÔ­µãµÄ×ø±êÏµÎªÔ­µã£¬ÁùÌõÍÈ¸ù²¿µÄÏòÁ¿(»úÆ÷ÈË×ø±êÏµ)
-	/// </summary>
-	const Vector3 ctr2BRroot = Vector3(0.059f, -0.083f, 0.0f);
-	const Vector3 ctr2MRroot = Vector3(0.08f, 0.0f, 0.0f);
-	const Vector3 ctr2FRroot = Vector3(0.064f, 0.082f, 0.0f);
-	const Vector3 ctr2BLroot = Vector3(-0.059f, -0.083f, 0.0f);
-	const Vector3 ctr2MLroot = Vector3(-0.08f, 0.0f, 0.0f);
-	const Vector3 ctr2FLroot = Vector3(-0.064f, 0.082f, 0.0f);
+    /// <summary>
+    /// ä»¥æœºå™¨äººèº«ä½“ä¸­å¿ƒä¸ºåŸç‚¹çš„åæ ‡ç³»ä¸ºåŸç‚¹ï¼Œå…­æ¡è…¿æ ¹éƒ¨çš„å‘é‡(æœºå™¨äººåæ ‡ç³»)
+    /// </summary>
+    const Vector3 ctr2BRroot = Vector3(0.059f, -0.083f, 0.0f);
+    const Vector3 ctr2MRroot = Vector3(0.08f, 0.0, 0.0f);
+    const Vector3 ctr2FRroot = Vector3(0.064f, 0.082f, 0.0f);
+    const Vector3 ctr2BLroot = Vector3(-0.059f, -0.083f, 0.0f);
+    const Vector3 ctr2MLroot = Vector3(-0.08f, 0.0f, 0.0f);
+    const Vector3 ctr2FLroot = Vector3(-0.064f, 0.082f, 0.0f);
 
-	/// <summary>
-	/// ÒÔ»úÆ÷ÈËÉíÌåÖĞĞÄÎªÔ­µãµÄ×ø±êÏµÎªÔ­µã£¬ÁùÌõÍÈ¸ù²¿µÄ×ø±êÏµÓë»úÆ÷ÈËÉíÌåÖĞĞÄ×ø±êÏµµÄ¼Ğ½Ç
-	/// </summary>
-	const float ctr2BRrootTheta = -(float)M_PI_4;			//-0.785398f
-	const float ctr2MRrootTheta = 0.0f;
-	const float ctr2FRrootTheta = (float)M_PI_4;			//0.785398f
-	const float ctr2BLrootTheta = -3.0f * (float)M_PI_4;	//-2.3562f
-	const float ctr2MLrootTheta = (float)M_PI;		//3.14159f
-	const float ctr2FLrootTheta = 3.0f * (float)M_PI_4;	//2.3562f
+    /// <summary>
+    /// ä»¥æœºå™¨äººèº«ä½“ä¸­å¿ƒä¸ºåŸç‚¹çš„åæ ‡ç³»ä¸ºåŸç‚¹ï¼Œå…­æ¡è…¿æ ¹éƒ¨çš„åæ ‡ç³»ä¸æœºå™¨äººèº«ä½“ä¸­å¿ƒåæ ‡ç³»çš„å¤¹è§’
+    /// </summary>
+    const float ctr2BRrootTheta = -static_cast<float>(M_PI_4); //-0.785398f
+    const float ctr2MRrootTheta = 0.0f;
+    const float ctr2FRrootTheta = (float)M_PI_4; //0.785398f
+    const float ctr2BLrootTheta = -3.0f * static_cast<float>(M_PI_4); //-2.3562f
+    const float ctr2MLrootTheta = (float)M_PI; //3.14159f
+    const float ctr2FLrootTheta = 3.0f * static_cast<float>(M_PI_4); //2.3562f
 
-	/// <summary>
-	/// »úÆ÷ÈËÕı³£Õ¾Á¢Ê±£¬×ÔÉí¸ù²¿µ½ÁùÌõÍÈÄ©¶ËµÄÏòÁ¿(ÍÈ×ø±êÏµ)
-	/// </summary>
-	/*Vector3 initStandBR;
-	Vector3 initStandMR;
-	Vector3 initStandFR;
-	Vector3 initStandBL;
-	Vector3 initStandML;
-	Vector3 initStandFL;*/
-	float initHeight;
-
-	/*Vector3 currentStandBR;
-	Vector3 currentStandMR;
-	Vector3 currentStandFR;
-	Vector3 currentStandBL;
-	Vector3 currentStandML;
-	Vector3 currentStandFL;*/
-	float currentHeight;
-
-	/// <summary>
-	/// Í¬Ê±ÉèÖÃÁùÌõÍÈËùÓĞ¹Ø½ÚµÄ½Ç¶È£¬ÉèÖÃÍêºó²»»áÁ¢¼´ÔË¶¯£¬ĞèÒªµ÷ÓÃstartMove()º¯Êı¿ªÊ¼ÔË¶¯
-	/// </summary>
-	/// <param name="BRangles">ºóÓÒÍÈµÄÈı¸ö¹Ø½Ú½Ç¶È</param>
-	/// <param name="MRangles">ÖĞÓÒÍÈµÄÈı¸ö¹Ø½Ú½Ç¶È</param>
-	/// <param name="FRangles">Ç°ÓÒÍÈµÄÈı¸ö¹Ø½Ú½Ç¶È</param>
-	/// <param name="BLangles">ºó×óÍÈµÄÈı¸ö¹Ø½Ú½Ç¶È</param>
-	/// <param name="MLangles">ÖĞ×óÍÈµÄÈı¸ö¹Ø½Ú½Ç¶È</param>
-	/// <param name="FLangles">Ç°×óÍÈµÄÈı¸ö¹Ø½Ú½Ç¶È</param>
-	void setPose(Vector3 BRangles, Vector3 MRangles, Vector3 FRangles,
-		Vector3 BLangles, Vector3 MLangles, Vector3 FLangles);
-	/*void setBRpose(Vector3 angles);
-	void setMRpose(Vector3 angles);
-	void setFRpose(Vector3 angles);
-	void setBLpose(Vector3 angles);
-	void setMLpose(Vector3 angles);
-	void setFLpose(Vector3 angles);*/
-
-	/// <summary>
-	/// ½ö·´ÏòÔË¶¯Ñ§£¬ÊäÈë²ÎÊıĞèÒª½øĞĞÔ¤´¦Àí£¬²ÎÊıvector3Ó¦Îª¸ÃÌõÍÈ¸ù²¿µ½Ä¿±êµãµÄÏòÁ¿(ÒÔÍÈ¸ù²¿ÎªÔ­µãµÄ×ø±êÏµ)
-	/// </summary>
-	/// <param name="vector3">¸ÃÌõÍÈ¸ù²¿µ½Ä¿±êµãµÄÏòÁ¿(ÍÈ×ø±êÏµ)</param>
-	/// <returns>Èı¸ö¹Ø½ÚĞı×ª½Ç</returns>
-	/*Vector3 lik(Vector3 vector3);
-
-	Vector3 rik(Vector3 vector3);*/
-
-	/// <summary>
-	/// ½öÕıÏòÔË¶¯Ñ§£¬ÊäÈë²ÎÊıÎªÈı¸ö¹Ø½ÚµÄ½Ç¶È£¬·µ»ØÍÈ¸ù²¿µ½Ä©¶ËµÄÏòÁ¿(ÍÈ×ø±êÏµ)
-	/// </summary>
-	/// <param name="angles">Èı¸ö¹Ø½ÚµÄ½Ç¶È,xÎªcoxa,yÎªfemur,zÎªtibia</param>
-	/// <returns>ÍÈ¸ù²¿µ½Ä©¶ËµÄÏòÁ¿(ÍÈ×ø±êÏµ)</returns>
-	/*Vector3 lfk(Vector3 angles);
-
-	Vector3 rfk(Vector3 angles);*/
-
-	
-
-	void move(Vector3 velocity,float omega, float timeStep);
-
-	Vector3 getNextBodyTarget(Vector3 velocity, float omega, Vector3 r0, Vector3 initial,Vector3 legBias,float legBiasTheta,float timeStep);
-
-	//LegL* getLegGroup(GaitType gaitType);
-
-	/// <summary>
-	/// ËùÓĞµÄÉèÖÃÄ¿±êµãµÄº¯Êı²¢²»»áÊ¹»úÆ÷ÈËÖ±½ÓÔË¶¯£¬ĞèÒªÉèÖÃÍêÄ¿±êµãºóµ÷ÓÃstartMove()º¯Êı¿ªÊ¼ÔË¶¯
-	/// </summary>
-	void setBodyTargets(Vector3 BRtarget,Vector3 MRtarget,Vector3 FRtarget,Vector3 BLtarget,Vector3 MLtarget,Vector3 FLtarget);
-	/*void setBRbodyTarget(Vector3 target);
-	void setMRbodyTarget(Vector3 target);
-	void setFRbodyTarget(Vector3 target);
-	void setBLbodyTarget(Vector3 target);
-	void setMLbodyTarget(Vector3 target);
-	void setFLbodyTarget(Vector3 target);*/
-
-	void setBodyTarget(Vector3 target, LegL leg);
-	void setBodyTarget(Vector3 target, LegR leg);
-
-	/*void setBRlegTarget(Vector3 target);
-	void setMRlegTarget(Vector3 target);
-	void setFRlegTarget(Vector3 target);
-	void setBLlegTarget(Vector3 target);
-	void setMLlegTarget(Vector3 target);
-	void setFLlegTarget(Vector3 target);*/
+    float initHeight;
+    float currentHeight;
+    float coxaOmega = 0.1f;
+    float femurOmega = 0.1f;
+    float tibiaOmega = 0.1f;
+    int totalFrame = 32;
+    float stepTheta;
+    float stepLen = 0.05f;
+    
+    int gaitGroupIndex = 0;
+    int frame = totalFrame / 2;
+    Vector3 velocity = Vector3(0.0f, 0.0f, 0.0f);
+    float omega = 0.0f;
+    Vector3 lockedVelocity;
+    float lockedOmega;
+    GaitStatus gaitStatus = Stop;
+    Vector3 lockedR;
+    float timeStep;
 
 
+    /// <summary>
+    /// åŒæ—¶è®¾ç½®å…­æ¡è…¿æ‰€æœ‰å…³èŠ‚çš„è§’åº¦ï¼Œè®¾ç½®å®Œåä¸ä¼šç«‹å³è¿åŠ¨ï¼Œéœ€è¦è°ƒç”¨startMove()å‡½æ•°å¼€å§‹è¿åŠ¨
+    /// </summary>
+    /// <param name="BRangles">åå³è…¿çš„ä¸‰ä¸ªå…³èŠ‚è§’åº¦</param>
+    /// <param name="MRangles">ä¸­å³è…¿çš„ä¸‰ä¸ªå…³èŠ‚è§’åº¦</param>
+    /// <param name="FRangles">å‰å³è…¿çš„ä¸‰ä¸ªå…³èŠ‚è§’åº¦</param>
+    /// <param name="BLangles">åå·¦è…¿çš„ä¸‰ä¸ªå…³èŠ‚è§’åº¦</param>
+    /// <param name="MLangles">ä¸­å·¦è…¿çš„ä¸‰ä¸ªå…³èŠ‚è§’åº¦</param>
+    /// <param name="FLangles">å‰å·¦è…¿çš„ä¸‰ä¸ªå…³èŠ‚è§’åº¦</param>
+    void setPose(Vector3 BRangles, Vector3 MRangles, Vector3 FRangles,
+                 Vector3 BLangles, Vector3 MLangles, Vector3 FLangles);
 
-	void setHeight(float height);
+    // void move(Vector3 velocity, float omega, float timeStep);
+    void moveTripod();
 
-	/// <summary>
-	/// ¿ªÊ¼°´ÕÕÉèÖÃµÄ½Ç¶ÈºÍÄ¿±êµãÔË¶¯
-	/// </summary>
-	void startMove();
-	/// <summary>
-	/// ½«ÒÔÍÈ¸ù²¿ÎªÔ­µãµÄÏà¶ÔÏòÁ¿(ÍÈ×ø±êÏµ)×ª»»ÎªÒÔ»úÆ÷ÈËÉíÌåÖĞĞÄÎªÔ­µãÖ¸ÏòÄ¿±êµãµÄÏòÁ¿(»úÆ÷ÈË×ø±êÏµ)
-	/// </summary>
-	/// <param name="relevant">ÒÔÍÈ¸ù²¿ÎªÔ­µãµÄÏà¶ÔÏòÁ¿(ÍÈ×ø±êÏµ)</param>
-	/// <param name="bias">ÒÔ»úÆ÷ÈËÉíÌåÖĞĞÄÎªÔ­µãÖ¸ÏòÍÈ¸ù²¿µÄÏòÁ¿(»úÆ÷ÈË×ø±êÏµ)</param>
-	/// <param name="theta">ÒÔ»úÆ÷ÈËÉíÌåÖĞĞÄÎªÔ­µã×ø±êÏµÏÂ£¬ÍÈ¸ù²¿ÎªÔ­µãµÄ×ø±êÏµµÄĞı×ª½Ç</param>
-	/// <returns>ÒÔ»úÆ÷ÈËÉíÌåÖĞĞÄÎªÔ­µãÖ¸ÏòÄ¿±êµãµÄÏòÁ¿(»úÆ÷ÈË×ø±êÏµ)</returns>
-	static Vector3 leg2bodyCoord(Vector3 relevant, Vector3 bias, float theta);
+    Vector3 getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
+    Vector3 getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
 
-	/// <summary>
-	/// ½«ÒÔ»úÆ÷ÈËÉíÌåÖĞĞÄÎªÔ­µãÖ¸ÏòÄ¿±êµãµÄÏòÁ¿(»úÆ÷ÈË×ø±êÏµ)×ª»»ÎªÒÔÍÈ¸ù²¿ÎªÔ­µãµÄÏà¶ÔÏòÁ¿(ÍÈ×ø±êÏµ)
-	/// </summary>
-	/// <param name="absolute">ÒÔ»úÆ÷ÈËÉíÌåÖĞĞÄÎªÔ­µãÖ¸ÏòÄ¿±êµãµÄÏòÁ¿(»úÆ÷ÈË×ø±êÏµ)</param>
-	/// <param name="bias">ÒÔ»úÆ÷ÈËÉíÌåÖĞĞÄÎªÔ­µãÖ¸ÏòÍÈ¸ù²¿µÄÏòÁ¿(»úÆ÷ÈË×ø±êÏµ)</param>
-	/// <param name="theta">ÒÔ»úÆ÷ÈËÉíÌåÖĞĞÄÎªÔ­µã×ø±êÏµÏÂ£¬ÍÈ¸ù²¿ÎªÔ­µãµÄ×ø±êÏµµÄĞı×ª½Ç</param>
-	/// <returns>ÒÔÍÈ¸ù²¿ÎªÔ­µãµÄÏà¶ÔÏòÁ¿(ÍÈ×ø±êÏµ)</returns>
-	static Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
+    bool isGaitCycleFinish();
+    bool isGaitCycleStart();
+
+
+    /// <summary>
+    /// æ‰€æœ‰çš„è®¾ç½®ç›®æ ‡ç‚¹çš„å‡½æ•°å¹¶ä¸ä¼šä½¿æœºå™¨äººç›´æ¥è¿åŠ¨ï¼Œéœ€è¦è®¾ç½®å®Œç›®æ ‡ç‚¹åè°ƒç”¨startMove()å‡½æ•°å¼€å§‹è¿åŠ¨
+    /// </summary>
+    void setBodyTargets(Vector3 BRtarget, Vector3 MRtarget, Vector3 FRtarget, Vector3 BLtarget, Vector3 MLtarget,
+                        Vector3 FLtarget);
+
+    void reInit();
+
+    /// <summary>
+    /// è®¾ç½®æœºå™¨äººé«˜åº¦
+    /// </summary>
+    void setHeight(float height);
+
+    void setYaw(float yaw);
+
+    /// <summary>
+    /// å¼€å§‹æŒ‰ç…§è®¾ç½®çš„è§’åº¦å’Œç›®æ ‡ç‚¹è¿åŠ¨
+    /// </summary>
+    void startMove();
+    /// <summary>
+    /// å°†ä»¥è…¿æ ¹éƒ¨ä¸ºåŸç‚¹çš„ç›¸å¯¹å‘é‡(è…¿åæ ‡ç³»)è½¬æ¢ä¸ºä»¥æœºå™¨äººèº«ä½“ä¸­å¿ƒä¸ºåŸç‚¹æŒ‡å‘ç›®æ ‡ç‚¹çš„å‘é‡(æœºå™¨äººåæ ‡ç³»)
+    /// </summary>
+    /// <param name="relevant">ä»¥è…¿æ ¹éƒ¨ä¸ºåŸç‚¹çš„ç›¸å¯¹å‘é‡(è…¿åæ ‡ç³»)</param>
+    /// <param name="bias">ä»¥æœºå™¨äººèº«ä½“ä¸­å¿ƒä¸ºåŸç‚¹æŒ‡å‘è…¿æ ¹éƒ¨çš„å‘é‡(æœºå™¨äººåæ ‡ç³»)</param>
+    /// <param name="theta">ä»¥æœºå™¨äººèº«ä½“ä¸­å¿ƒä¸ºåŸç‚¹åæ ‡ç³»ä¸‹ï¼Œè…¿æ ¹éƒ¨ä¸ºåŸç‚¹çš„åæ ‡ç³»çš„æ—‹è½¬è§’</param>
+    /// <returns>ä»¥æœºå™¨äººèº«ä½“ä¸­å¿ƒä¸ºåŸç‚¹æŒ‡å‘ç›®æ ‡ç‚¹çš„å‘é‡(æœºå™¨äººåæ ‡ç³»)</returns>
+    static Vector3 leg2bodyCoord(Vector3 relevant, Vector3 bias, float theta);
+
+    /// <summary>
+    /// å°†ä»¥æœºå™¨äººèº«ä½“ä¸­å¿ƒä¸ºåŸç‚¹æŒ‡å‘ç›®æ ‡ç‚¹çš„å‘é‡(æœºå™¨äººåæ ‡ç³»)è½¬æ¢ä¸ºä»¥è…¿æ ¹éƒ¨ä¸ºåŸç‚¹çš„ç›¸å¯¹å‘é‡(è…¿åæ ‡ç³»)
+    /// </summary>
+    /// <param name="absolute">ä»¥æœºå™¨äººèº«ä½“ä¸­å¿ƒä¸ºåŸç‚¹æŒ‡å‘ç›®æ ‡ç‚¹çš„å‘é‡(æœºå™¨äººåæ ‡ç³»)</param>
+    /// <param name="bias">ä»¥æœºå™¨äººèº«ä½“ä¸­å¿ƒä¸ºåŸç‚¹æŒ‡å‘è…¿æ ¹éƒ¨çš„å‘é‡(æœºå™¨äººåæ ‡ç³»)</param>
+    /// <param name="theta">ä»¥æœºå™¨äººèº«ä½“ä¸­å¿ƒä¸ºåŸç‚¹åæ ‡ç³»ä¸‹ï¼Œè…¿æ ¹éƒ¨ä¸ºåŸç‚¹çš„åæ ‡ç³»çš„æ—‹è½¬è§’</param>
+    /// <returns>ä»¥è…¿æ ¹éƒ¨ä¸ºåŸç‚¹çš„ç›¸å¯¹å‘é‡(è…¿åæ ‡ç³»)</returns>
+    static Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
+
+    static Vector3 yawBias(Vector3 bias, float theta);
 };
-

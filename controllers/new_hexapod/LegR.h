@@ -1,59 +1,61 @@
-#pragma once
+ï»¿#pragma once
 #include <webots/Motor.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
+
 #include "Vector3.h"
 
 class LegR
 {
-private:
-	webots::Motor* coxaMotor;
-	webots::Motor* femurMotor;
-	webots::Motor* tibiaMotor;
+    webots::Motor* coxaMotor;
+    webots::Motor* femurMotor;
+    webots::Motor* tibiaMotor;
 
-	Vector3 angles = Vector3();
-
-	
+    Vector3 motorAngles = Vector3();
 
 public:
-	LegR();
-	LegR(webots::Motor* coxa, webots::Motor* femur, webots::Motor* tibia, Vector3 ctr2root, float ctr2rootTheta);
-	~LegR();
+    LegR();
+    LegR(webots::Motor* coxa, webots::Motor* femur, webots::Motor* tibia, Vector3 ctr2root, float ctr2rootTheta);
+    ~LegR();
 
-	bool isOnGround = true;
-	Vector3 initAngles = Vector3(0.0f, 0.0f, (float)M_PI / 3.0f);
-	Vector3 currentStandAngles = initAngles;
-	Vector3 initStandTarget = fk(initAngles);
-	Vector3 ctr2root;
-	float ctr2rootTheta;
+    bool isOnGround = true;
+    Vector3 initAngles = Vector3(0.0f, 0.0f, static_cast<float>(M_PI) / 3.0f);
+    Vector3 currentStandAngles = initAngles;
+    float currentYaw = 0.0f;
 
-	/// <summary>
-	/// ½öÕıÏòÔË¶¯Ñ§£¬ÊäÈë²ÎÊıÎªÈı¸ö¹Ø½ÚµÄ½Ç¶È£¬·µ»ØÍÈ¸ù²¿µ½Ä©¶ËµÄÏòÁ¿(ÍÈ×ø±êÏµ)
-	/// </summary>
-	/// <param name="angles">Èı¸ö¹Ø½ÚµÄ½Ç¶È,xÎªcoxa,yÎªfemur,zÎªtibia</param>
-	/// <returns>ÍÈ¸ù²¿µ½Ä©¶ËµÄÏòÁ¿(ÍÈ×ø±êÏµ)</returns>
-	Vector3 fk(Vector3 angles);
-	/// <summary>
-	/// ½ö·´ÏòÔË¶¯Ñ§£¬ÊäÈë²ÎÊıĞèÒª½øĞĞÔ¤´¦Àí£¬²ÎÊıvector3Ó¦Îª¸ÃÌõÍÈ¸ù²¿µ½Ä¿±êµãµÄÏòÁ¿(ÒÔÍÈ¸ù²¿ÎªÔ­µãµÄ×ø±êÏµ)
-	/// </summary>
-	/// <param name="vector3">¸ÃÌõÍÈ¸ù²¿µ½Ä¿±êµãµÄÏòÁ¿(ÍÈ×ø±êÏµ)</param>
-	/// <returns>Èı¸ö¹Ø½ÚĞı×ª½Ç</returns>
-	Vector3 ik(Vector3 vector3);
+    Vector3 ctr2root;
+    float ctr2rootTheta;
+    Vector3 initStandBodyTarget;
+    Vector3 currentStandBodyTarget;
 
-	void setMotor(webots::Motor* coxa, webots::Motor* femur, webots::Motor* tibia);
-	void setOmega(float* omega);
-	void setCoxaOmega(float omega);
-	void setFemurOmega(float omega);
-	void setTibiaOmega(float omega);
-	void setLegTarget(Vector3 target);
-	void setBodyTarget(Vector3 target);
-	void setPose(Vector3 angles);
-	void setCoxaPose(float angle);
-	void setFemurPose(float angle);
-	void setTibiaPose(float angle);
+    Vector3 lastBodyTarget;
+    /// <summary>
+    /// ä»…æ­£å‘è¿åŠ¨å­¦ï¼Œè¾“å…¥å‚æ•°ä¸ºä¸‰ä¸ªå…³èŠ‚çš„è§’åº¦ï¼Œè¿”å›è…¿æ ¹éƒ¨åˆ°æœ«ç«¯çš„å‘é‡(è…¿åæ ‡ç³»)
+    /// </summary>
+    /// <param name="angles">ä¸‰ä¸ªå…³èŠ‚çš„è§’åº¦,xä¸ºcoxa,yä¸ºfemur,zä¸ºtibia</param>
+    /// <returns>è…¿æ ¹éƒ¨åˆ°æœ«ç«¯çš„å‘é‡(è…¿åæ ‡ç³»)</returns>
+    Vector3 fk(Vector3 angles);
+    /// <summary>
+    /// ä»…åå‘è¿åŠ¨å­¦ï¼Œè¾“å…¥å‚æ•°éœ€è¦è¿›è¡Œé¢„å¤„ç†ï¼Œå‚æ•°vector3åº”ä¸ºè¯¥æ¡è…¿æ ¹éƒ¨åˆ°ç›®æ ‡ç‚¹çš„å‘é‡(ä»¥è…¿æ ¹éƒ¨ä¸ºåŸç‚¹çš„åæ ‡ç³»)
+    /// </summary>
+    /// <param name="vector3">è¯¥æ¡è…¿æ ¹éƒ¨åˆ°ç›®æ ‡ç‚¹çš„å‘é‡(è…¿åæ ‡ç³»)</param>
+    /// <returns>ä¸‰ä¸ªå…³èŠ‚æ—‹è½¬è§’</returns>
+    Vector3 ik(Vector3 vector3);
 
-	void reInit();
-	void setHeight(float height);
-	void startMotor();
+    void setMotor(webots::Motor* coxa, webots::Motor* femur, webots::Motor* tibia);
+    void setOmega(float* omega);
+    void setCoxaOmega(float omega);
+    void setFemurOmega(float omega);
+    void setTibiaOmega(float omega);
+    void setLegTarget(Vector3 target);
+    void setBodyTarget(Vector3 target);
+    void setPose(Vector3 angles);
+    void setCoxaPose(float angle);
+    void setFemurPose(float angle);
+    void setTibiaPose(float angle);
+
+    void reInit();
+    void setHeight(float height);
+    void setYaw(float yaw);
+    void startMotor();
 };
-

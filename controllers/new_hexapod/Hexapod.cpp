@@ -1,34 +1,15 @@
-#include "Hexapod.h"
+﻿#include "Hexapod.h"
 
 Hexapod::Hexapod() : Robot()
 {
-	BRleg = LegR(getMotor("M_BR_COXA"), getMotor("M_BR_FEMUR"), getMotor("M_BR_TIBIA"), ctr2BRroot, ctr2BRrootTheta);
-	MRleg = LegR(getMotor("M_MR_COXA"), getMotor("M_MR_FEMUR"), getMotor("M_MR_TIBIA"), ctr2MRroot, ctr2MRrootTheta);
-	FRleg = LegR(getMotor("M_FR_COXA"), getMotor("M_FR_FEMUR"), getMotor("M_FR_TIBIA"), ctr2FRroot, ctr2FRrootTheta);
-	BLleg = LegL(getMotor("M_BL_COXA"), getMotor("M_BL_FEMUR"), getMotor("M_BL_TIBIA"), ctr2BLroot, ctr2BLrootTheta);
-	MLleg = LegL(getMotor("M_ML_COXA"), getMotor("M_ML_FEMUR"), getMotor("M_ML_TIBIA"), ctr2MLroot, ctr2MLrootTheta);
-	FLleg = LegL(getMotor("M_FL_COXA"), getMotor("M_FL_FEMUR"), getMotor("M_FL_TIBIA"), ctr2FLroot, ctr2FLrootTheta);
+    BRleg = LegR(getMotor("M_BR_COXA"), getMotor("M_BR_FEMUR"), getMotor("M_BR_TIBIA"), ctr2BRroot, ctr2BRrootTheta);
+    MRleg = LegR(getMotor("M_MR_COXA"), getMotor("M_MR_FEMUR"), getMotor("M_MR_TIBIA"), ctr2MRroot, ctr2MRrootTheta);
+    FRleg = LegR(getMotor("M_FR_COXA"), getMotor("M_FR_FEMUR"), getMotor("M_FR_TIBIA"), ctr2FRroot, ctr2FRrootTheta);
+    BLleg = LegL(getMotor("M_BL_COXA"), getMotor("M_BL_FEMUR"), getMotor("M_BL_TIBIA"), ctr2BLroot, ctr2BLrootTheta);
+    MLleg = LegL(getMotor("M_ML_COXA"), getMotor("M_ML_FEMUR"), getMotor("M_ML_TIBIA"), ctr2MLroot, ctr2MLrootTheta);
+    FLleg = LegL(getMotor("M_FL_COXA"), getMotor("M_FL_FEMUR"), getMotor("M_FL_TIBIA"), ctr2FLroot, ctr2FLrootTheta);
 
-	/*currentStandBR = initStandBR = rfk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
-	currentStandMR = initStandMR = rfk(Vector3(0.0f, 0.0f, (float)M_PI / 3.0f));
-	currentStandFR = initStandFR = rfk(Vector3(0.0f, -0.0f, (float)M_PI / 3.0f));
-	currentStandBL = initStandBL = lfk(Vector3(0.0f, 0.0f, -(float)M_PI / 3.0f));
-	currentStandML = initStandML = lfk(Vector3(0.0f, 0.0f, -(float)M_PI / 3.0f));
-	currentStandFL = initStandFL = lfk(Vector3(-0.0f, 0.0f, -(float)M_PI / 3.0f));*/
-	
-	/*currentStandBR = initStandBR = rfk(Vector3(0.0f, 0.0f, 0.0f));
-	currentStandMR = initStandMR = rfk(Vector3(0.0f, 0.0f, 0.0f));
-	currentStandFR = initStandFR = rfk(Vector3(0.0f, -0.0f, 0.0f));
-	currentStandBL = initStandBL = lfk(Vector3(0.0f, 0.0f, 0.0f));
-	currentStandML = initStandML = lfk(Vector3(0.0f, 0.0f, 0.0f));
-	currentStandFL = initStandFL = lfk(Vector3(-0.3f, 0.3f, 0.0f));*/
-	/*std::cout << "initStandFL " << initStandFL.x << " " << initStandFL.y << " " << initStandFL.z << std::endl;
-	auto i = lik(initStandFL);
-	auto r = this->body2legCoord(this->leg2bodyCoord(initStandFL, ctr2FLroot, ctr2FLrootTheta), ctr2FLroot, ctr2FLrootTheta);
-	std::cout << "i " << i.x << " " << i.y << " " << i.z << std::endl;
-	std::cout << "r " << r.x << " " << r.y << " " << r.z << std::endl;*/
-	currentHeight = initHeight = FLleg.initStandTarget.z;
-	//std::cout << "initHeight " << initHeight << std::endl;
+    currentHeight = initHeight = body2legCoord(FLleg.initStandBodyTarget, FLleg.ctr2root, FLleg.ctr2rootTheta).z;
 }
 
 Hexapod::~Hexapod()
@@ -36,267 +17,287 @@ Hexapod::~Hexapod()
 }
 
 void Hexapod::setPose(Vector3 BRangles, Vector3 MRangles, Vector3 FRangles,
-	Vector3 BLangles, Vector3 MLangles, Vector3 FLangles) {
-	BRleg.setPose(BRangles);
-	MRleg.setPose(MRangles);
-	FRleg.setPose(FRangles);
-	BLleg.setPose(BLangles);
-	MLleg.setPose(MLangles);
-	FLleg.setPose(FLangles);
+                      Vector3 BLangles, Vector3 MLangles, Vector3 FLangles)
+{
+    BRleg.setPose(BRangles);
+    MRleg.setPose(MRangles);
+    FRleg.setPose(FRangles);
+    BLleg.setPose(BLangles);
+    MLleg.setPose(MLangles);
+    FLleg.setPose(FLangles);
 }
 
-//void Hexapod::setBRpose(Vector3 angles)
-//{
-//	angles.z -= (float)M_PI / 3.0f;
-//	//angles.x = -angles.x;
-//	BRleg.setRadAngles(angles);
-//}
-//
-//void Hexapod::setMRpose(Vector3 angles)
-//{
-//	angles.z -= (float)M_PI / 3.0f;
-//	//angles.x = -angles.x;
-//	MRleg.setRadAngles(angles);
-//}
-//
-//void Hexapod::setFRpose(Vector3 angles)
-//{
-//	angles.z -= (float)M_PI / 3.0f;
-//	//angles.x = -angles.x;
-//	FRleg.setRadAngles(angles);
-//}
-//
-//void Hexapod::setBLpose(Vector3 angles)
-//{
-//	angles.z += (float)M_PI / 3.0f;
-//	//angles.x = -angles.x;
-//	BLleg.setRadAngles(angles);
-//}
-//
-//void Hexapod::setMLpose(Vector3 angles)
-//{
-//	angles.z += (float)M_PI / 3.0f;
-//	//angles.x = -angles.x;
-//	MLleg.setRadAngles(angles);
-//}
-//
-//void Hexapod::setFLpose(Vector3 angles)
-//{
-//	angles.z += (float)M_PI / 3.0f;
-//	//angles.x = -angles.x;
-//	FLleg.setRadAngles(angles);
-//}
-
-
-//Vector3 Hexapod::lik(Vector3 vector3)
-//{
-//	vector3.z = -vector3.z;
-//    float theta1 = atan2(vector3.y, vector3.x);
-//    float R = sqrt(vector3.x * vector3.x + vector3.y * vector3.y);
-//    float ar = atan2(-vector3.z, (R - COXA_LEN));
-//    float Lr = sqrt(vector3.z * vector3.z + (R - COXA_LEN) * (R - COXA_LEN));
-//    float a1 = acos(CLIP((FEMUR_LEN * FEMUR_LEN + Lr * Lr - TIBIA_LEN * TIBIA_LEN) / (2 * Lr * FEMUR_LEN), -1, 1));
-//    float theta2 = a1 - ar;
-//    float a2 = acos(CLIP((Lr * Lr + TIBIA_LEN * TIBIA_LEN - FEMUR_LEN * FEMUR_LEN) / (2 * Lr * TIBIA_LEN), -1, 1));
-//	float theta3 = -(a1 + a2);
-//    return Vector3(theta1,-theta2,theta3);
-//}
-//
-//
-//Vector3 Hexapod::rik(Vector3 vector3)
-//{
-//	vector3.z = -vector3.z;
-//	float theta1 = atan2(vector3.y, vector3.x);
-//	float R = sqrt(vector3.x * vector3.x + vector3.y * vector3.y);
-//	float ar = atan2(-vector3.z, (R - COXA_LEN));
-//	float Lr = sqrt(vector3.z * vector3.z + (R - COXA_LEN) * (R - COXA_LEN));
-//	float a1 = acos(CLIP((FEMUR_LEN * FEMUR_LEN + Lr * Lr - TIBIA_LEN * TIBIA_LEN) / (2 * Lr * FEMUR_LEN), -1, 1));
-//	float theta2 = a1 - ar;
-//	float a2 = acos(CLIP((Lr * Lr + TIBIA_LEN * TIBIA_LEN - FEMUR_LEN * FEMUR_LEN) / (2 * Lr * TIBIA_LEN), -1, 1));
-//	float theta3 = -(a1 + a2);
-//	return Vector3(theta1, theta2, -theta3);
-//}
-//
-//Vector3 Hexapod::lfk(Vector3 angles)
-//{
-//	//angles.z -= (float)M_PI / 3.0f;
-//	float tmp = (COXA_LEN + FEMUR_LEN * cos(angles.y) + TIBIA_LEN * cos(-angles.z - angles.y));
-//	auto v = Vector3(
-//		tmp * cos(angles.x), 
-//		tmp * sin(angles.x), 
-//		-FEMUR_LEN * sin(angles.y) + TIBIA_LEN * sin(-angles.z - angles.y)
-//	);
-//	//v.y = -v.y;
-//	//v.z = -v.z;
-//	return v;
-//}
-//
-//Vector3 Hexapod::rfk(Vector3 angles)
-//{
-//	//angles.z -= (float)M_PI / 3.0f;
-//	float tmp = (COXA_LEN + FEMUR_LEN * cos(angles.y) + TIBIA_LEN * cos(angles.z - angles.y));
-//	auto v = Vector3(
-//		tmp * cos(angles.x),
-//		tmp * sin(angles.x),
-//		-FEMUR_LEN * sin(angles.y) + TIBIA_LEN * sin(angles.z - angles.y)
-//	);
-//	//v.y = -v.y;
-//	//v.z = -v.z;
-//	return v;
-//}
 
 Vector3 Hexapod::leg2bodyCoord(Vector3 relevant, Vector3 bias, float theta)
 {
-	relevant.z = -relevant.z;
-	relevant.y = -relevant.y;
-	auto v = Vector3(
-		cos(theta) * relevant.x - sin(theta) * relevant.y,
-		sin(theta) * relevant.x + cos(theta) * relevant.y,
-		relevant.z
-	);
-	return v + bias;
+    relevant.z = -relevant.z;
+    relevant.y = -relevant.y;
+    auto v = Vector3(
+        cos(theta) * relevant.x - sin(theta) * relevant.y,
+        sin(theta) * relevant.x + cos(theta) * relevant.y,
+        relevant.z
+    );
+    return v + bias;
 }
-
 
 
 Vector3 Hexapod::body2legCoord(Vector3 absolute, Vector3 bias, float theta)
 {
-	auto v = Vector3(
-		cos(theta) * (absolute.x - bias.x) + sin(theta) * (absolute.y - bias.y),
-		-sin(theta) * (absolute.x - bias.x) + cos(theta) * (absolute.y - bias.y),
-		absolute.z - bias.z
-	);
-	v.y = -v.y;
-	v.z = -v.z;
-	return v;
+    auto v = Vector3(
+        cos(theta) * (absolute.x - bias.x) + sin(theta) * (absolute.y - bias.y),
+        -sin(theta) * (absolute.x - bias.x) + cos(theta) * (absolute.y - bias.y),
+        absolute.z - bias.z
+    );
+    v.y = -v.y;
+    v.z = -v.z;
+    return v;
 }
 
-void Hexapod::move(Vector3 velocity, float omega,float timeStep)
+// void Hexapod::move(Vector3 velocity, float omega, float timeStep)
+// {
+//     if (velocity == Vector3() && omega == 0.0)
+//     {
+//         return;
+//     }
+//
+//     auto w = Vector3(0.0, 0.0, omega);
+//     Vector3 r0 = velocity.cross(w) / (omega * omega);
+//
+//     // switch (gaitType)
+//     // {
+//     // 	case Tripod:
+//     // 		
+//     // 		break;
+//     // 	case Ripple:
+//     // 		break;
+//     // 	case Wave:
+//     // 		break;
+//     // }
+//     //
+//     // static float t=0.0;
+//     // float frequency = 1.0f;
+//     // float T = 0.5f;//从抬腿到落下
+//     // float A = FEMUR_LEN * sin(omega2) * T-(omega3 * TIBIA_LEN * sin(omega3 - omega2) * T) /( 2 * (omega3 - omega2));
+//     // float lambda = 2 * omega1 * COXA_LEN * sin(T * omega / 2) * T / (T * omega);
+//     // float Phase;
+//     // int resolution = 20;
+//     //
+//     //
+//     //
+//     //
+//     // t += timeStep;
+//     //
+//     // Vector3 initTmpFL = r0 + FLleg.currentStandBodyTarget;
+//     // // Vector3 initTmpML = r0 + MLleg.currentStandBodyTarget;
+//     // // Vector3 initTmpBL = r0 + BLleg.currentStandBodyTarget;
+//     // // Vector3 initTmpFR = r0 + FRleg.currentStandBodyTarget;
+//     // // Vector3 initTmpMR = r0 + MRleg.currentStandBodyTarget;
+//     // // Vector3 initTmpBR = r0 + BRleg.currentStandBodyTarget;
+//     // float alpha = omega * T;
+//     // for (int n = 1; n < resolution;n++) {
+//     // 	float tmp_alpha = alpha*n/resolution;
+//     // 	float  tmpz = initTmpFL.z + A * sin(2*M_PI*frequency*t);
+//     // 	
+//     // 	
+//     // 	Vector3 tmpFL = Vector3(initTmpFL.x * cos(tmp_alpha) - initTmpFL.y * sin(tmp_alpha),  // NOLINT(clang-diagnostic-invalid-utf8)
+//     // 		initTmpFL.x * sin(tmp_alpha) + initTmpFL.y * cos(tmp_alpha),
+//     // 		tmpz);
+//     // 	/*Vector3 tmpML = Vector3(initTmpML.x * cos(tmp_alpha) - initTmpML.y * sin(tmp_alpha),
+//     // 		initTmpML.x * sin(tmp_alpha) + initTmpML.y * cos(tmp_alpha),
+//     // 		tmpz);
+//     // 	Vector3 tmpBL = Vector3(initTmpBL.x * cos(tmp_alpha) - initTmpBL.y * sin(tmp_alpha),
+//     // 		initTmpBL.x * sin(tmp_alpha) + initTmpBL.y * cos(tmp_alpha),
+//     // 		tmpz);
+//     // 	Vector3 tmpFR = Vector3(initTmpFR.x * cos(tmp_alpha) - initTmpFR.y * sin(tmp_alpha),
+//     // 		initTmpFR.x * sin(tmp_alpha) + initTmpFR.y * cos(tmp_alpha),
+//     // 		tmpz);
+//     // 	Vector3 tmpMR = Vector3(initTmpMR.x * cos(tmp_alpha) - initTmpMR.y * sin(tmp_alpha),
+//     // 		initTmpMR.x * sin(tmp_alpha) + initTmpMR.y * cos(tmp_alpha),
+//     // 		tmpz);
+//     // 	Vector3 tmpBR = Vector3(initTmpBR.x * cos(tmp_alpha) - initTmpBR.y * sin(tmp_alpha),
+//     // 		initTmpBR.x * sin(tmp_alpha) + initTmpBR.y * cos(tmp_alpha),
+//     // 		tmpz);*/
+//     // 	
+//     // /*	Vector3 targetFL = body2legCoord(tmpFL - initTmpFL, ctr2FLroot, ctr2FLrootTheta) + initStandFL;  // NOLINT(clang-diagnostic-invalid-utf8)
+//     // 	Vector3 targetML = body2legCoord(tmpML - initTmpML, ctr2MLroot, ctr2MLrootTheta) + initStandML;
+//     // 	Vector3 targetBL = body2legCoord(tmpBL - initTmpBL, ctr2BLroot, ctr2BLrootTheta) + initStandBL;
+//     // 	Vector3 targetFR = body2legCoord(tmpFR - initTmpFR, ctr2FRroot, ctr2FRrootTheta) + initStandFR;
+//     // 	Vector3 targetMR = body2legCoord(tmpMR - initTmpMR, ctr2MRroot, ctr2MRrootTheta) + initStandMR;
+//     // 	Vector3 targetBR = body2legCoord(tmpBR - initTmpBR, ctr2BRroot, ctr2BRrootTheta) + initStandBR;*/
+//     //
+//     // 	//移动过程中的脚尖目标点（连起来就是轨迹，在机器人身体坐标系下）  // NOLINT(clang-diagnostic-invalid-utf8)
+//     // 	Vector3 FLtarget = Vector3(tmpFL.x - r0.x, tmpFL.y - r0.y, tmpz);
+//     // /*	Vector3 MLtarget = Vector3(tmpML.x - r0.x, tmpML.y - r0.y, tmpz);
+//     // 	Vector3 BLtarget = Vector3(tmpBL.x - r0.x, tmpBL.y - r0.y, tmpz);
+//     // 	Vector3 FRtarget = Vector3(tmpFR.x - r0.x, tmpFR.y - r0.y, tmpz);
+//     // 	Vector3 MRtarget = Vector3(tmpMR.x - r0.x, tmpMR.y - r0.y, tmpz);
+//     // 	Vector3 BRtarget = Vector3(tmpBR.x - r0.x, tmpBR.y - r0.y, tmpz);*/
+//     //
+//     // 	FLleg.setBodyTarget(FLtarget);
+//
+//
+//     // }
+// }
+
+void Hexapod::moveTripod()
 {
-	if (velocity == Vector3() && omega == 0.0f)
-	{
-		return;
-	}
+    if (velocity == Vector3() && omega == 0.0)
+    {
+        reInit();
+        startMove();
+        gaitStatus = Stop;
+        return;
+    }
+    
+    if (isGaitCycleStart() || gaitStatus == Stop)
+    {
+        lockedVelocity = velocity;
+        lockedOmega = omega == 0.0f ? FLT_EPSILON : omega;
+        auto w = Vector3(0.0, 0.0, lockedOmega);
+        lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
+        auto rlen = lockedR.squareMagnitude() > MRleg.currentStandBodyTarget.x * MRleg.currentStandBodyTarget.x ? lockedR.magnitude() : MRleg.currentStandBodyTarget.x;
+        stepTheta = stepLen / rlen;
+        gaitStatus = Tripod;
+    }
+    if (gaitGroupIndex == 0)
+    {
+        MLleg.setBodyTarget(getStandNextBodyTarget( lockedR, MLleg.currentStandBodyTarget));
+        FRleg.setBodyTarget(getStandNextBodyTarget( lockedR, FRleg.currentStandBodyTarget));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR,  BRleg.currentStandBodyTarget));
 
-	Vector3 w = Vector3(0.0f, 0.0f, omega);
-	Vector3 r0 = velocity.cross(w) / (omega * omega);
+        MRleg.setBodyTarget(getSwagNextBodyTarget( lockedR, MRleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
+        BLleg.setBodyTarget(getSwagNextBodyTarget( lockedR, BLleg.currentStandBodyTarget));
 
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 1)
+    {
+        MRleg.setBodyTarget(getStandNextBodyTarget( lockedR, MRleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR,BLleg.currentStandBodyTarget));
 
+        MLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
+        FRleg.setBodyTarget(getSwagNextBodyTarget(lockedR,FRleg.currentStandBodyTarget));
+        BRleg.setBodyTarget(getSwagNextBodyTarget(lockedR,BRleg.currentStandBodyTarget));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex--;
+        }
+    }
+    
+    startMove();
+    frame++;
 }
 
-Vector3 Hexapod::getNextBodyTarget(Vector3 velocity, float omega, Vector3 r0,Vector3 initial, Vector3 legBias,float legBiasTheta, float timeStep)
+
+Vector3 Hexapod::getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget)
 {
-	initial.z = 0.0f;
-	Vector3 pc = r0 + leg2bodyCoord(initial,legBias, legBiasTheta);
-	float theta = omega * timeStep;
-	Vector3 pt = Vector3(
-		cos(theta) * (pc.x) + sin(theta) * (pc.y),
-		-sin(theta) * (pc.x) + cos(theta) * (pc.y),
-		pc.z
-	);
-	return pt - r0;
+    auto z = -currentHeight;
+    currentStandBodyTarget.z = 0.0;
+    Vector3 pc = r0 + currentStandBodyTarget;
+    float theta = stepTheta * (float)frame / (float)totalFrame - stepTheta / 2.0f;
+    auto pt = Vector3(
+        cos(theta) * (pc.x) - sin(theta) * (pc.y),
+        sin(theta) * (pc.x) + cos(theta) * (pc.y),
+        pc.z
+    );
+    auto t = pt - r0;
+    t.z = z + 0.06f * static_cast<float>(sin(((float)frame / (float)totalFrame) * M_PI));
+    return t;
 }
 
-//void Hexapod::setTargets(Vector3 BRtarget, Vector3 MRtarget, Vector3 FRtarget, Vector3 BLtarget, Vector3 MLtarget, Vector3 FLtarget)
-//{
-//	setBLbodyTarget(BLtarget);
-//	setMLbodyTarget(MLtarget);
-//	setFLbodyTarget(FLtarget);
-//	setBRbodyTarget(BRtarget);
-//	setMRbodyTarget(MRtarget);
-//	setFRbodyTarget(FRtarget);
-//}
-
-void Hexapod::setBodyTargets(Vector3 BRtarget, Vector3 MRtarget, Vector3 FRtarget, Vector3 BLtarget, Vector3 MLtarget, Vector3 FLtarget)
+Vector3 Hexapod::getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget)
 {
-	BRleg.setLegTarget(body2legCoord(BRtarget, BRleg.ctr2root, BRleg.ctr2rootTheta));
-	MRleg.setLegTarget(body2legCoord(MRtarget, MRleg.ctr2root, MRleg.ctr2rootTheta));
-	FRleg.setLegTarget(body2legCoord(FRtarget, FRleg.ctr2root, FRleg.ctr2rootTheta));
-	BLleg.setLegTarget(body2legCoord(BLtarget, BLleg.ctr2root, BLleg.ctr2rootTheta));
-	MLleg.setLegTarget(body2legCoord(MLtarget, MLleg.ctr2root, MLleg.ctr2rootTheta));
-	FLleg.setLegTarget(body2legCoord(FLtarget, FLleg.ctr2root, FLleg.ctr2rootTheta));
+    auto z = -currentHeight;
+    currentStandBodyTarget.z = 0.0;
+    Vector3 pc = r0 + currentStandBodyTarget;
+    float theta = stepTheta * (float)frame / (float)totalFrame - stepTheta / 2.0f;
+    auto pt = Vector3(
+        cos(theta) * (pc.x) + sin(theta) * (pc.y),
+        -sin(theta) * (pc.x) + cos(theta) * (pc.y),
+        pc.z
+    );
+    auto t = pt - r0;
+    t.z = z;
+    return t;
 }
 
-//void Hexapod::setBRbodyTarget(Vector3 target)
-//{
-//	this->setBRpose(rik(body2legCoord(target, ctr2BRroot, ctr2BRrootTheta)));
-//}
-//
-//void Hexapod::setMRbodyTarget(Vector3 target)
-//{
-//	this->setMRpose(rik(body2legCoord(target, ctr2MRroot, ctr2MRrootTheta)));
-//}
-//
-//void Hexapod::setFRbodyTarget(Vector3 target)
-//{
-//	this->setFRpose(rik(body2legCoord(target, ctr2FRroot, ctr2FRrootTheta)));
-//}
-//
-//void Hexapod::setBLbodyTarget(Vector3 target)
-//{
-//	this->setBLpose(lik(body2legCoord(target, ctr2BLroot, ctr2BLrootTheta)));
-//}
-//
-//void Hexapod::setMLbodyTarget(Vector3 target)
-//{
-//	this->setMLpose(lik(body2legCoord(target, ctr2MLroot, ctr2MLrootTheta)));
-//}
-//
-//void Hexapod::setFLbodyTarget(Vector3 target)
-//{
-//	this->setFLpose(lik(body2legCoord(target, ctr2FLroot, ctr2FLrootTheta)));
-//}
-
-void Hexapod::setBodyTarget(Vector3 target,LegL leg)
+bool Hexapod::isGaitCycleFinish()
 {
-	leg.setLegTarget(body2legCoord(target, leg.ctr2root, leg.ctr2rootTheta));
+    return frame > totalFrame - 1;
 }
 
-void Hexapod::setBodyTarget(Vector3 target, LegR leg)
+bool Hexapod::isGaitCycleStart()
 {
-	leg.setLegTarget(body2legCoord(target, leg.ctr2root, leg.ctr2rootTheta));
+    return frame < 1;
+}
+
+void Hexapod::setBodyTargets(Vector3 BRtarget, Vector3 MRtarget, Vector3 FRtarget, Vector3 BLtarget, Vector3 MLtarget,
+                             Vector3 FLtarget)
+{
+    BRleg.setLegTarget(body2legCoord(BRtarget, BRleg.ctr2root, BRleg.ctr2rootTheta));
+    MRleg.setLegTarget(body2legCoord(MRtarget, MRleg.ctr2root, MRleg.ctr2rootTheta));
+    FRleg.setLegTarget(body2legCoord(FRtarget, FRleg.ctr2root, FRleg.ctr2rootTheta));
+    BLleg.setLegTarget(body2legCoord(BLtarget, BLleg.ctr2root, BLleg.ctr2rootTheta));
+    MLleg.setLegTarget(body2legCoord(MLtarget, MLleg.ctr2root, MLleg.ctr2rootTheta));
+    FLleg.setLegTarget(body2legCoord(FLtarget, FLleg.ctr2root, FLleg.ctr2rootTheta));
+}
+
+void Hexapod::reInit()
+{
+    BRleg.reInit();
+    MRleg.reInit();
+    FRleg.reInit();
+    BLleg.reInit();
+    MLleg.reInit();
+    FLleg.reInit();
 }
 
 void Hexapod::setHeight(float height)
 {
-	currentHeight = height;
-	/*currentStandBR.z = height;
-	currentStandMR.z = height;
-	currentStandFR.z = height;
-	currentStandBL.z = height;
-	currentStandML.z = height;
-	currentStandFL.z = height;*/
+    currentHeight = height;
 
-	this->BRleg.setHeight(height);
-	this->MRleg.setHeight(height);
-	this->FRleg.setHeight(height);
-	this->BLleg.setHeight(height);
-	this->MLleg.setHeight(height);
-	this->FLleg.setHeight(height);
-	/*std::cout << "currentStandFL.z " << currentStandFL.z << std::endl;
-	auto i = lik(currentStandFL);
-	std::cout << "ic " << i.x << " " << i.y << " " << i.z << std::endl;*/
-	/*this->BRleg.reInit();
-	this->MRleg.reInit();
-	this->FRleg.reInit();
-	this->BLleg.reInit();
-	this->MLleg.reInit();
-	this->FLleg.reInit();*/
+    this->BRleg.setHeight(height);
+    this->MRleg.setHeight(height);
+    this->FRleg.setHeight(height);
+    this->BLleg.setHeight(height);
+    this->MLleg.setHeight(height);
+    this->FLleg.setHeight(height);
+}
 
-	/*setBRlegTarget(currentStandBR);
-	setMRlegTarget(currentStandMR);
-	setFRlegTarget(currentStandFR);
-	setBLlegTarget(currentStandBL);
-	setMLlegTarget(currentStandML);
-	setFLlegTarget(currentStandFL);*/
+void Hexapod::setYaw(float yaw)
+{
+    BRleg.setYaw(yaw);
+    MRleg.setYaw(yaw);
+    FRleg.setYaw(yaw);
+    BLleg.setYaw(yaw);
+    MLleg.setYaw(yaw);
+    FLleg.setYaw(yaw);
+}
+
+Vector3 Hexapod::yawBias(Vector3 bias, float theta)
+{
+    auto v = Vector3(
+        cos(theta) * (bias.x) - sin(theta) * (bias.y),
+        sin(theta) * (bias.x) + cos(theta) * (bias.y),
+        bias.z
+    );
+    return v;
 }
 
 void Hexapod::startMove()
 {
-	BRleg.startMotor();
-	MRleg.startMotor();
-	FRleg.startMotor();
-	BLleg.startMotor();
-	MLleg.startMotor();
-	FLleg.startMotor();
+    BRleg.startMotor();
+    MRleg.startMotor();
+    FRleg.startMotor();
+    BLleg.startMotor();
+    MLleg.startMotor();
+    FLleg.startMotor();
 }
