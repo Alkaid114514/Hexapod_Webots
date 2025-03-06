@@ -1,5 +1,7 @@
 ﻿#include "Hexapod.h"
 
+#include <complex.h>
+
 Hexapod::Hexapod() : Robot()
 {
     BRleg = LegR(getMotor("M_BR_COXA"), getMotor("M_BR_FEMUR"), getMotor("M_BR_TIBIA"), ctr2BRroot, ctr2BRrootTheta);
@@ -139,12 +141,313 @@ void Hexapod::move(Vector3 velocity, float omega, float timeStep)
     // }
 }
 
+/*void Hexapod::moveRipple()
+{
+    if (frame < 1)
+    {
+        lockedVelocity = velocity;
+        lockedOmega = omega;
+    }
+    if (lockedVelocity == Vector3() && lockedOmega == 0.0)
+    {
+        reInit();
+        gaitStatus = Stop;
+        return;
+    }
+    auto w = Vector3(0.0, 0.0, lockedOmega);
+    Vector3 r0 = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
+    float timeStep;
+    if (lockedVelocity == Vector3())
+    {
+        auto tmp = MLleg.currentStandBodyTarget;
+        tmp.z = 0.0;
+        timeStep = (stepLen / tmp.magnitude()) / lockedOmega / static_cast<float>(moveFrame);
+    }
+    else
+    {
+        timeStep = (stepLen / r0.magnitude()) / lockedOmega / static_cast<float>(moveFrame);
+    }
+    if (gaitStatus == Stop)
+    {
+        frame = 0;
+        gaitGroupIndex = 0;
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, FLleg.lastBodyTarget,
+                                                  static_cast<float>(moveFrame) * timeStep / 2.0f));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, BRleg.lastBodyTarget,
+                                                  static_cast<float>(moveFrame) * timeStep / 2.0f));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, MRleg.lastBodyTarget,
+                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, MLleg.lastBodyTarget,
+                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, FRleg.lastBodyTarget,
+                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, BLleg.lastBodyTarget,
+                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
+        gaitStatus = Ripple;
+    }
+    else
+    {
+        if (gaitGroupIndex == 0)
+        {
+            FLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            BRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+                                                       timeStep)/2.0f);
+
+            MRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            MLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            FRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            BLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+
+            if (frame == moveFrame - 1)
+            {
+                frame = -1;
+                gaitGroupIndex++;
+            }
+        }
+        else if (gaitGroupIndex == 1)
+        {
+           
+            BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            FRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+                                                       timeStep));
+            MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+                                                        timeStep/2.0f));
+            MLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+                                                        timeStep/2.0f));
+            FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            BRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+
+            if (frame > moveFrame - 1)
+            {
+                frame = -1;
+                gaitGroupIndex++;
+            }
+        }
+        else if (gaitGroupIndex == 2)
+        {
+            FRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+                                           timeStep/2.0f));
+            MLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+                                                       timeStep));
+            FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            BRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+
+            if (frame > moveFrame - 1)
+            {
+                frame = -1;
+                gaitGroupIndex++;
+            }
+        }
+        else if (gaitGroupIndex == 3)
+        {
+            FRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            MRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+                                           timeStep));
+            MLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            BRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+
+            if (frame > moveFrame - 1)
+            {
+                frame = -1;
+                gaitGroupIndex++;
+            }
+        }
+        else if (gaitGroupIndex == 4)
+        {
+            FRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            BLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+                                                       timeStep));
+            MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+                                           timeStep/2.0f));
+            MLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            BRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+
+            if (frame > moveFrame - 1)
+            {
+                frame = -1;
+                gaitGroupIndex++;
+            }
+        }
+        else if (gaitGroupIndex == 5)
+        {
+            FRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+                                                        timeStep/2.0f));
+            MLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            BRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+                                                      timeStep));
+
+            if (frame > moveFrame - 1)
+            {
+                frame = -1;
+                gaitGroupIndex-=5;
+            }
+        }
+        startMove();
+        frame++;
+    }
+}
+        */   
+
+void Hexapod::moveWave()
+{
+    if (frame < 1)
+    {
+        lockedVelocity = velocity;
+        lockedOmega = omega;
+    }
+
+    if (lockedVelocity == Vector3() && lockedOmega == 0.0)
+    {
+        reInit();
+        gaitStatus = Stop;
+        return;
+    }
+
+    auto w = Vector3(0.0, 0.0, lockedOmega);
+    Vector3 r0 = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
+    float timeStep;
+    if (lockedVelocity == Vector3())
+    {
+        auto tmp = FLleg.currentStandBodyTarget;
+        tmp.z = 0.0;
+        timeStep = (stepLen / tmp.magnitude()) / lockedOmega / static_cast<float>(moveFrame);
+    }
+    else
+    {
+        timeStep = (stepLen / r0.magnitude()) / lockedOmega / static_cast<float>(moveFrame);
+    }
+
+    if (gaitStatus == Stop)
+    {
+        frame = 0;
+        gaitGroupIndex = 0;
+        FLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, moveFrame, FLleg.lastBodyTarget,
+                                                  static_cast<float>(moveFrame) * timeStep / 2.0f));
+        BRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, moveFrame, BRleg.lastBodyTarget,
+                                                  static_cast<float>(moveFrame) * timeStep / 2.0f));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, MRleg.lastBodyTarget,
+                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, MLleg.lastBodyTarget,
+                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, FRleg.lastBodyTarget,
+                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, BLleg.lastBodyTarget,
+                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
+        gaitStatus = Wave;
+    }
+    else
+    {
+        if (gaitGroupIndex == 0)
+        {
+            FLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+                                                       timeStep));
+            BRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+                                                       timeStep));
+
+            MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            MLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            FRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+
+            if (frame == moveFrame - 1)
+            {
+                frame = -1;
+                gaitGroupIndex++;
+            }
+        }
+        else if (gaitGroupIndex == 1)
+        {
+           
+            FRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            MRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+                                                                   timeStep));
+            MLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+                                                                   timeStep));
+            FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            BRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+
+            if (frame > moveFrame - 1)
+            {
+                frame = -1;
+                gaitGroupIndex++;
+            }
+        }
+        else if (gaitGroupIndex == 2)
+        {
+            
+            FRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+                                                       timeStep));
+            BLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+                                                       timeStep));
+            MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+                                           timeStep/2.0f));
+            MLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+                                                       timeStep/2.0f));
+            FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+            BRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+                                                      timeStep/2.0f));
+
+            if (frame > moveFrame - 1)
+            {
+                frame = -1;
+                gaitGroupIndex-=2;
+            }
+        }
+        startMove();
+        frame++;
+    }
+}
+
 void Hexapod::moveTripod()
 {
     if (frame < 1)
     {
         lockedVelocity = velocity;
         lockedOmega = omega;
+        
     }
 
     if (lockedVelocity == Vector3() && lockedOmega == 0.0)
@@ -162,10 +465,12 @@ void Hexapod::moveTripod()
     {
         auto tmp = MLleg.currentStandBodyTarget;
         tmp.z = 0.0;
+        stepTheta = (stepLen / tmp.magnitude());
         timeStep = (stepLen / tmp.magnitude()) / lockedOmega / static_cast<float>(moveFrame);
     }
     else
     {
+        stepTheta = (stepLen / r0.magnitude());
         timeStep = (stepLen / r0.magnitude()) / lockedOmega / static_cast<float>(moveFrame);
     }
 
@@ -174,17 +479,17 @@ void Hexapod::moveTripod()
     {
         frame = 0;
         gaitGroupIndex = 0;
-        MLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, moveFrame, MLleg.lastBodyTarget,
+        MLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, moveFrame, MLleg.currentStandBodyTarget,
                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
-        FRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, moveFrame, FRleg.lastBodyTarget,
+        FRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, moveFrame, FRleg.currentStandBodyTarget,
                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
-        BRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, moveFrame, BRleg.lastBodyTarget,
+        BRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, moveFrame, BRleg.currentStandBodyTarget,
                                                   static_cast<float>(moveFrame) * timeStep / 2.0f));
-        MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, MRleg.lastBodyTarget,
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, MRleg.currentStandBodyTarget,
                                                    static_cast<float>(moveFrame) * timeStep / 2.0f));
-        FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, FLleg.lastBodyTarget,
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, FLleg.currentStandBodyTarget,
                                                    static_cast<float>(moveFrame) * timeStep / 2.0f));
-        BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, BLleg.lastBodyTarget,
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, 0, BLleg.currentStandBodyTarget,
                                                    static_cast<float>(moveFrame) * timeStep / 2.0f));
         gaitStatus = Tripod;
     }
@@ -192,18 +497,18 @@ void Hexapod::moveTripod()
     {
         if (gaitGroupIndex == 0)
         {
-            MLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+            MLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.currentStandBodyTarget,
                                                        timeStep));
-            FRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+            FRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.currentStandBodyTarget,
                                                        timeStep));
-            BRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+            BRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.currentStandBodyTarget,
                                                        timeStep));
 
-            MRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+            MRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.currentStandBodyTarget,
                                                       timeStep));
-            FLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+            FLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.currentStandBodyTarget,
                                                       timeStep));
-            BLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+            BLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.currentStandBodyTarget,
                                                       timeStep));
 
             if (frame == moveFrame - 1)
@@ -214,18 +519,18 @@ void Hexapod::moveTripod()
         }
         else if (gaitGroupIndex == 1)
         {
-            MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.lastBodyTarget,
+            MRleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MRleg.currentStandBodyTarget,
                                                        timeStep));
-            FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.lastBodyTarget,
+            FLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FLleg.currentStandBodyTarget,
                                                        timeStep));
-            BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.lastBodyTarget,
+            BLleg.setBodyTarget(getStandNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BLleg.currentStandBodyTarget,
                                                        timeStep));
 
-            MLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.lastBodyTarget,
+            MLleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, MLleg.currentStandBodyTarget,
                                                       timeStep));
-            FRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.lastBodyTarget,
+            FRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, FRleg.currentStandBodyTarget,
                                                       timeStep));
-            BRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.lastBodyTarget,
+            BRleg.setBodyTarget(getSwagNextBodyTarget(lockedVelocity, lockedOmega, r0, frame, BRleg.currentStandBodyTarget,
                                                       timeStep));
 
             if (frame > moveFrame - 1)
@@ -246,7 +551,9 @@ Vector3 Hexapod::getSwagNextBodyTarget(Vector3 velocity, float omega, Vector3 r0
     auto z = -currentHeight;
     initialBodyTarget.z = 0.0;
     Vector3 pc = r0 + initialBodyTarget;
-    float theta = omega * timeStep;
+   
+    float theta = stepTheta * (float)frame / (float)moveFrame - stepTheta / 2.0f ;
+
     auto pt = Vector3(
         cos(theta) * (pc.x) - sin(theta) * (pc.y),
         sin(theta) * (pc.x) + cos(theta) * (pc.y),
@@ -263,7 +570,7 @@ Vector3 Hexapod::getStandNextBodyTarget(Vector3 velocity, float omega, Vector3 r
     auto z = -currentHeight;
     initialBodyTarget.z = 0.0;
     Vector3 pc = r0 + initialBodyTarget;
-    float theta = omega * timeStep;
+    float theta = stepTheta * (float)frame / (float)moveFrame - stepTheta / 2.0f  ;
     auto pt = Vector3(
         cos(theta) * (pc.x) + sin(theta) * (pc.y),
         -sin(theta) * (pc.x) + cos(theta) * (pc.y),

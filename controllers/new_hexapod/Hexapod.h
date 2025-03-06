@@ -59,8 +59,9 @@ public:
     float femurOmega = 0.1f;
     float tibiaOmega = 0.1f;
     int moveFrame = 32;
-    // float stepTheta = M_PI / 80.0;
+    float stepTheta = M_PI / 80.0;
     float stepLen = 0.05f;
+    
     // float dtheta = stepTheta / (float)moveFrame;
     int gaitGroupIndex = 0;
 
@@ -114,6 +115,8 @@ public:
 
 
     void move(Vector3 velocity, float omega, float timeStep);
+    void moveRipple();
+    void moveWave();
     void moveTripod();
 
     Vector3 getSwagNextBodyTarget(Vector3 velocity, float omega, Vector3 r0, int frame, Vector3 initialBodyTarget,
