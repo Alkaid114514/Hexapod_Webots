@@ -11,7 +11,7 @@ class LegR
     webots::Motor* femurMotor;
     webots::Motor* tibiaMotor;
 
-    Vector3 angles = Vector3();
+    Vector3 motorAngles = Vector3();
 
 public:
     LegR();

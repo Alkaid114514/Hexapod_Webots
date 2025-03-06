@@ -2,7 +2,7 @@
 #include "Hexapod.h"
 
 
-LegL::LegL()
+LegL::LegL(): ctr2rootTheta(0)
 {
     this->coxaMotor = nullptr;
     this->femurMotor = nullptr;
@@ -95,23 +95,23 @@ void LegL::setBodyTarget(Vector3 target)
 void LegL::setPose(Vector3 angles)
 {
     angles.z += static_cast<float>(M_PI) / 3.0f;
-    this->angles = angles;
+    this->motorAngles = angles;
 }
 
 void LegL::setCoxaPose(float angle)
 {
-    this->angles.x = angle;
+    this->motorAngles.x = angle;
 }
 
 void LegL::setFemurPose(float angle)
 {
-    this->angles.y = angle;
+    this->motorAngles.y = angle;
 }
 
 void LegL::setTibiaPose(float angle)
 {
     angle += static_cast<float>(M_PI) / 3.0f;
-    this->angles.z = angle;
+    this->motorAngles.z = angle;
 }
 
 void LegL::reInit()
@@ -140,7 +140,7 @@ void LegL::setYaw(float yaw)
 
 void LegL::startMotor()
 {
-    this->coxaMotor->setPosition(angles.x);
-    this->femurMotor->setPosition(angles.y);
-    this->tibiaMotor->setPosition(angles.z);
+    this->coxaMotor->setPosition(motorAngles.x);
+    this->femurMotor->setPosition(motorAngles.y);
+    this->tibiaMotor->setPosition(motorAngles.z);
 }

@@ -1,5 +1,7 @@
 #include "Vector3.h"
 
+#include <cmath>
+
 
 Vector3::Vector3()
 {
@@ -102,7 +104,12 @@ bool Vector3::operator!=(Vector3 vector)
 
 float Vector3::magnitude()
 {
-    return sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
+    return (float)sqrt(this->x * this->x + this->y * this->y + this->z * this->z);
+}
+
+float Vector3::squareMagnitude()
+{
+    return this->x * this->x + this->y * this->y + this->z * this->z;
 }
 
 Vector3 Vector3::normalize()
