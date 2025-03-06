@@ -3,11 +3,10 @@
 #include "LegR.h"
 #include "LegL.h"
 #include "Vector3.h"
-#include <vector>
 
-#define COXA_LEN (38.0/1000.0)
-#define FEMUR_LEN (79.2/1000.0)
-#define TIBIA_LEN (116.0/1000.0)
+#define COXA_LEN (38.0f/1000.0f)
+#define FEMUR_LEN (79.2f/1000.0f)
+#define TIBIA_LEN (116.0f/1000.0f)
 
 #define CLIP(value, lower, upper) (((value) < (lower)) ? (lower) : ((value) > (upper) ? (upper) : (value)))
 
@@ -30,6 +29,7 @@ public:
         Tripod,
         Ripple,
         Wave,
+        Ready,
         Stop
     };
 
@@ -48,33 +48,29 @@ public:
     /// </summary>
     const float ctr2BRrootTheta = -static_cast<float>(M_PI_4); //-0.785398f
     const float ctr2MRrootTheta = 0.0f;
-    const float ctr2FRrootTheta = M_PI_4; //0.785398f
-    const float ctr2BLrootTheta = -3.0 * static_cast<float>(M_PI_4); //-2.3562f
-    const float ctr2MLrootTheta = M_PI; //3.14159f
-    const float ctr2FLrootTheta = 3.0 * static_cast<float>(M_PI_4); //2.3562f
+    const float ctr2FRrootTheta = (float)M_PI_4; //0.785398f
+    const float ctr2BLrootTheta = -3.0f * static_cast<float>(M_PI_4); //-2.3562f
+    const float ctr2MLrootTheta = (float)M_PI; //3.14159f
+    const float ctr2FLrootTheta = 3.0f * static_cast<float>(M_PI_4); //2.3562f
 
     float initHeight;
     float currentHeight;
     float coxaOmega = 0.1f;
     float femurOmega = 0.1f;
     float tibiaOmega = 0.1f;
-    int moveFrame = 32;
-    float stepTheta = M_PI / 80.0;
+    int totalFrame = 32;
+    float stepTheta;
     float stepLen = 0.05f;
     
-    // float dtheta = stepTheta / (float)moveFrame;
     int gaitGroupIndex = 0;
-
-    int frame = 0;
-
-
+    int frame = totalFrame / 2;
     Vector3 velocity = Vector3(0.0f, 0.0f, 0.0f);
     float omega = 0.0f;
-
     Vector3 lockedVelocity;
     float lockedOmega;
-
     GaitStatus gaitStatus = Stop;
+    Vector3 lockedR;
+    float timeStep;
 
 
     /// <summary>
@@ -88,43 +84,16 @@ public:
     /// <param name="FLangles">前左腿的三个关节角度</param>
     void setPose(Vector3 BRangles, Vector3 MRangles, Vector3 FRangles,
                  Vector3 BLangles, Vector3 MLangles, Vector3 FLangles);
-    /*void setBRpose(Vector3 angles);
-    void setMRpose(Vector3 angles);
-    void setFRpose(Vector3 angles);
-    void setBLpose(Vector3 angles);
-    void setMLpose(Vector3 angles);
-    void setFLpose(Vector3 angles);*/
 
-    /// <summary>
-    /// 仅反向运动学，输入参数需要进行预处理，参数vector3应为该条腿根部到目标点的向量(以腿根部为原点的坐标系)
-    /// </summary>
-    /// <param name="vector3">该条腿根部到目标点的向量(腿坐标系)</param>
-    /// <returns>三个关节旋转角</returns>
-    /*Vector3 lik(Vector3 vector3);
-
-    Vector3 rik(Vector3 vector3);*/
-
-    /// <summary>
-    /// 仅正向运动学，输入参数为三个关节的角度，返回腿根部到末端的向量(腿坐标系)
-    /// </summary>
-    /// <param name="angles">三个关节的角度,x为coxa,y为femur,z为tibia</param>
-    /// <returns>腿根部到末端的向量(腿坐标系)</returns>
-    /*Vector3 lfk(Vector3 angles);
-
-    Vector3 rfk(Vector3 angles);*/
-
-
-    void move(Vector3 velocity, float omega, float timeStep);
-    void moveRipple();
-    void moveWave();
+    // void move(Vector3 velocity, float omega, float timeStep);
     void moveTripod();
 
-    Vector3 getSwagNextBodyTarget(Vector3 velocity, float omega, Vector3 r0, int frame, Vector3 initialBodyTarget,
-                                  float timeStep);
-    Vector3 getStandNextBodyTarget(Vector3 velocity, float omega, Vector3 r0, int frame, Vector3 initialBodyTarget,
-                                   float timeStep);
+    Vector3 getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
+    Vector3 getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
 
-    //LegL* getLegGroup(GaitType gaitType);
+    bool isGaitCycleFinish();
+    bool isGaitCycleStart();
+
 
     /// <summary>
     /// 所有的设置目标点的函数并不会使机器人直接运动，需要设置完目标点后调用startMove()函数开始运动

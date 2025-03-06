@@ -21,8 +21,8 @@ int main(int argc, char** argv)
     robot->setPose(rightAngles, rightAngles, rightAngles, leftAngles, leftAngles, leftAngles);
     robot->startMove();*/
 
-    robot->omega = 0.1f;
-    robot->velocity = Vector3(0.0f, 0.0f, 0.0f);
+    robot->omega = 0.0f;
+    robot->velocity = Vector3(0.1f, 0.0f, 0.0f);
 
     robot->setHeight(0.100459f);
     // robot->setHeight(0.13f);

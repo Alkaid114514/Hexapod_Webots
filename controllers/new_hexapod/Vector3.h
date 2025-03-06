@@ -1,7 +1,5 @@
 #pragma once
 
-#include <math.h>
-
 class Vector3
 {
 public:
@@ -25,6 +23,7 @@ public:
     bool operator==(Vector3 vector);
     bool operator!=(Vector3 vector);
     float magnitude();
+    float squareMagnitude();
     Vector3 normalize();
     Vector3 cross(Vector3 vectorR);
     float dot(Vector3 vector);
