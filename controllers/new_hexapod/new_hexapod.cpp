@@ -21,13 +21,13 @@ int main(int argc, char** argv)
     robot->setPose(rightAngles, rightAngles, rightAngles, leftAngles, leftAngles, leftAngles);
     robot->startMove();*/
 
-    robot->omega = 0.0f;
-    robot->velocity = Vector3(0.1f, 0.0f, 0.0f);
+    robot->omega = 0.1f;
+    robot->velocity = Vector3(0.0f, 0.0f, 0.0f);
 
     robot->setHeight(0.100459f);
     // robot->setHeight(0.13f);
     robot->setYaw(0.4f);
-    robot->setPitch((0.5f));
+    robot->setRoll((0.5f));
     robot->reInit();
     robot->startMove();
 
@@ -60,7 +60,7 @@ int main(int argc, char** argv)
         // robot->FRleg.reInit();
         // robot->startMove();
         // robot->step(500);
-        // robot->moveTripod();
+        robot->moveTripod();
         // robot->moveWave();
         // robot->moveRipple();
     }

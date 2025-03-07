@@ -292,14 +292,14 @@ Vector3 Hexapod::yawBias(Vector3 bias, float theta)
     return v;
 }
 
-void Hexapod::setPitch(float pitch)
+void Hexapod::setRoll(float roll)
 {
-    BRleg.setPitch(pitch);
-    MRleg.setPitch(pitch);
-    FRleg.setPitch(pitch);
-    BLleg.setPitch(pitch);
-    MLleg.setPitch(pitch);
-    FLleg.setPitch(pitch);
+    BRleg.setRoll(roll);
+    MRleg.setRoll(roll);
+    FRleg.setRoll(roll);
+    BLleg.setRoll(roll);
+    MLleg.setRoll(roll);
+    FLleg.setRoll(roll);
 }
 Vector3 Hexapod::pitchBias(Vector3 bias, float theta)
 {
