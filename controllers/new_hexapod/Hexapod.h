@@ -86,7 +86,7 @@ public:
                  Vector3 BLangles, Vector3 MLangles, Vector3 FLangles);
 
     // void move(Vector3 velocity, float omega, float timeStep);
-    void moveTripod();
+    void moveTripod(float timeStep);
 
     Vector3 getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
     Vector3 getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);

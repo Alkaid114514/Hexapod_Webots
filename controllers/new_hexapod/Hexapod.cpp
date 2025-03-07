@@ -139,7 +139,7 @@ Vector3 Hexapod::body2legCoord(Vector3 absolute, Vector3 bias, float theta)
 //     // }
 // }
 
-void Hexapod::moveTripod()
+void Hexapod::moveTripod(float timeStep)
 {
     if (velocity == Vector3() && omega == 0.0)
     {
@@ -154,6 +154,7 @@ void Hexapod::moveTripod()
         lockedVelocity = velocity;
         lockedOmega = omega == 0.0f ? FLT_EPSILON : omega;
         auto w = Vector3(0.0, 0.0, lockedOmega);
+        stepLen = lockedVelocity.magnitude() * (timeStep / 1000.0f) * (float)totalFrame;
         lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
         auto rlen = lockedR.squareMagnitude() > MRleg.currentStandBodyTarget.x * MRleg.currentStandBodyTarget.x ? lockedR.magnitude() : MRleg.currentStandBodyTarget.x;
         stepTheta = stepLen / rlen;

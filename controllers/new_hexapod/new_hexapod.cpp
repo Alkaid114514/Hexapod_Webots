@@ -21,14 +21,23 @@ int main(int argc, char** argv)
     robot->setPose(rightAngles, rightAngles, rightAngles, leftAngles, leftAngles, leftAngles);
     robot->startMove();*/
 
-    robot->omega = 0.0f;
-    robot->velocity = Vector3(0.1f, 0.0f, 0.0f);
+    robot->omega = 0.05f;
+    
+    robot->velocity = Vector3(0.05f, 0.05f, 0.0f);
 
     robot->setHeight(0.100459f);
     // robot->setHeight(0.13f);
     // robot->setYaw(0.4f);
     robot->reInit();
     robot->startMove();
+
+    // float omegas[3] = {2.0f,2.0f,2.0f};
+    // robot->BRleg.setOmega(omegas);
+    // robot->MRleg.setOmega(omegas);
+    // robot->FRleg.setOmega(omegas);
+    // robot->BLleg.setOmega(omegas);
+    // robot->MLleg.setOmega(omegas);
+    // robot->FLleg.setOmega(omegas);
 
 
     while (robot->step(timeStep) != -1)
@@ -59,7 +68,7 @@ int main(int argc, char** argv)
         // robot->FRleg.reInit();
         // robot->startMove();
         // robot->step(500);
-        robot->moveTripod();
+        robot->moveTripod(timeStep);
     }
 
     // Enter here exit cleanup code.
