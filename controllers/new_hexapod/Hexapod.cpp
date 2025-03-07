@@ -292,6 +292,25 @@ Vector3 Hexapod::yawBias(Vector3 bias, float theta)
     return v;
 }
 
+void Hexapod::setPitch(float pitch)
+{
+    BRleg.setPitch(pitch);
+    MRleg.setPitch(pitch);
+    FRleg.setPitch(pitch);
+    BLleg.setPitch(pitch);
+    MLleg.setPitch(pitch);
+    FLleg.setPitch(pitch);
+}
+Vector3 Hexapod::pitchBias(Vector3 bias, float theta)
+{
+    auto v = Vector3(
+        cos(theta) * (bias.x) + sin(theta) * (bias.z),
+        bias.y,
+        -sin(theta) * (bias.x) + cos(theta) * (bias.z)
+    );
+    return v;
+}
+
 void Hexapod::startMove()
 {
     BRleg.startMotor();

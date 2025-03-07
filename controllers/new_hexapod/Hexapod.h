@@ -109,6 +109,8 @@ public:
     void setHeight(float height);
 
     void setYaw(float yaw);
+    void setPitch(float pitch);
+    void setRoll(float roll);
 
     /// <summary>
     /// 开始按照设置的角度和目标点运动
@@ -133,4 +135,5 @@ public:
     static Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
 
     static Vector3 yawBias(Vector3 bias, float theta);
+    static Vector3 pitchBias(Vector3 bias,float theta );
 };

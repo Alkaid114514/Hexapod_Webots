@@ -135,6 +135,18 @@ void LegR::setYaw(float yaw)
     currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget, ctr2root, ctr2rootTheta));
 }
 
+void LegR::setPitch(float pitch)
+{
+    currentPitch = pitch;
+    Vector3 tmp = ctr2root;
+   ctr2root = Vector3(tmp.x*cos(currentPitch)+tmp.z*sin(currentPitch),
+                        tmp.y,
+                        -tmp.x*sin(currentPitch)+tmp.z*cos(currentPitch)                              
+   );
+    currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget,ctr2root,ctr2rootTheta));
+       
+}
+
 void LegR::startMotor()
 {
     this->coxaMotor->setPosition(motorAngles.x);

@@ -24,7 +24,9 @@ public:
     Vector3 ctr2root;
     float ctr2rootTheta;
     float currentYaw = 0.0f;
-
+    float currentPitch=0.0f;
+    float currentRoll=0.0f;
+    
     Vector3 initStandBodyTarget;
     Vector3 currentStandBodyTarget;
 
@@ -58,5 +60,7 @@ public:
     void reInit();
     void setHeight(float height);
     void setYaw(float yaw);
+    void setPitch(float pitch);
+    void setRoll(float roll);
     void startMotor();
 };

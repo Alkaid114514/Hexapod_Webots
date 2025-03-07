@@ -15,8 +15,6 @@
       <change beforePath="$PROJECT_DIR$/LegL.h" beforeDir="false" afterPath="$PROJECT_DIR$/LegL.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LegR.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/LegR.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LegR.h" beforeDir="false" afterPath="$PROJECT_DIR$/LegR.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vector3.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Vector3.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vector3.h" beforeDir="false" afterPath="$PROJECT_DIR$/Vector3.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new_hexapod.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/new_hexapod.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../worlds/.hexworld.wbproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/.hexworld.wbproj" afterDir="false" />
     </list>
@@ -39,8 +37,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Alkaid114514/Hexapod_Webots.git&quot;,
-    &quot;accountId&quot;: &quot;b68308f6-56ef-4a13-abb8-27f0a3b3fb81&quot;
+    &quot;url&quot;: &quot;https://github.com/alkaid114514/Hexapod_Webots&quot;,
+    &quot;accountId&quot;: &quot;8ca7a8b3-7cd4-4ae8-ac4a-f2f4b965e60b&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
@@ -74,21 +72,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "C/C++ 项目.new_hexapod.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "正在合并 biscuit",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.language.and.region",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;C/C++ 项目.new_hexapod.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;biscuit&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.language.and.region&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\biscu\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\biscu\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\biscu\\AppData\\Local\\Symbols\\src&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CidrLocalAttachDebugger.recentlyUsed">
       <recent name="com.jetbrains.rider.cpp.debugger.RiderCppLLDBDriverConfiguration" />
@@ -135,6 +140,8 @@
       <workItem from="1741160053638" duration="1794000" />
       <workItem from="1741161863372" duration="17277000" />
       <workItem from="1741266693711" duration="5698000" />
+      <workItem from="1741322708696" duration="2538000" />
+      <workItem from="1741334710191" duration="1164000" />
     </task>
     <task id="LOCAL-00001" summary="清理无用注释">
       <option name="closed" value="true" />
