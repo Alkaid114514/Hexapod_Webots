@@ -12,9 +12,7 @@
       <change beforePath="$PROJECT_DIR$/Hexapod.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hexapod.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hexapod.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hexapod.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LegL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/LegL.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LegL.h" beforeDir="false" afterPath="$PROJECT_DIR$/LegL.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LegR.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/LegR.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LegR.h" beforeDir="false" afterPath="$PROJECT_DIR$/LegR.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new_hexapod.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/new_hexapod.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../worlds/.hexworld.wbproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/.hexworld.wbproj" afterDir="false" />
     </list>
@@ -141,7 +139,8 @@
       <workItem from="1741161863372" duration="17277000" />
       <workItem from="1741266693711" duration="5698000" />
       <workItem from="1741322708696" duration="2538000" />
-      <workItem from="1741334710191" duration="1164000" />
+      <workItem from="1741334710191" duration="3534000" />
+      <workItem from="1741346271790" duration="1687000" />
     </task>
     <task id="LOCAL-00001" summary="清理无用注释">
       <option name="closed" value="true" />
@@ -183,7 +182,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741271860786</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Roll(变量名起错了)">
+      <option name="closed" value="true" />
+      <created>1741336184059</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1741336184059</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,7 +215,8 @@
     <MESSAGE value="添加姿态控制之setYaw设置偏航角功能" />
     <MESSAGE value="失败的移动尝试" />
     <MESSAGE value="全向移动实现，当前仅实现Tripod步态" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="Roll(变量名起错了)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Roll(变量名起错了)" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

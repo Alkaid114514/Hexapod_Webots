@@ -138,16 +138,25 @@ void LegL::setYaw(float yaw)
     currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget, ctr2root, ctr2rootTheta));
 }
 
-void LegL::setPitch(float pitch)
+void LegL::setRoll(float roll)
 {
-    currentPitch=pitch;
+    currentPitch=roll;
     Vector3 tmp =ctr2root;
-    ctr2root =Vector3(tmp.x*cos(currentPitch)+tmp.z*sin(currentPitch),
+    ctr2root =Vector3(tmp.x*cos(currentRoll)+tmp.z*sin(currentRoll),
                                  tmp.y,
-                                -tmp.x*sin(currentPitch)+tmp.z*cos(currentPitch)                              
-    );
+                                -tmp.x*sin(currentRoll)+tmp.z*cos(currentRoll));
     currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget,ctr2root,ctr2rootTheta));
        
+}
+
+void LegL::setPitch(float pitch)
+{
+    currentRoll = pitch;
+    Vector3 tmp = ctr2root;
+    ctr2root=Vector3(tmp.x,
+        tmp.y*cos(currentPitch)-tmp.z*sin(currentPitch),
+        tmp.y*sin(currentPitch)+tmp.z*cos(currentPitch));
+    currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget,ctr2root,ctr2rootTheta));
 }
 
 

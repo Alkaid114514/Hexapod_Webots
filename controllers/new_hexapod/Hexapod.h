@@ -136,4 +136,5 @@ public:
 
     static Vector3 yawBias(Vector3 bias, float theta);
     static Vector3 pitchBias(Vector3 bias,float theta );
+    static Vector3 rollBias(Vector3 bias,float theta);
 };

@@ -304,12 +304,34 @@ void Hexapod::setPitch(float pitch)
 Vector3 Hexapod::pitchBias(Vector3 bias, float theta)
 {
     auto v = Vector3(
+        bias.x,
+        bias.y*cos(theta)-bias.z*sin(theta),
+        bias.y*sin(theta)+bias.z*cos(theta)
+    );
+    return v;
+}
+
+void Hexapod::setRoll(float roll)
+{
+    BRleg.setRoll(roll);
+    MRleg.setRoll(roll);
+    FRleg.setRoll(roll);
+    BLleg.setRoll(roll);
+    MLleg.setRoll(roll);
+    FLleg.setRoll(roll);
+}
+
+Vector3 Hexapod::rollBias(Vector3 bias, float theta)
+{
+    auto v = Vector3(
         cos(theta) * (bias.x) + sin(theta) * (bias.z),
         bias.y,
         -sin(theta) * (bias.x) + cos(theta) * (bias.z)
     );
     return v;
 }
+
+
 
 void Hexapod::startMove()
 {
