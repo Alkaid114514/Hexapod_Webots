@@ -8,11 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="527b2fe3-c75e-4d32-bad5-97d2107031d0" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/IMU.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/IMU.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.new_hexapod/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.new_hexapod/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hexapod.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hexapod.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hexapod.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hexapod.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new_hexapod.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/new_hexapod.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/new_hexapod.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/new_hexapod.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../worlds/.hexworld.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/.hexworld.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../worlds/.hexworld.wbproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/.hexworld.wbproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../worlds/hexworld.wbt" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/hexworld.wbt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +196,7 @@
     <MESSAGE value="添加姿态控制之setYaw设置偏航角功能" />
     <MESSAGE value="失败的移动尝试" />
     <MESSAGE value="全向移动实现，当前仅实现Tripod步态" />
-    <option name="LAST_COMMIT_MESSAGE" value="全向移动实现，当前仅实现Tripod步态" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

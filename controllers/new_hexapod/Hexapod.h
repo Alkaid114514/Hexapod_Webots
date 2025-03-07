@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <webots/Robot.hpp>
+
+#include "IMU.h"
 #include "LegR.h"
 #include "LegL.h"
 #include "Vector3.h"
@@ -23,6 +25,8 @@ public:
     LegL BLleg;
     LegL MLleg;
     LegL FLleg;
+
+    IMU imu;
 
     enum GaitStatus : std::int8_t
     {
