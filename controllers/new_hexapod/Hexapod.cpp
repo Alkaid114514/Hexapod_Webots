@@ -283,15 +283,17 @@ void Hexapod::setYaw(float yaw)
     FLleg.setYaw(yaw);
 }
 
-Vector3 Hexapod::yawBias(Vector3 bias, float theta)
+
+void Hexapod::setRoll(float roll)
 {
-    auto v = Vector3(
-        cos(theta) * (bias.x) - sin(theta) * (bias.y),
-        sin(theta) * (bias.x) + cos(theta) * (bias.y),
-        bias.z
-    );
-    return v;
+    BRleg.setRoll(roll);
+    MRleg.setRoll(roll);
+    FRleg.setRoll(roll);
+    BLleg.setRoll(roll);
+    MLleg.setRoll(roll);
+    FLleg.setRoll(roll);
 }
+
 
 void Hexapod::startMove()
 {

@@ -109,6 +109,8 @@ public:
     void setHeight(float height);
 
     void setYaw(float yaw);
+    void setRoll(float roll);
+    void setPitch(float pitch);
 
     /// <summary>
     /// 开始按照设置的角度和目标点运动
@@ -132,5 +134,4 @@ public:
     /// <returns>以腿根部为原点的相对向量(腿坐标系)</returns>
     static Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
 
-    static Vector3 yawBias(Vector3 bias, float theta);
 };
