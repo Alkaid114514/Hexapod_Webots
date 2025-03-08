@@ -11,7 +11,7 @@
 #define TIBIA_LEN (116.0f/1000.0f)
 
 #define WAVE_RATIO (1.0f/5.0f)
-
+#define RIPPLE_RATIO (1.0f/2.0f)
 #define CLIP(value, lower, upper) (((value) < (lower)) ? (lower) : ((value) > (upper) ? (upper) : (value)))
 
 
@@ -94,6 +94,7 @@ public:
     // void move(Vector3 velocity, float omega, float timeStep);
     void moveTripod();
     void moveWave();
+    void moveRipple();
     Vector3 getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
     Vector3 getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget,float baseRatio = 1.0f,float ratio = 0.0f);
 
