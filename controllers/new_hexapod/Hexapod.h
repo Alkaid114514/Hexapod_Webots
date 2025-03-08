@@ -92,7 +92,7 @@ public:
                  Vector3 BLangles, Vector3 MLangles, Vector3 FLangles);
 
     // void move(Vector3 velocity, float omega, float timeStep);
-    void moveTripod(float timeStep);
+    void moveTripod();
     void moveWave();
     Vector3 getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
     Vector3 getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget,float baseRatio = 1.0f,float ratio = 0.0f);
