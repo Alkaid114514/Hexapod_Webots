@@ -7,18 +7,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="527b2fe3-c75e-4d32-bad5-97d2107031d0" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.new_hexapod/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.new_hexapod/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="527b2fe3-c75e-4d32-bad5-97d2107031d0" name="更改" comment="全向移动实现，当前仅实现Tripod步态">
       <change beforePath="$PROJECT_DIR$/Hexapod.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hexapod.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hexapod.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hexapod.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LegL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/LegL.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LegL.h" beforeDir="false" afterPath="$PROJECT_DIR$/LegL.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LegR.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/LegR.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LegR.h" beforeDir="false" afterPath="$PROJECT_DIR$/LegR.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new_hexapod.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/new_hexapod.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../worlds/.hexworld.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/.hexworld.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../worlds/.hexworld.wbproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/.hexworld.wbproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../worlds/hexworld.wbt" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/hexworld.wbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vector3.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Vector3.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vector3.h" beforeDir="false" afterPath="$PROJECT_DIR$/Vector3.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,17 +36,28 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/alkaid114514/Hexapod_Webots&quot;,
-    &quot;accountId&quot;: &quot;8ca7a8b3-7cd4-4ae8-ac4a-f2f4b965e60b&quot;
+    &quot;url&quot;: &quot;https://github.com/Alkaid114514/Hexapod_Webots.git&quot;,
+    &quot;accountId&quot;: &quot;b68308f6-56ef-4a13-abb8-27f0a3b3fb81&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/LegL.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/LegL.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/LegR.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/LegR.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/new_hexapod.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/new_hexapod.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://2" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -65,11 +73,10 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;C++ 项目.new_hexapod.executor&quot;: &quot;Run&quot;,
     &quot;C/C++ 项目.new_hexapod.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;biscuit&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Alkaid114514 上的 #6&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -77,13 +84,6 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.language.and.region&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\biscu\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\biscu\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\biscu\\AppData\\Local\\Symbols\\src&quot;
-    ]
   }
 }</component>
   <component name="RecentsManager">
@@ -132,12 +132,6 @@
       <workItem from="1741160053638" duration="1794000" />
       <workItem from="1741161863372" duration="17277000" />
       <workItem from="1741266693711" duration="5698000" />
-      <workItem from="1741322708696" duration="2538000" />
-      <workItem from="1741334710191" duration="3534000" />
-      <workItem from="1741346271790" duration="1687000" />
-      <workItem from="1741349911237" duration="392000" />
-      <workItem from="1741350317265" duration="4856000" />
-      <workItem from="1741401146416" duration="2069000" />
     </task>
     <task id="LOCAL-00001" summary="清理无用注释">
       <option name="closed" value="true" />
@@ -179,15 +173,7 @@
       <option name="project" value="LOCAL" />
       <updated>1741271860786</updated>
     </task>
-    <task id="LOCAL-00006" summary="Roll(变量名起错了)">
-      <option name="closed" value="true" />
-      <created>1741336184059</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1741336184059</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,8 +198,7 @@
     <MESSAGE value="添加姿态控制之setYaw设置偏航角功能" />
     <MESSAGE value="失败的移动尝试" />
     <MESSAGE value="全向移动实现，当前仅实现Tripod步态" />
-    <MESSAGE value="Roll(变量名起错了)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Roll(变量名起错了)" />
+    <option name="LAST_COMMIT_MESSAGE" value="全向移动实现，当前仅实现Tripod步态" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
