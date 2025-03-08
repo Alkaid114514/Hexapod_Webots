@@ -2,6 +2,9 @@
 
 Hexapod::Hexapod() : Robot()
 {
+    imu = IMU(this);
+    timeStep = (float)this->getBasicTimeStep();
+    
     BRleg = LegR(getMotor("M_BR_COXA"), getMotor("M_BR_FEMUR"), getMotor("M_BR_TIBIA"), ctr2BRroot, ctr2BRrootTheta);
     MRleg = LegR(getMotor("M_MR_COXA"), getMotor("M_MR_FEMUR"), getMotor("M_MR_TIBIA"), ctr2MRroot, ctr2MRrootTheta);
     FRleg = LegR(getMotor("M_FR_COXA"), getMotor("M_FR_FEMUR"), getMotor("M_FR_TIBIA"), ctr2FRroot, ctr2FRrootTheta);
@@ -151,11 +154,13 @@ void Hexapod::moveWave()
     
     if (isGaitCycleStart() || gaitStatus == Stop)
     {
-        lockedVelocity = velocity;
         lockedOmega = omega == 0.0f ? FLT_EPSILON : omega;
         auto w = Vector3(0.0, 0.0, lockedOmega);
+        lockedVelocity = velocity;
+        bool isVzero = lockedVelocity == Vector3();
+        stepLen = (isVzero ? omega * MRleg.currentStandBodyTarget.x : lockedVelocity.magnitude()) * (timeStep / 1000.0f) * (float)totalFrame;
         lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
-        auto rlen = lockedR.squareMagnitude() > MRleg.currentStandBodyTarget.x * MRleg.currentStandBodyTarget.x ? lockedR.magnitude() : MRleg.currentStandBodyTarget.x;
+        auto rlen = isVzero ? MRleg.currentStandBodyTarget.x : lockedR.magnitude();
         stepTheta = stepLen / rlen;
         gaitStatus = Ripple;
     }
@@ -255,7 +260,6 @@ void Hexapod::moveWave()
     frame++;
 }
 
-
 void Hexapod::moveTripod()
 {
     if (velocity == Vector3() && omega == 0.0)
@@ -268,11 +272,13 @@ void Hexapod::moveTripod()
     
     if (isGaitCycleStart() || gaitStatus == Stop)
     {
-        lockedVelocity = velocity;
         lockedOmega = omega == 0.0f ? FLT_EPSILON : omega;
         auto w = Vector3(0.0, 0.0, lockedOmega);
+        lockedVelocity = velocity;
+        bool isVzero = lockedVelocity == Vector3();
+        stepLen = (isVzero ? omega * MRleg.currentStandBodyTarget.x : lockedVelocity.magnitude()) * (timeStep / 1000.0f) * (float)totalFrame;
         lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
-        auto rlen = lockedR.squareMagnitude() > MRleg.currentStandBodyTarget.x * MRleg.currentStandBodyTarget.x ? lockedR.magnitude() : MRleg.currentStandBodyTarget.x;
+        auto rlen = isVzero ? MRleg.currentStandBodyTarget.x : lockedR.magnitude();
         stepTheta = stepLen / rlen;
         gaitStatus = Tripod;
     }
@@ -294,7 +300,7 @@ void Hexapod::moveTripod()
     }
     else if (gaitGroupIndex == 1)
     {
-        MRleg.setBodyTarget(getStandNextBodyTarget( lockedR,MRleg.currentStandBodyTarget ));
+        MRleg.setBodyTarget(getStandNextBodyTarget( lockedR, MRleg.currentStandBodyTarget));
         FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
         BLleg.setBodyTarget(getStandNextBodyTarget(lockedR,BLleg.currentStandBodyTarget));
 

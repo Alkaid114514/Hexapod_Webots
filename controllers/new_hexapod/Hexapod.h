@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include <webots/Robot.hpp>
+
+#include "IMU.h"
 #include "LegR.h"
 #include "LegL.h"
 #include "Vector3.h"
@@ -25,6 +27,8 @@ public:
     LegL BLleg;
     LegL MLleg;
     LegL FLleg;
+
+    IMU imu;
 
     enum GaitStatus : std::int8_t
     {
@@ -61,12 +65,11 @@ public:
     float femurOmega = 0.1f;
     float tibiaOmega = 0.1f;
     int totalFrame = 32;
-    int totalWaveFrame = totalFrame * 6;
     float stepTheta;
     float stepLen = 0.05f;
-    int frame = totalFrame / 2;
     
     int gaitGroupIndex = 0;
+    int frame = totalFrame / 2;
     Vector3 velocity = Vector3(0.0f, 0.0f, 0.0f);
     float omega = 0.0f;
     Vector3 lockedVelocity;
@@ -91,7 +94,6 @@ public:
     // void move(Vector3 velocity, float omega, float timeStep);
     void moveTripod();
     void moveWave();
-
     Vector3 getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
     Vector3 getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget,float baseRatio = 1.0f,float ratio = 0.0f);
 
@@ -137,6 +139,5 @@ public:
     /// <param name="theta">以机器人身体中心为原点坐标系下，腿根部为原点的坐标系的旋转角</param>
     /// <returns>以腿根部为原点的相对向量(腿坐标系)</returns>
     static Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
-
 
 };

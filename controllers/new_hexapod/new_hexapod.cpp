@@ -24,14 +24,22 @@ int main(int argc, char** argv)
     robot->omega = 0.1f;
     robot->velocity = Vector3(0.0f, 0.0f, 0.0f);
 
-    // robot->setHeight(0.100459f);
-    // robot->setHeight(0.07f);
-    // robot->setYaw(0.4f);
-    // robot->setRoll(0.5f);
-    // robot->setPitch(0.05f);
-    // robot->reInit();
-    // robot->startMove();
+    robot->setHeight(0.100459f);
+    // robot->setHeight(0.13f);
+    // robot->setYaw(0.3f);
+    // robot->setRoll((0.2f));
+    
+    robot->reInit();
+    robot->startMove();
+    
 
+    // float omegas[3] = {2.0f,2.0f,2.0f};
+    // robot->BRleg.setOmega(omegas);
+    // robot->MRleg.setOmega(omegas);
+    // robot->FRleg.setOmega(omegas);
+    // robot->BLleg.setOmega(omegas);
+    // robot->MLleg.setOmega(omegas);
+    // robot->FLleg.setOmega(omegas);
 
     while (robot->step(timeStep) != -1)
     {
