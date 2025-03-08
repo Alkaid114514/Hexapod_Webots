@@ -31,8 +31,7 @@ int main(int argc, char** argv)
     robot->setHeight(0.100459f);
     // robot->setHeight(0.13f);
     // robot->setYaw(0.3f);
-    robot->setRoll(0.2f);
-    robot->setPitch(0.2f);
+    // robot->setRoll((0.2f));
     
     robot->reInit();
     robot->startMove();

@@ -141,27 +141,33 @@ Vector3 Hexapod::body2legCoord(Vector3 absolute, Vector3 bias, float theta)
 //
 //     // }
 // }
-void Hexapod::moveRipple()
+
+void Hexapod::prepareNextCycle(GaitStatus moveStatus)
 {
-    if (velocity == Vector3() && omega == 0.0)
-    {
-        reInit();
-        startMove();
-        gaitStatus = Stop;
-        return;
-    }
     if (isGaitCycleStart() || gaitStatus == Stop)
     {
+        if (velocity == Vector3() && omega == 0.0)
+        {
+            reInit();
+            startMove();
+            gaitStatus = Stop;
+            return;
+        }    
         lockedOmega = omega == 0.0f ? FLT_EPSILON : omega;
         auto w = Vector3(0.0, 0.0, lockedOmega);
         lockedVelocity = velocity;
         bool isVzero = lockedVelocity == Vector3();
-        stepLen = (isVzero ? omega * MRleg.currentStandBodyTarget.x : lockedVelocity.magnitude()) * (timeStep / 1000.0f) * (float)totalFrame;
+        stepLen = (isVzero ? lockedOmega * MRleg.currentStandBodyTarget.x : (lockedOmega / abs(lockedOmega)) * lockedVelocity.magnitude()) * (timeStep / 1000.0f) * (float)totalFrame;
         lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
         auto rlen = isVzero ? MRleg.currentStandBodyTarget.x : lockedR.magnitude();
         stepTheta = stepLen / rlen;
-        gaitStatus = Ripple;
+        gaitStatus = moveStatus;
     }
+}
+
+void Hexapod::moveRipple()
+{
+    prepareNextCycle(Ripple);
      if (gaitGroupIndex == 0)
     {
         FLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
@@ -213,33 +219,8 @@ void Hexapod::moveRipple()
 }
 
 
-void Hexapod::prepareNextCycle(GaitStatus moveStatus)
-{
-    if (isGaitCycleStart() || gaitStatus == Stop)
-    {
-        if (velocity == Vector3() && omega == 0.0)
-        {
-            reInit();
-            startMove();
-            gaitStatus = Stop;
-            return;
-        }    
-        lockedOmega = omega == 0.0f ? FLT_EPSILON : omega;
-        auto w = Vector3(0.0, 0.0, lockedOmega);
-        lockedVelocity = velocity;
-        bool isVzero = lockedVelocity == Vector3();
-        stepLen = (isVzero ? lockedOmega * MRleg.currentStandBodyTarget.x : (lockedOmega / abs(lockedOmega)) * lockedVelocity.magnitude()) * (timeStep / 1000.0f) * (float)totalFrame;
-        lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
-        auto rlen = isVzero ? MRleg.currentStandBodyTarget.x : lockedR.magnitude();
-        stepTheta = stepLen / rlen;
-        gaitStatus = moveStatus;
-    }
-}
-
 void Hexapod::moveWave()
 {
-    
-    
     prepareNextCycle(Wave);
     if (gaitGroupIndex == 0)
     {
