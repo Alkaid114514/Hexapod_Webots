@@ -25,6 +25,7 @@ public:
     float ctr2rootTheta;
     float currentYaw = 0.0f;
     float currentRoll = 0.0f;
+    float currentPitch = 0.0f;
     
     Vector3 initStandBodyTarget;
     Vector3 currentStandBodyTarget;

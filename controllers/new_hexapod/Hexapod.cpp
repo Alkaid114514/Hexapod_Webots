@@ -139,6 +139,123 @@ Vector3 Hexapod::body2legCoord(Vector3 absolute, Vector3 bias, float theta)
 //     // }
 // }
 
+void Hexapod::moveRipple()
+{
+    if (velocity == Vector3() && omega == 0.0)
+    {
+        reInit();
+        startMove();
+        gaitStatus = Stop;
+        return;
+    }
+    
+    if (isGaitCycleStart() || gaitStatus == Stop)
+    {
+        lockedVelocity = velocity;
+        lockedOmega = omega == 0.0f ? FLT_EPSILON : omega;
+        auto w = Vector3(0.0, 0.0, lockedOmega);
+        lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
+        auto rlen = lockedR.squareMagnitude() > MRleg.currentStandBodyTarget.x * MRleg.currentStandBodyTarget.x ? lockedR.magnitude() : MRleg.currentStandBodyTarget.x;
+        stepTheta = stepLen / rlen;
+        gaitStatus = Ripple;
+    }
+    if (gaitGroupIndex == 0)
+    {
+        
+        MLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 1)
+    {
+        MRleg.setBodyTarget(getSwagNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 2)
+    {
+        FRleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 3)
+    {
+        BRleg.setBodyTarget(getSwagNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 4)
+    {
+        FLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 5)
+    {
+        BLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex -= 5; 
+        }
+    }
+    
+    startMove();
+    frame++;
+}
+
+
 void Hexapod::moveTripod()
 {
     if (velocity == Vector3() && omega == 0.0)
@@ -282,14 +399,14 @@ void Hexapod::setYaw(float yaw)
     FLleg.setYaw(yaw);
 }
 
-Vector3 Hexapod::yawBias(Vector3 bias, float theta)
+void Hexapod::setPitch(float pitch)
 {
-    auto v = Vector3(
-        cos(theta) * (bias.x) - sin(theta) * (bias.y),
-        sin(theta) * (bias.x) + cos(theta) * (bias.y),
-        bias.z
-    );
-    return v;
+    BRleg.setPitch(pitch);
+    MRleg.setPitch(pitch);
+    FRleg.setPitch(pitch);
+    BLleg.setPitch(pitch);
+    MLleg.setPitch(pitch);
+    FLleg.setPitch(pitch);
 }
 
 void Hexapod::setRoll(float roll)
@@ -301,37 +418,6 @@ void Hexapod::setRoll(float roll)
     MLleg.setRoll(roll);
     FLleg.setRoll(roll);
 }
-Vector3 Hexapod::pitchBias(Vector3 bias, float theta)
-{
-    auto v = Vector3(
-        bias.x,
-        bias.y*cos(theta)-bias.z*sin(theta),
-        bias.y*sin(theta)+bias.z*cos(theta)
-    );
-    return v;
-}
-
-void Hexapod::setRoll(float roll)
-{
-    BRleg.setRoll(roll);
-    MRleg.setRoll(roll);
-    FRleg.setRoll(roll);
-    BLleg.setRoll(roll);
-    MLleg.setRoll(roll);
-    FLleg.setRoll(roll);
-}
-
-Vector3 Hexapod::rollBias(Vector3 bias, float theta)
-{
-    auto v = Vector3(
-        cos(theta) * (bias.x) + sin(theta) * (bias.z),
-        bias.y,
-        -sin(theta) * (bias.x) + cos(theta) * (bias.z)
-    );
-    return v;
-}
-
-
 
 void Hexapod::startMove()
 {

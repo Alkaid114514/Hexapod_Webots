@@ -24,12 +24,13 @@ int main(int argc, char** argv)
     robot->omega = 0.1f;
     robot->velocity = Vector3(0.0f, 0.0f, 0.0f);
 
-    robot->setHeight(0.100459f);
-    // robot->setHeight(0.13f);
-    robot->setYaw(0.4f);
-    robot->setRoll((0.5f));
-    robot->reInit();
-    robot->startMove();
+    // robot->setHeight(0.100459f);
+    // robot->setHeight(0.07f);
+    // robot->setYaw(0.4f);
+    // robot->setRoll(0.5f);
+    // robot->setPitch(0.05f);
+    // robot->reInit();
+    // robot->startMove();
 
 
     while (robot->step(timeStep) != -1)
@@ -62,7 +63,7 @@ int main(int argc, char** argv)
         // robot->step(500);
         // robot->moveTripod();
         // robot->moveWave();
-        // robot->moveRipple();
+        robot->moveRipple();
     }
 
     // Enter here exit cleanup code.

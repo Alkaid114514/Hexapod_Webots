@@ -87,6 +87,7 @@ public:
 
     // void move(Vector3 velocity, float omega, float timeStep);
     void moveTripod();
+    void moveRipple();
 
     Vector3 getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
     Vector3 getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
@@ -134,7 +135,5 @@ public:
     /// <returns>以腿根部为原点的相对向量(腿坐标系)</returns>
     static Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
 
-    static Vector3 yawBias(Vector3 bias, float theta);
-    static Vector3 pitchBias(Vector3 bias,float theta );
-    static Vector3 rollBias(Vector3 bias,float theta);
+
 };

@@ -12,9 +12,13 @@
       <change beforePath="$PROJECT_DIR$/Hexapod.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hexapod.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hexapod.h" beforeDir="false" afterPath="$PROJECT_DIR$/Hexapod.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LegL.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/LegL.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LegL.h" beforeDir="false" afterPath="$PROJECT_DIR$/LegL.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LegR.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/LegR.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LegR.h" beforeDir="false" afterPath="$PROJECT_DIR$/LegR.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new_hexapod.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/new_hexapod.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../worlds/.hexworld.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/.hexworld.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../worlds/.hexworld.wbproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/.hexworld.wbproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../worlds/hexworld.wbt" beforeDir="false" afterPath="$PROJECT_DIR$/../../worlds/hexworld.wbt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,23 +44,12 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="cidr-memory-view://2" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/LegL.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/LegL.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/LegR.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/LegR.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/new_hexapod.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/biscu/Desktop/dayinianduxiangmu/Hexapod_Webots/controllers/new_hexapod/new_hexapod.cpp" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
@@ -70,28 +63,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C/C++ 项目.new_hexapod.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;biscuit&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.language.and.region&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C++ 项目.new_hexapod.executor": "Run",
+    "C/C++ 项目.new_hexapod.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "biscuit",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.language.and.region",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\biscu\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\biscu\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\biscu\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\biscu\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\biscu\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\biscu\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CidrLocalAttachDebugger.recentlyUsed">
       <recent name="com.jetbrains.rider.cpp.debugger.RiderCppLLDBDriverConfiguration" />
@@ -141,6 +135,9 @@
       <workItem from="1741322708696" duration="2538000" />
       <workItem from="1741334710191" duration="3534000" />
       <workItem from="1741346271790" duration="1687000" />
+      <workItem from="1741349911237" duration="392000" />
+      <workItem from="1741350317265" duration="4856000" />
+      <workItem from="1741401146416" duration="2069000" />
     </task>
     <task id="LOCAL-00001" summary="清理无用注释">
       <option name="closed" value="true" />

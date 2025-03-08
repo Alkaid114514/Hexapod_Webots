@@ -23,6 +23,7 @@ public:
     Vector3 currentStandAngles = initAngles;
     float currentYaw = 0.0f;
     float currentRoll= 0.0f;
+    float currentPitch=0.0f;
     
 
     Vector3 ctr2root;
