@@ -22,6 +22,8 @@ public:
     Vector3 initAngles = Vector3(0.0f, 0.0f, static_cast<float>(M_PI) / 3.0f);
     Vector3 currentStandAngles = initAngles;
     float currentYaw = 0.0f;
+    float currentRoll= 0.0f;
+    
 
     Vector3 ctr2root;
     float ctr2rootTheta;
@@ -57,5 +59,7 @@ public:
     void reInit();
     void setHeight(float height);
     void setYaw(float yaw);
+    void setRoll(float roll);
+    void setPitch(float pitch);
     void startMotor();
 };

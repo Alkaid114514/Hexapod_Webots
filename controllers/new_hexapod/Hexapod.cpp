@@ -2,6 +2,8 @@
 
 Hexapod::Hexapod() : Robot()
 {
+    imu = IMU(this);
+    
     BRleg = LegR(getMotor("M_BR_COXA"), getMotor("M_BR_FEMUR"), getMotor("M_BR_TIBIA"), ctr2BRroot, ctr2BRrootTheta);
     MRleg = LegR(getMotor("M_MR_COXA"), getMotor("M_MR_FEMUR"), getMotor("M_MR_TIBIA"), ctr2MRroot, ctr2MRrootTheta);
     FRleg = LegR(getMotor("M_FR_COXA"), getMotor("M_FR_FEMUR"), getMotor("M_FR_TIBIA"), ctr2FRroot, ctr2FRrootTheta);
@@ -139,7 +141,7 @@ Vector3 Hexapod::body2legCoord(Vector3 absolute, Vector3 bias, float theta)
 //     // }
 // }
 
-void Hexapod::moveTripod()
+void Hexapod::moveTripod(float timeStep)
 {
     if (velocity == Vector3() && omega == 0.0)
     {
@@ -154,6 +156,7 @@ void Hexapod::moveTripod()
         lockedVelocity = velocity;
         lockedOmega = omega == 0.0f ? FLT_EPSILON : omega;
         auto w = Vector3(0.0, 0.0, lockedOmega);
+        stepLen = lockedVelocity.magnitude() * (timeStep / 1000.0f) * (float)totalFrame;
         lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
         auto rlen = lockedR.squareMagnitude() > MRleg.currentStandBodyTarget.x * MRleg.currentStandBodyTarget.x ? lockedR.magnitude() : MRleg.currentStandBodyTarget.x;
         stepTheta = stepLen / rlen;
@@ -282,15 +285,17 @@ void Hexapod::setYaw(float yaw)
     FLleg.setYaw(yaw);
 }
 
-Vector3 Hexapod::yawBias(Vector3 bias, float theta)
+
+void Hexapod::setRoll(float roll)
 {
-    auto v = Vector3(
-        cos(theta) * (bias.x) - sin(theta) * (bias.y),
-        sin(theta) * (bias.x) + cos(theta) * (bias.y),
-        bias.z
-    );
-    return v;
+    BRleg.setRoll(roll);
+    MRleg.setRoll(roll);
+    FRleg.setRoll(roll);
+    BLleg.setRoll(roll);
+    MLleg.setRoll(roll);
+    FLleg.setRoll(roll);
 }
+
 
 void Hexapod::startMove()
 {
