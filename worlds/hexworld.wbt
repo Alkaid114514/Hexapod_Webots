@@ -8,8 +8,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.38806751982375265 0.34507272000347367 -0.8545925449986359 1.9888216302056263
-  position 0.12033754125698827 0.737115941700868 0.9070022691224352
+  orientation 0.13424615895247458 0.1524628550765643 -0.9791491442208432 1.8421304684017683
+  position 0.19575681480343665 1.1474757047207085 0.4936332391456907
   follow "Hexapod"
 }
 TexturedBackground {
@@ -28,8 +28,8 @@ Pose {
     Group {
       children [
         Solid {
-          translation -0.019933880692263206 -0.03998729742886506 0.04960760000000001
-          rotation 1.0258372560765865e-12 4.305264972574162e-13 -0.9999999999999999 5.0763256632347156e-05
+          translation -0.019933880692263206 -0.039987297428865066 0.0496076
+          rotation 1.865638562124743e-12 1.6063114219185855e-12 -1 5.076325663229e-05
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -42,12 +42,12 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity -5.2162031489795994e-17 4.759384818214922e-17 -5.6843418860808e-17
-          angularVelocity -1.0658141036401518e-15 -7.993605777301121e-16 -2.6936724930001772e-17
+          linearVelocity -3.0805168241675353e-17 2.390134560014339e-17 0
+          angularVelocity -1.4791141972893971e-30 -5.329070518200742e-16 -2.970285586870008e-16
         }
         Solid {
-          translation 0.06990678014426754 -0.19993550478438063 0.0496076
-          rotation 7.655079468438149e-13 -3.737492956399856e-13 1 9.931916513728612e-05
+          translation 0.06990678014426754 -0.19993550478438063 0.04960760000000001
+          rotation -3.5048172175983426e-13 7.423512176301586e-13 0.9999999999999999 9.931916513735763e-05
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -61,12 +61,12 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity 4.6346923497183124e-17 -2.4574112851578927e-17 5.6843418860808e-17
-          angularVelocity -2.664535259100378e-16 7.993605777301126e-16 -2.780858345347146e-16
+          linearVelocity 4.103453095925552e-17 3.5774274040659085e-19 5.6843418860808e-17
+          angularVelocity 2.664535259100374e-16 1.06581410364015e-15 -1.468429450847428e-16
         }
         Solid {
           translation 0.2427788537707931 -0.1300340540610465 0.04960760000000001
-          rotation -9.364176988186379e-14 2.4291477418732763e-14 -1 2.4836538398187308e-05
+          rotation 9.362738357457394e-13 2.430426718799471e-14 -1 2.483653839817223e-05
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -80,12 +80,12 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity -4.151239227910184e-17 2.537400585270245e-17 0
-          angularVelocity -2.6645352591003717e-16 -7.993605777301118e-16 5.660295665242386e-17
+          linearVelocity 1.4055518786149397e-17 -7.996085196082325e-17 -5.6843418860808e-17
+          angularVelocity 1.3322676295501875e-15 2.6645352591003697e-16 2.209166088277317e-16
         }
         Solid {
           translation 0.24010227170996068 0.2200350097607885 0.0496076
-          rotation -1.4293807415136307e-12 -2.758760940529022e-13 1 7.175482358369224e-05
+          rotation -1.7858873391871213e-12 -8.700054399354435e-13 1 7.175482358367162e-05
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -99,12 +99,12 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity -4.895529094006009e-17 5.825162083271598e-17 5.6843418860808e-17
-          angularVelocity -1.065814103640151e-15 -5.329070518200744e-16 -4.409552260002746e-17
+          linearVelocity -3.180545104561023e-17 4.515556834590239e-18 -5.6843418860808e-17
+          angularVelocity 5.329070518200738e-16 -2.6645352591003707e-16 -1.5786588817379345e-16
         }
         Solid {
           translation -0.020051649108723035 0.15992621635509713 0.0496076
-          rotation 9.369474074918168e-14 -7.192364067712405e-14 -1 0.00017334433090602426
+          rotation 3.8883306227303224e-13 -1.702746594756435e-13 -0.9999999999999999 0.00017334433090604115
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -118,12 +118,12 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity -2.3416683850934195e-17 -7.052561032042326e-18 -5.6843418860808e-17
-          angularVelocity 5.329070518200744e-16 -5.32907051820074e-16 -9.51664589378108e-18
+          linearVelocity 1.0713231912085764e-17 1.7301752876059054e-17 0
+          angularVelocity -7.993605777301126e-16 7.99360577730113e-16 1.4865216312747852e-16
         }
         Solid {
           translation 0.23263016943535741 0.05998653481257025 0.04960760000000001
-          rotation -4.866852205371245e-12 3.832715642663069e-12 -1 2.886579514978557e-05
+          rotation -3.3898564746011885e-12 -1.1888021094519153e-12 -1 2.8865795149786667e-05
           children [
             DEF BOX Shape {
               appearance PBRAppearance {
@@ -137,16 +137,15 @@ Pose {
           boundingObject USE BOX
           physics Physics {
           }
-          linearVelocity 1.6821256153795729e-18 6.00728587228863e-17 5.684341886080802e-17
-          angularVelocity -1.5987211554602233e-15 -2.66453525910037e-16 1.0287040965343364e-16
+          linearVelocity 1.1051225155754395e-17 -4.5426132800676195e-17 1.232595164407831e-32
+          angularVelocity 7.993605777301133e-16 9.860761315262648e-32 6.338070607316566e-17
         }
       ]
     }
   ]
 }
 Robot {
-  translation 0.0007851898605055415 -1.939539803513723e-05 0.10845436622157492
-  rotation 1 0 0 0
+  translation 0 0 0.107
   children [
     DEF Leg0FR Pose {
       translation 0.063 0.082 0
@@ -169,7 +168,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position 2.060248409161821e-06
+            position -6.887190904425364e-08
             axis 0 0 -1
           }
           device [
@@ -181,8 +180,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.019999995879460743 -0.0020000412049639396 0
-            rotation 0 0 -1 2.0602438369637884e-06
+            translation 0.020000000137743775 -0.001999998622561815 0
+            rotation 0 0 1 6.664001874625056e-08
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -214,7 +213,7 @@ Robot {
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position 1.2982363794498855e-06
+                  position 1.2687637223161715e-06
                   axis 0 -1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -227,12 +226,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.06299999000354589 0 5.2059272331352047e-08
-                  rotation -0.9999999999998743 -4.2960885157605303e-07 -2.5833918972493605e-07 1.5707953071798226
+                  translation 0.06299999023048687 0 5.087741907199711e-08
+                  rotation -0.9999999999998842 -4.1487250798380817e-07 -2.436028611580823e-07 1.5707953071798104
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position -5.996856018317297e-07
+                        position -5.865085321729384e-07
                         axis 0 0 1
                         anchor 0.041 0.008 0
                       }
@@ -245,8 +244,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.056028876377227324 0.04795757928394432 2.476705097336627e-05
-                        rotation -2.0863081623328384e-07 -0.7071082811857372 0.7071052811841453 3.1415895759591437
+                        translation 0.05602887585070351 0.04795757948198087 2.476705097336627e-05
+                        rotation -2.0397200869453604e-07 -0.7071082811857333 0.7071052811841502 3.1415895852767193
                         children [
                           DEF JointFT Pose {
                             translation 0.0118 0 0.035
@@ -347,7 +346,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position -1.8461297754271597e-06
+            position -3.678971947381412e-09
             axis 0 0 -1
           }
           device [
@@ -359,8 +358,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.020000003692225467 -0.0019999630774010834 0
-            rotation 0 0 1 1.8460608322559748e-06
+            translation 0.02000000000735794 -0.0019999999264205606 0
+            rotation 0 0 -1 0
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -392,7 +391,7 @@ Robot {
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position 1.1474390656919117e-06
+                  position 1.134154076425542e-06
                   axis 0 -1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -405,12 +404,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.06299999116469261 0 4.6012301470679806e-08
-                  rotation -0.9999999999999205 -3.542101178194288e-07 -1.8294053284596335e-07 1.570795307179764
+                  translation 0.06299999126698763 0 4.54795735160482e-08
+                  rotation -0.999999999999924 -3.475676164134534e-07 -1.7629803821277943e-07 1.5707953071797591
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position -5.505027698949234e-07
+                        position -5.405746093789971e-07
                         axis 0 0 1
                         anchor 0.041 0.008 0
                       }
@@ -423,8 +422,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.0560288744120004 0.04795758002310701 2.476705097336627e-05
-                        rotation -1.9124202235593766e-07 -0.7071082811857232 0.7071052811841642 3.141589610736584
+                        translation 0.056028874015295126 0.04795758017231608 2.476705097336627e-05
+                        rotation -1.8773188009706033e-07 -0.7071082811857203 0.7071052811841678 3.1415896177568388
                         children [
                           DEF JointFT Pose {
                             translation 0.0118 0 0.035
@@ -525,7 +524,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position 4.444349040465791e-06
+            position -1.3224569011686786e-08
             axis 0 0 -1
           }
           device [
@@ -537,8 +536,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.020000009054553014 0.0019999094523997156 0
-            rotation 0 0 -1 4.444344707121536e-06
+            translation 0.020000000139610716 0.0019999986038923964 0
+            rotation 0 0 -1 0
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -570,7 +569,7 @@ Robot {
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position -2.3529317857499633e-06
+                  position -2.3852281276898326e-06
                   axis 0 1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -583,12 +582,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.06299998188231401 0 9.43525433122136e-08
-                  rotation 0.999999999998616 -1.1764615716186965e-06 1.1764658929131486e-06 1.570800000001382
+                  translation 0.06299998163362912 0 9.564762603470056e-08
+                  rotation 0.9999999999985777 -1.192609683273151e-06 1.192614063883038e-06 1.5708000000014204
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position 1.114670396614138e-06
+                        position 1.0946431804541734e-06
                         axis 0 0 1
                         anchor 0.04 -0.0095 0
                       }
@@ -601,8 +600,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.06100004625880841 -0.05099997659189581 -8.485299999999979e-07
-                        rotation -3.974857207971298e-07 0.7071062811857454 0.7071072811868845 3.1415907881915532
+                        translation 0.0610000454276794 -0.05099997701246827 -8.485299999999979e-07
+                        rotation -3.904050356264446e-07 0.707106281185754 0.7071072811868798 3.141590774030163
                         children [
                           DEF JointFT Pose {
                             translation 0.012 0 0.0354013
@@ -703,7 +702,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position 4.6915355662886235e-06
+            position -9.970004034239643e-10
             axis 0 0 -1
           }
           device [
@@ -715,8 +714,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.020000009548903068 0.001999904508666899 0
-            rotation 0 0 -1 4.691570909303045e-06
+            translation 0.020000000164065838 0.0019999983593410224 0
+            rotation 0 0 -1 0
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -748,7 +747,7 @@ Robot {
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position -2.507762471033202e-06
+                  position -2.4911205477782397e-06
                   axis 0 1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -761,12 +760,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.06299998069010265 0 1.0056125089585866e-07
-                  rotation 0.9999999999984278 -1.2538766298981776e-06 1.253881235554539e-06 1.5708000000015705
+                  translation 0.06299998081824713 0 9.989391009518345e-08
+                  rotation 0.9999999999984487 -1.2455556988352653e-06 1.245560273927084e-06 1.5708000000015494
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position 1.152160030935532e-06
+                        position 1.1394336126776835e-06
                         axis 0 0 1
                         anchor 0.04 -0.0095 0
                       }
@@ -779,8 +778,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.06100004781462731 -0.0509999758046117 -8.485299999999974e-07
-                        rotation -4.10740298751132e-07 0.7071062811857292 0.7071072811868933 3.1415908147007467
+                        translation 0.06100004728648127 -0.050999976071867105 -8.485299999999978e-07
+                        rotation -4.0624083360757294e-07 0.7071062811857346 0.7071072811868901 3.141590805701804
                         children [
                           DEF JointFT Pose {
                             translation 0.012 0 0.0354013
@@ -881,7 +880,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position 3.269903177861058e-10
+            position 1.6396983845086888e-06
             axis 0 0 -1
           }
           device [
@@ -893,8 +892,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.02000000016671381 0.0019999983328612076 0
-            rotation 0 0 -1 0
+            translation 0.02000000344542699 0.0019999655454303626 0
+            rotation 0 0 -1 1.639669502196229e-06
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -926,7 +925,7 @@ Robot {
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position -6.879355822454399e-07
+                  position -9.223349442888213e-07
                   axis 0 1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -939,12 +938,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.06299999470288627 0 2.7586215046657148e-08
-                  rotation 0.9999999999998817 -3.43966527798151e-07 3.439677911619451e-07 1.5708000000001159
+                  translation 0.06299999289800363 0 3.698562801249944e-08
+                  rotation 0.9999999999997873 -4.611657783221279e-07 4.6116747218359744e-07 1.5708000000002105
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position 7.461986559192328e-07
+                        position 5.020867148290526e-07
                         axis 0 0 1
                         anchor 0.04 -0.0095 0
                       }
@@ -957,8 +956,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.061000030967238356 -0.05099998432981657 -8.485299999999974e-07
-                        rotation -2.6721137965475223e-07 0.7071062811858986 0.7071072811867926 3.141590527642503
+                        translation 0.061000020836596 -0.05099998945617365 -8.485299999999976e-07
+                        rotation -1.809048362260935e-07 0.7071062811859934 0.7071072811867251 3.1415903550291717
                         children [
                           DEF JointFT Pose {
                             translation 0.012 0 0.0354013
@@ -1058,7 +1057,7 @@ Robot {
         }
         HingeJoint {
           jointParameters HingeJointParameters {
-            position -4.9266494739600294e-06
+            position 1.9832465644978036e-08
             axis 0 0 -1
           }
           device [
@@ -1070,8 +1069,8 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.01999974874772243 -0.0019998171191071405 1.1721242531390072e-05
-            rotation -0.003299999592370501 -0.561680954575035 0.8273473365342804 8.734419577754639e-06
+            translation 0.019999738855418503 -0.0019999160474786525 1.1721242531390077e-05
+            rotation -0.0053301586533178544 -0.9068452006994598 0.4214301500570251 5.40983984121126e-06
             children [
               DEF JointCF Pose {
                 translation 0.022 -1.67293e-08 -1.67294e-08
@@ -1103,7 +1102,7 @@ Robot {
               }
               HingeJoint {
                 jointParameters HingeJointParameters {
-                  position 2.3545175193811002e-06
+                  position 2.6089209616935233e-06
                   axis 0 -1 0
                   anchor 0.0229 0 -0.0077
                 }
@@ -1116,12 +1115,12 @@ Robot {
                   }
                 ]
                 endPoint Solid {
-                  translation 0.06299998187010378 0 9.441613119196696e-08
-                  rotation -0.999999999999232 -9.577499600415854e-07 -7.864797596901286e-07 1.5707953071805552
+                  translation 0.06299997991117195 0 1.046177043658586e-07
+                  rotation -0.9999999999989939 -1.0849518108944129e-06 -9.136814808461168e-07 1.5707953071808152
                   children [
                     HingeJoint {
                       jointParameters HingeJointParameters {
-                        position -1.3133558973335656e-06
+                        position -1.0779024796817115e-06
                         axis 0 0 1
                         anchor 0.041 0.008 0
                       }
@@ -1134,8 +1133,8 @@ Robot {
                         }
                       ]
                       endPoint Solid {
-                        translation 0.05602890489376092 0.047957568558271525 2.476705097336627e-05
-                        rotation -4.6095190422626895e-07 -0.7071082811859147 0.7071052811838482 3.1415890713191086
+                        translation 0.05602889548561442 0.047957572096877434 2.476705097336627e-05
+                        rotation -3.77706373498635e-07 -0.7071082811858611 0.7071052811839512 3.141589237809464
                         children [
                           DEF JointFT Pose {
                             translation 0.0118 0 0.035
