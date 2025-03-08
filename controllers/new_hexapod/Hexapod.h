@@ -8,6 +8,8 @@
 #define FEMUR_LEN (79.2f/1000.0f)
 #define TIBIA_LEN (116.0f/1000.0f)
 
+#define WAVE_RATIO (1.0f/5.0f)
+
 #define CLIP(value, lower, upper) (((value) < (lower)) ? (lower) : ((value) > (upper) ? (upper) : (value)))
 
 
@@ -59,11 +61,12 @@ public:
     float femurOmega = 0.1f;
     float tibiaOmega = 0.1f;
     int totalFrame = 32;
+    int totalWaveFrame = totalFrame * 6;
     float stepTheta;
     float stepLen = 0.05f;
+    int frame = totalFrame / 2;
     
     int gaitGroupIndex = 0;
-    int frame = totalFrame / 2;
     Vector3 velocity = Vector3(0.0f, 0.0f, 0.0f);
     float omega = 0.0f;
     Vector3 lockedVelocity;
@@ -87,10 +90,10 @@ public:
 
     // void move(Vector3 velocity, float omega, float timeStep);
     void moveTripod();
-    void moveRipple();
+    void moveWave();
 
     Vector3 getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
-    Vector3 getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
+    Vector3 getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget,float baseRatio = 1.0f,float ratio = 0.0f);
 
     bool isGaitCycleFinish();
     bool isGaitCycleStart();

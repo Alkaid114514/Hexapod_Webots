@@ -63,7 +63,7 @@ int main(int argc, char** argv)
         // robot->step(500);
         // robot->moveTripod();
         // robot->moveWave();
-        robot->moveRipple();
+        robot->moveWave();
     }
 
     // Enter here exit cleanup code.

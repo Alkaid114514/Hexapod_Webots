@@ -139,7 +139,7 @@ Vector3 Hexapod::body2legCoord(Vector3 absolute, Vector3 bias, float theta)
 //     // }
 // }
 
-void Hexapod::moveRipple()
+void Hexapod::moveWave()
 {
     if (velocity == Vector3() && omega == 0.0)
     {
@@ -161,13 +161,12 @@ void Hexapod::moveRipple()
     }
     if (gaitGroupIndex == 0)
     {
-        
-        MLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
-        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
-        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
-        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
-        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
-        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget,WAVE_RATIO,5.0f * WAVE_RATIO));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget,WAVE_RATIO,4.0f * WAVE_RATIO));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget,WAVE_RATIO,3.0f * WAVE_RATIO));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget,WAVE_RATIO,2.0f * WAVE_RATIO));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget,WAVE_RATIO,1.0f * WAVE_RATIO));
 
         if (isGaitCycleFinish())
         {
@@ -177,12 +176,12 @@ void Hexapod::moveRipple()
     }
     else if (gaitGroupIndex == 1)
     {
-        MRleg.setBodyTarget(getSwagNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
-        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
-        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
-        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
-        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
-        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget,WAVE_RATIO,1.0f * WAVE_RATIO));
+        FRleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget,WAVE_RATIO,5.0f * WAVE_RATIO));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget,WAVE_RATIO,4.0f * WAVE_RATIO));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget,WAVE_RATIO,3.0f * WAVE_RATIO));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget,WAVE_RATIO,2.0f * WAVE_RATIO));
 
         if (isGaitCycleFinish())
         {
@@ -192,12 +191,12 @@ void Hexapod::moveRipple()
     }
     else if (gaitGroupIndex == 2)
     {
-        FRleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
-        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
-        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
-        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
-        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
-        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget,WAVE_RATIO,2.0f * WAVE_RATIO));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget,WAVE_RATIO,1.0f * WAVE_RATIO));
+        MLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget,WAVE_RATIO,5.0f * WAVE_RATIO));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget,WAVE_RATIO,4.0f * WAVE_RATIO));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget,WAVE_RATIO,3.0f * WAVE_RATIO));
 
         if (isGaitCycleFinish())
         {
@@ -207,12 +206,12 @@ void Hexapod::moveRipple()
     }
     else if (gaitGroupIndex == 3)
     {
-        BRleg.setBodyTarget(getSwagNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
-        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
-        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
-        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
-        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
-        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget,WAVE_RATIO,3.0f * WAVE_RATIO));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget,WAVE_RATIO,2.0f * WAVE_RATIO));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget,WAVE_RATIO,1.0f * WAVE_RATIO));
+        MRleg.setBodyTarget(getSwagNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget,WAVE_RATIO,5.0f * WAVE_RATIO));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget,WAVE_RATIO,4.0f * WAVE_RATIO));
 
         if (isGaitCycleFinish())
         {
@@ -222,12 +221,12 @@ void Hexapod::moveRipple()
     }
     else if (gaitGroupIndex == 4)
     {
-        FLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
-        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
-        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
-        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
-        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
-        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget,WAVE_RATIO,4.0f * WAVE_RATIO));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget,WAVE_RATIO,3.0f * WAVE_RATIO));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget,WAVE_RATIO,2.0f * WAVE_RATIO));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget,WAVE_RATIO,1.0f * WAVE_RATIO));
+        BLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
+        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget,WAVE_RATIO,5.0f * WAVE_RATIO));
 
         if (isGaitCycleFinish())
         {
@@ -237,12 +236,12 @@ void Hexapod::moveRipple()
     }
     else if (gaitGroupIndex == 5)
     {
-        BLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, BLleg.currentStandBodyTarget));
-        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget));
-        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget));
-        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget));
-        BRleg.setBodyTarget(getStandNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
-        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
+        FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget,WAVE_RATIO,5.0f * WAVE_RATIO));
+        FRleg.setBodyTarget(getStandNextBodyTarget(lockedR, FRleg.currentStandBodyTarget,WAVE_RATIO,4.0f * WAVE_RATIO));
+        MLleg.setBodyTarget(getStandNextBodyTarget(lockedR, MLleg.currentStandBodyTarget,WAVE_RATIO,3.0f * WAVE_RATIO));
+        MRleg.setBodyTarget(getStandNextBodyTarget(lockedR, MRleg.currentStandBodyTarget,WAVE_RATIO,2.0f * WAVE_RATIO));
+        BLleg.setBodyTarget(getStandNextBodyTarget(lockedR, BLleg.currentStandBodyTarget,WAVE_RATIO,1.0f * WAVE_RATIO));
+        BRleg.setBodyTarget(getSwagNextBodyTarget(lockedR, BRleg.currentStandBodyTarget));
 
         if (isGaitCycleFinish())
         {
@@ -250,6 +249,7 @@ void Hexapod::moveRipple()
             gaitGroupIndex -= 5; 
         }
     }
+
     
     startMove();
     frame++;
@@ -294,7 +294,7 @@ void Hexapod::moveTripod()
     }
     else if (gaitGroupIndex == 1)
     {
-        MRleg.setBodyTarget(getStandNextBodyTarget( lockedR, MRleg.currentStandBodyTarget));
+        MRleg.setBodyTarget(getStandNextBodyTarget( lockedR,MRleg.currentStandBodyTarget ));
         FLleg.setBodyTarget(getStandNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
         BLleg.setBodyTarget(getStandNextBodyTarget(lockedR,BLleg.currentStandBodyTarget));
 
@@ -330,12 +330,12 @@ Vector3 Hexapod::getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget
     return t;
 }
 
-Vector3 Hexapod::getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget)
+Vector3 Hexapod::getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget,float baseRatio,float ratio)
 {
     auto z = -currentHeight;
     currentStandBodyTarget.z = 0.0;
     Vector3 pc = r0 + currentStandBodyTarget;
-    float theta = stepTheta * (float)frame / (float)totalFrame - stepTheta / 2.0f;
+    float theta =stepTheta * ratio + stepTheta * (baseRatio) * (float)frame / (float)totalFrame  - stepTheta / 2.0f ;
     auto pt = Vector3(
         cos(theta) * (pc.x) + sin(theta) * (pc.y),
         -sin(theta) * (pc.x) + cos(theta) * (pc.y),
