@@ -41,7 +41,6 @@ int main(int argc, char** argv)
     // robot->MLleg.setOmega(omegas);
     // robot->FLleg.setOmega(omegas);
 
-
     while (robot->step(timeStep) != -1)
     {
         // robot->FLleg.setBodyTarget(Vector3(0.0f, 0.3f, 0.2f));
@@ -70,8 +69,9 @@ int main(int argc, char** argv)
         // robot->FRleg.reInit();
         // robot->startMove();
         // robot->step(500);
-        // robot->moveTripod((float)timeStep);
-        std::cout << robot->imu.getYaw() << std::endl;
+        // robot->moveTripod();
+        // robot->moveWave();
+        robot->moveWave();
     }
 
     // Enter here exit cleanup code.
