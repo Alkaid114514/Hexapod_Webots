@@ -74,6 +74,7 @@ int main(int argc, char** argv)
         // robot->startMove();
         // robot->step(500);
         // robot->moveTripod();
+        // robot->moveRipple();
         // robot->moveWave();
         
         // Vector3 vector3 = Vector3();
