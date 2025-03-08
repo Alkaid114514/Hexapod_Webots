@@ -167,25 +167,7 @@ void Hexapod::prepareNextCycle(GaitStatus moveStatus)
 
 void Hexapod::moveRipple()
 {
-    if (velocity == Vector3() && omega == 0.0)
-    {
-        reInit();
-        startMove();
-        gaitStatus = Stop;
-        return;
-    }
-    if (isGaitCycleStart() || gaitStatus == Stop)
-    {
-        lockedOmega = omega == 0.0f ? FLT_EPSILON : omega;
-        auto w = Vector3(0.0, 0.0, lockedOmega);
-        lockedVelocity = velocity;
-        bool isVzero = lockedVelocity == Vector3();
-        stepLen = (isVzero ? omega * MRleg.currentStandBodyTarget.x : lockedVelocity.magnitude()) * (timeStep / 1000.0f) * (float)totalFrame;
-        lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
-        auto rlen = isVzero ? MRleg.currentStandBodyTarget.x : lockedR.magnitude();
-        stepTheta = stepLen / rlen;
-        gaitStatus = Ripple;
-    }
+    prepareNextCycle(Ripple);
      if (gaitGroupIndex == 0)
     {
         FLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
