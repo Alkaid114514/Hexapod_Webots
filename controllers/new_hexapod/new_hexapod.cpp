@@ -9,6 +9,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <webots/Keyboard.hpp>
+#include "IMU.h"
 using namespace webots;
 
 int main(int argc, char** argv)
@@ -32,6 +33,7 @@ int main(int argc, char** argv)
     // robot->setHeight(0.13f);
     // robot->setYaw(0.3f);
     // robot->setRoll((0.2f));
+    
     
     robot->reInit();
     robot->startMove();
@@ -76,6 +78,10 @@ int main(int argc, char** argv)
         // robot->moveTripod();
         // robot->moveRipple();
         // robot->moveWave();
+
+        robot->balance();
+        robot->reInit();
+        robot->startMove();
         
         // Vector3 vector3 = Vector3();
         // bool arr[256] = {false};
@@ -114,7 +120,8 @@ int main(int argc, char** argv)
         //     omega -= 0.1f;
         // }
         // robot->omega = omega;
-        robot->moveTripod();
+        // robot->moveTripod();
+      
     }
 
     // Enter here exit cleanup code.
