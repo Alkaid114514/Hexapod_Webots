@@ -464,6 +464,18 @@ void Hexapod::setRoll(float roll)
     FLleg.setRoll(roll);
 }
 
+void Hexapod::balance()
+{
+    float target_pitch = 0.0;  
+    float target_roll = 0.0;   
+    float current_pitch = imu.getPitch();
+    float current_roll = imu.getRoll();
+    float c2t_pitch =  current_pitch - target_pitch;
+    float c2t_roll = current_roll - target_roll;
+    setPitch(c2t_pitch);
+    setRoll(c2t_roll);
+}
+    
 
 void Hexapod::startMove()
 {

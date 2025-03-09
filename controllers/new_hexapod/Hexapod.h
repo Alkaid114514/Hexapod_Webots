@@ -118,7 +118,8 @@ public:
     void setYaw(float yaw);
     void setRoll(float roll);
     void setPitch(float pitch);
-
+    void balance();
+    
     /// <summary>
     /// 开始按照设置的角度和目标点运动
     /// </summary>
