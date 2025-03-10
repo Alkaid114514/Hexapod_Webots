@@ -26,7 +26,7 @@ int main(int argc, char** argv)
     Keyboard* keyboard = robot->getKeyboard();
     keyboard->enable(timeStep);
     
-    robot->omega = -0.1f;
+    robot->omega = -0.0f;
     robot->velocity = Vector3(0.0f, 0.05f, 0.0f);
 
     robot->setHeight(0.100459f);
@@ -79,9 +79,9 @@ int main(int argc, char** argv)
         // robot->moveRipple();
         // robot->moveWave();
 
-        robot->balance();
-        robot->reInit();
-        robot->startMove();
+        // robot->balance();
+        // robot->reInit();
+        // robot->startMove();
         
         // Vector3 vector3 = Vector3();
         // bool arr[256] = {false};
@@ -120,7 +120,7 @@ int main(int argc, char** argv)
         //     omega -= 0.1f;
         // }
         // robot->omega = omega;
-        // robot->moveTripod();
+        robot->moveTripod();
         // robot->checkIsOnGround();
         // robot->toGround();
         // robot->reInit();

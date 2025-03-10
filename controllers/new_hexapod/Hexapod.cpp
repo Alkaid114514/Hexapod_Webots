@@ -160,8 +160,10 @@ void Hexapod::prepareNextCycle(GaitStatus moveStatus)
 {
     if (isGaitCycleStart() || gaitStatus == Stop)
     {
+        balance();
         if (velocity == Vector3() && omega == 0.0)
         {
+            
             reInit();
             startMove();
             gaitStatus = Stop;
@@ -386,8 +388,8 @@ void Hexapod::moveTripod()
 
 Vector3 Hexapod::getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget)
 {
-    auto z = -currentHeight;
-    currentStandBodyTarget.z = 0.0;
+    // auto z = -currentHeight;
+    // currentStandBodyTarget.z = 0.0;
     Vector3 pc = r0 + currentStandBodyTarget;
     float theta = stepTheta * (float)frame / (float)totalFrame - stepTheta / 2.0f;
     auto pt = Vector3(
@@ -396,14 +398,14 @@ Vector3 Hexapod::getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget
         pc.z
     );
     auto t = pt - r0;
-    t.z = z + 0.06f * static_cast<float>(sin(((float)frame / (float)totalFrame) * M_PI));
+    t.z += 0.06f * static_cast<float>(sin(((float)frame / (float)totalFrame) * M_PI));
     return t;
 }
 
 Vector3 Hexapod::getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget,float baseRatio,float ratio)
 {
-    auto z = -currentHeight;
-    currentStandBodyTarget.z = 0.0;
+    // auto z = -currentHeight;
+    // currentStandBodyTarget.z = 0.0;
     Vector3 pc = r0 + currentStandBodyTarget;
     float theta =stepTheta * ratio + stepTheta * (baseRatio) * (float)frame / (float)totalFrame  - stepTheta / 2.0f ;
     auto pt = Vector3(
@@ -412,7 +414,7 @@ Vector3 Hexapod::getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarge
         pc.z
     );
     auto t = pt - r0;
-    t.z = z;
+    // t.z = z;
     return t;
 }
 
