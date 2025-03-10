@@ -12,6 +12,20 @@ Hexapod::Hexapod() : Robot()
     MLleg = LegL(getMotor("M_ML_COXA"), getMotor("M_ML_FEMUR"), getMotor("M_ML_TIBIA"), ctr2MLroot, ctr2MLrootTheta);
     FLleg = LegL(getMotor("M_FL_COXA"), getMotor("M_FL_FEMUR"), getMotor("M_FL_TIBIA"), ctr2FLroot, ctr2FLrootTheta);
 
+    BLleg.touchSensor = this->getTouchSensor("BL");
+    MLleg.touchSensor = this->getTouchSensor("ML");
+    FLleg.touchSensor = this->getTouchSensor("FL");
+    BRleg.touchSensor = this->getTouchSensor("BR");
+    MRleg.touchSensor = this->getTouchSensor("MR");
+    FRleg.touchSensor = this->getTouchSensor("FR");
+
+    BLleg.touchSensor->enable(timeStep);
+    MLleg.touchSensor->enable(timeStep);
+    FLleg.touchSensor->enable(timeStep);
+    BRleg.touchSensor->enable(timeStep);
+    MRleg.touchSensor->enable(timeStep);
+    FRleg.touchSensor->enable(timeStep);
+    
     currentHeight = initHeight = body2legCoord(FLleg.initStandBodyTarget, FLleg.ctr2root, FLleg.ctr2rootTheta).z;
 }
 
@@ -29,6 +43,7 @@ void Hexapod::setPose(Vector3 BRangles, Vector3 MRangles, Vector3 FRangles,
     MLleg.setPose(MLangles);
     FLleg.setPose(FLangles);
 }
+
 
 
 Vector3 Hexapod::leg2bodyCoord(Vector3 relevant, Vector3 bias, float theta)
@@ -163,6 +178,17 @@ void Hexapod::prepareNextCycle(GaitStatus moveStatus)
         stepTheta = stepLen / rlen;
         gaitStatus = moveStatus;
     }
+}
+
+void Hexapod::checkIsOnGround()
+{
+    MLleg.checkOnGround();
+    FRleg.checkOnGround();
+    BRleg.checkOnGround();
+
+    MRleg.checkOnGround();
+    FLleg.checkOnGround();
+    BLleg.checkOnGround();
 }
 
 void Hexapod::moveRipple()
@@ -464,18 +490,35 @@ void Hexapod::setRoll(float roll)
     FLleg.setRoll(roll);
 }
 
+void Hexapod::setBodyPosition(Vector3 bodyPos)
+{
+    BRleg.setBodyPosition(bodyPos);
+    MRleg.setBodyPosition(bodyPos);
+    FRleg.setBodyPosition(bodyPos);
+    BLleg.setBodyPosition(bodyPos);
+    MLleg.setBodyPosition(bodyPos);
+    FLleg.setBodyPosition(bodyPos);
+}
+
+
 void Hexapod::balance()
 {
-    float target_pitch = 0.0;  
-    float target_roll = 0.0;   
     float current_pitch = imu.getPitch();
     float current_roll = imu.getRoll();
-    float c2t_pitch =  current_pitch - target_pitch;
-    float c2t_roll = current_roll - target_roll;
-    setPitch(c2t_pitch);
-    setRoll(c2t_roll);
+    setPitch(-current_pitch);
+    setRoll(-current_roll);
 }
-    
+
+void Hexapod::toGround()
+{
+    BRleg.moveToGround(currentHeight);
+    MRleg.moveToGround(currentHeight);
+    FRleg.moveToGround(currentHeight);
+    BLleg.moveToGround(currentHeight);
+    MLleg.moveToGround(currentHeight);
+    FLleg.moveToGround(currentHeight);
+}
+
 
 void Hexapod::startMove()
 {
