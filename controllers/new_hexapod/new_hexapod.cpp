@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     // robot->setYaw(0.3f);
     // robot->setRoll((0.2f));
     // robot->setBodyPosition(Vector3 (0.05f,0.05f,0.0f));
-   
+    
     robot->reInit();
     robot->startMove();
     
@@ -86,7 +86,7 @@ int main(int argc, char** argv)
         robot->balance();
         robot->reInit();
         robot->startMove();
-        //
+        
         // Vector3 vector3 = Vector3();
         // bool arr[256] = {false};
         // arr[keyboard->getKey()] = true;
