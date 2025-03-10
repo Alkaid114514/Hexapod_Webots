@@ -9,6 +9,10 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <webots/Keyboard.hpp>
+#include <webots/robot.h>
+#include <webots/touch_sensor.h>
+
+#include "IMU.h"
 using namespace webots;
 
 int main(int argc, char** argv)
@@ -31,8 +35,8 @@ int main(int argc, char** argv)
     robot->setHeight(0.100459f);
     // robot->setHeight(0.13f);
     // robot->setYaw(0.3f);
-    // robot->setRoll((0.3f));
-    // robot->setPitch(0.3f);
+    // robot->setRoll((0.2f));
+    // robot->setBodyPosition(Vector3 (0.05f,0.05f,0.0f));
     
     robot->reInit();
     robot->startMove();
@@ -120,7 +124,10 @@ int main(int argc, char** argv)
         // }
         // robot->omega = omega;
         // robot->moveTripod();
-      
+        // robot->checkIsOnGround();
+        // robot->toGround();
+        // robot->reInit();
+        // robot->startMove();
     }
 
     // Enter here exit cleanup code.

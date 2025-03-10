@@ -161,6 +161,23 @@ void LegR::setPitch(float pitch)
     currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget, ctr2root, ctr2rootTheta));
 }
 
+void LegR::setBodyPosition(Vector3 bodyPos)
+{
+    bodyPos.z = 0.0f;
+    ctr2root += bodyPos;
+}
+
+void LegR::checkOnGround()
+{
+    isOnGround = (bool)(int)this->touchSensor->getValue();
+}
+
+void LegR::moveToGround(float currentHeight)
+{
+    currentStandBodyTarget.z-= !isOnGround ? 0.001f : 0.0f;
+}
+
+
 void LegR::startMotor()
 {
     this->coxaMotor->setPosition(motorAngles.x);

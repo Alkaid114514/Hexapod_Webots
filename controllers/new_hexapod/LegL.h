@@ -2,6 +2,8 @@
 #include <webots/Motor.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <webots/TouchSensor.hpp>
+
 #include "Vector3.h"
 
 
@@ -32,6 +34,10 @@ public:
 
     Vector3 lastBodyTarget;
 
+    webots::TouchSensor* touchSensor;
+
+ 
+    
     /// <summary>
     /// 仅正向运动学，输入参数为三个关节的角度，返回腿根部到末端的向量(腿坐标系)
     /// </summary>
@@ -62,5 +68,8 @@ public:
     void setYaw(float yaw);
     void setPitch(float pitch);
     void setRoll(float roll);
+    void setBodyPosition(Vector3 bodyPos);
+    void checkOnGround();
+    void moveToGround(float currentHeight);
     void startMotor();
 };
