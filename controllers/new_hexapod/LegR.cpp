@@ -137,23 +137,28 @@ void LegR::setYaw(float yaw)
 
 void LegR::setRoll(float roll)
 {
-    currentStandBodyTarget = Vector3(currentStandBodyTarget.x * cos(roll - currentRoll) + currentStandBodyTarget.z * sin(roll - currentRoll),
-                         currentStandBodyTarget.y,
-                         -currentStandBodyTarget.x * sin(roll - currentRoll) + currentStandBodyTarget.z * cos(roll - currentRoll)                              
-    );
+    currentStandBodyTarget =
+        Vector3(currentStandBodyTarget.x * cos(roll - currentRoll) - currentStandBodyTarget.z * sin(roll - currentRoll),
+                currentStandBodyTarget.y,
+                currentStandBodyTarget.x * sin(roll - currentRoll) + currentStandBodyTarget.z * cos(roll - currentRoll)
+        );
+    // ctr2root = Vector3(ctr2root.x * cos(roll - currentRoll) + ctr2root.z * sin(roll - currentRoll),
+    //                      ctr2root.y,
+    //                      -ctr2root.x * sin(roll - currentRoll) + ctr2root.z * cos(roll - currentRoll)); 
     currentRoll = roll;
-    currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget,ctr2root,ctr2rootTheta));
+    currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget, ctr2root, ctr2rootTheta));
 }
 
 
 void LegR::setPitch(float pitch)
 {
     Vector3 tmp = currentStandBodyTarget;
-    currentStandBodyTarget = Vector3 (tmp.x,
-        tmp.y*cos(pitch-currentPitch)+tmp.z*sin(pitch-currentPitch),
-        -tmp.y*sin(pitch-currentPitch)+tmp.z*cos(pitch-currentPitch));
+    currentStandBodyTarget = Vector3(tmp.x,
+                                     tmp.y * cos(pitch - currentPitch) + tmp.z * sin(pitch - currentPitch),
+                                     -tmp.y * sin(pitch - currentPitch) + tmp.z * cos(pitch - currentPitch));
+    
     currentPitch = pitch;
-    currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget,ctr2root,ctr2rootTheta));
+    currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget, ctr2root, ctr2rootTheta));
 }
 
 void LegR::setBodyPosition(Vector3 bodyPos)

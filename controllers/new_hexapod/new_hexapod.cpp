@@ -9,10 +9,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <webots/Keyboard.hpp>
-#include <webots/robot.h>
-#include <webots/touch_sensor.h>
 
-#include "IMU.h"
 using namespace webots;
 
 int main(int argc, char** argv)
@@ -28,7 +25,6 @@ int main(int argc, char** argv)
 
     Keyboard* keyboard = robot->getKeyboard();
     keyboard->enable(timeStep);
-
     
     robot->omega = -0.1f;
     robot->velocity = Vector3(0.0f, 0.05f, 0.0f);
