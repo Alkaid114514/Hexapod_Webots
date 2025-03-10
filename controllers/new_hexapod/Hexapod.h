@@ -78,6 +78,9 @@ public:
     Vector3 lockedR;
     float timeStep;
 
+    float currentPitch = 0.0f;
+    float currentRoll = 0.0f;
+
 
     /// <summary>
     /// 同时设置六条腿所有关节的角度，设置完后不会立即运动，需要调用startMove()函数开始运动

@@ -9,10 +9,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <webots/Keyboard.hpp>
-#include <webots/robot.h>
-#include <webots/touch_sensor.h>
 
-#include "IMU.h"
 using namespace webots;
 
 int main(int argc, char** argv)
