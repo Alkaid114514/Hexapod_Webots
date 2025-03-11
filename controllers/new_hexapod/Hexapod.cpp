@@ -156,29 +156,30 @@ Vector3 Hexapod::body2legCoord(Vector3 absolute, Vector3 bias, float theta)
 //     // }
 // }
 
-void Hexapod::prepareNextCycle(GaitStatus moveStatus)
+bool Hexapod::prepareNextCycle(GaitStatus moveStatus)
 {
     if (isGaitCycleStart() || gaitStatus == Stop)
     {
-        balance();
-        if (velocity == Vector3() && omega == 0.0)
+        
+        if (velocity == Vector3() && omega == 0.0f)
         {
             
             reInit();
             startMove();
             gaitStatus = Stop;
-            return;
+            return false;
         }    
         lockedOmega = omega == 0.0f ? FLT_EPSILON : omega;
         auto w = Vector3(0.0, 0.0, lockedOmega);
         lockedVelocity = velocity;
         bool isVzero = lockedVelocity == Vector3();
-        stepLen = (isVzero ? lockedOmega * MRleg.currentStandBodyTarget.x : (lockedOmega / abs(lockedOmega)) * lockedVelocity.magnitude()) * (timeStep / 1000.0f) * (float)totalFrame;
+        stepLen = (isVzero ? lockedOmega * sqrt(MRleg.currentStandBodyTarget.x * MRleg.currentStandBodyTarget.x + MRleg.currentStandBodyTarget.y * MRleg.currentStandBodyTarget.y) : (lockedOmega / abs(lockedOmega)) * lockedVelocity.magnitude()) * (timeStep / 1000.0f) * (float)totalFrame;
         lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
         auto rlen = isVzero ? MRleg.currentStandBodyTarget.x : lockedR.magnitude();
         stepTheta = stepLen / rlen;
         gaitStatus = moveStatus;
     }
+    return true;
 }
 
 void Hexapod::checkIsOnGround()
@@ -194,7 +195,10 @@ void Hexapod::checkIsOnGround()
 
 void Hexapod::moveRipple()
 {
-    prepareNextCycle(Ripple);
+    if(!prepareNextCycle(Ripple))
+    {
+        return;
+    }
      if (gaitGroupIndex == 0)
     {
         FLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
@@ -248,7 +252,10 @@ void Hexapod::moveRipple()
 
 void Hexapod::moveWave()
 {
-    prepareNextCycle(Wave);
+    if(!prepareNextCycle(Wave))
+    {
+        return;
+    }
     if (gaitGroupIndex == 0)
     {
         FLleg.setBodyTarget(getSwagNextBodyTarget(lockedR, FLleg.currentStandBodyTarget));
@@ -347,7 +354,10 @@ void Hexapod::moveWave()
 
 void Hexapod::moveTripod()
 {
-    prepareNextCycle(Tripod);
+    if(!prepareNextCycle(Tripod))
+    {
+        return;
+    }
     if (gaitGroupIndex == 0)
     {
         MLleg.setBodyTarget(getStandNextBodyTarget( lockedR, MLleg.currentStandBodyTarget));
@@ -507,12 +517,17 @@ void Hexapod::balance()
     // float target_roll = 0.0;   
     float imu_pitch = imu.getPitch();
     float imu_roll = imu.getRoll();
+
+    //故意的，没反
     currentPitch += -imu_roll / abs(imu_roll) * ( abs(imu_roll) <= 0.02f ? 0.001f : 0.03f);
     currentRoll += -imu_pitch / abs(imu_pitch) * ( abs(imu_pitch) <= 0.02f ? 0.001f : 0.03f);
+    
     // float c2t_pitch =  current_pitch - target_pitch;
     // float c2t_roll = current_roll - target_roll;
     setRoll(currentRoll);
     setPitch(currentPitch);
+    
+    // setYaw(-imu.getYaw());
     
 }
 

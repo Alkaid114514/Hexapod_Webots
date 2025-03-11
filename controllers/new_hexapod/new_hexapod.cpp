@@ -120,18 +120,15 @@ int main(int argc, char** argv)
         {
             omega -= 0.1f;
         }
-        if (arr['P'])
+        if (arr['R'])
         {
-           robot->balancePitch();
+           robot->reInit();
+            robot->startMove();
         }
-
-        if (arr['O'])
-        {
-            robot->balanceRoll();
-        }
-        
         robot->omega = omega;
+        robot->balance();
         robot->moveTripod();
+        std::cout << "x "  << robot->MRleg.currentStandBodyTarget.x << " y " << robot->MRleg.currentStandBodyTarget.y << std::endl;
         // robot->checkIsOnGround();
         // robot->toGround();
         // robot->reInit();
