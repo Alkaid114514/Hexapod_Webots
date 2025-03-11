@@ -67,6 +67,7 @@ public:
     void setYaw(float yaw);
     void setRoll(float roll);
     void setPitch(float pitch);
+    void setPitchAndRoll(float pitch,float roll);
     void setBodyPosition(Vector3 bodyPos);
     void checkOnGround();
     void moveToGround(float currentHeight);

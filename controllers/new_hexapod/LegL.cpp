@@ -151,6 +151,7 @@ void LegL::setRoll(float roll)
     currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget,ctr2root,ctr2rootTheta));
 }
 
+
 void LegL::setPitch(float pitch)
 {
     Vector3 tmp = currentStandBodyTarget;
@@ -163,6 +164,18 @@ void LegL::setPitch(float pitch)
     currentPitch = pitch;
     currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget,ctr2root,ctr2rootTheta));
 }
+
+void LegL::setPitchAndRoll(float pitch ,float roll)
+{
+    Vector3 tmp = currentStandBodyTarget;
+    currentStandBodyTarget = Vector3 (tmp.x*cos(roll-currentRoll)-tmp.z*sin(roll-currentRoll),
+        tmp.x*sin(pitch-currentPitch)*sin(roll-currentRoll)+tmp.y*cos(pitch-currentPitch)+tmp.z*sin(pitch-currentPitch)*cos(roll-currentRoll),
+        tmp.x*cos(pitch-currentPitch)*sin(roll-currentRoll)-tmp.y*sin(pitch-currentPitch)+tmp.z*cos(pitch-currentPitch))*cos(roll-currentRoll);
+    currentPitch = pitch;
+    currentRoll =roll;
+    currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget,ctr2root,ctr2rootTheta));
+}
+
 
 void LegL::setBodyPosition(Vector3 bodyPos)
 {

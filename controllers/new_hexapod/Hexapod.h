@@ -121,9 +121,10 @@ public:
     void setYaw(float yaw);
     void setRoll(float roll);
     void setPitch(float pitch);
+    void setPitchAndRoll(float pitch,float roll);
     void balance();
-    void balancePitch();
-    void balanceRoll();
+    // void balancePitch();
+    // void balanceRoll();
     void toGround();
     
     /// <summary>
