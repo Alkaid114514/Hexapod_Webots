@@ -122,6 +122,8 @@ public:
     void setRoll(float roll);
     void setPitch(float pitch);
     void balance();
+    void balancePitch();
+    void balanceRoll();
     void toGround();
     
     /// <summary>

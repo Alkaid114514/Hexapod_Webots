@@ -26,8 +26,9 @@ int main(int argc, char** argv)
     Keyboard* keyboard = robot->getKeyboard();
     keyboard->enable(timeStep);
     
-    robot->omega = -0.0f;
+    robot->omega = -0.1f;
     robot->velocity = Vector3(0.0f, 0.05f, 0.0f);
+
 
     robot->setHeight(0.100459f);
     // robot->setHeight(0.13f);
@@ -83,43 +84,53 @@ int main(int argc, char** argv)
         // robot->reInit();
         // robot->startMove();
         
-        // Vector3 vector3 = Vector3();
-        // bool arr[256] = {false};
-        // arr[keyboard->getKey()] = true;
-        // arr[keyboard->getKey()] = true;
-        // arr[keyboard->getKey()] = true;
-        // arr[keyboard->getKey()] = true;
-        // arr[keyboard->getKey()] = true;
-        // arr[keyboard->getKey()] = true;
-        // arr[keyboard->getKey()] = true;
-        // if (arr['A'])
-        // {
-        //     vector3.x -= 0.05f;
-        // }
-        // if (arr['D'])
-        // {
-        //     vector3.x += 0.05f;
-        // }
-        // if (arr['W'])
-        // {
-        //     vector3.y += 0.05f;
-        // }
-        // if (arr['S'])
-        // {
-        //     vector3.y -= 0.05f;
-        // }
-        // robot->velocity = vector3;
-        //
-        // float omega = 0.0f;
-        // if (arr['Q'])
-        // {
-        //     omega += 0.1f;
-        // }
-        // if (arr['E'])
-        // {
-        //     omega -= 0.1f;
-        // }
-        // robot->omega = omega;
+        Vector3 vector3 = Vector3();
+        bool arr[256] = {false};
+        arr[keyboard->getKey()] = true;
+        arr[keyboard->getKey()] = true;
+        arr[keyboard->getKey()] = true;
+        arr[keyboard->getKey()] = true;
+        arr[keyboard->getKey()] = true;
+        arr[keyboard->getKey()] = true;
+        arr[keyboard->getKey()] = true;
+        if (arr['A'])
+        {
+            vector3.x -= 0.05f;
+        }
+        if (arr['D'])
+        {
+            vector3.x += 0.05f;
+        }
+        if (arr['W'])
+        {
+            vector3.y += 0.05f;
+        }
+        if (arr['S'])
+        {
+            vector3.y -= 0.05f;
+        }
+        robot->velocity = vector3;
+        
+        float omega = 0.0f;
+        if (arr['Q'])
+        {
+            omega += 0.1f;
+        }
+        if (arr['E'])
+        {
+            omega -= 0.1f;
+        }
+        if (arr['P'])
+        {
+           robot->balancePitch();
+        }
+
+        if (arr['O'])
+        {
+            robot->balanceRoll();
+        }
+        
+        robot->omega = omega;
         robot->moveTripod();
         // robot->checkIsOnGround();
         // robot->toGround();

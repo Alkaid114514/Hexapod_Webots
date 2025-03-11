@@ -501,20 +501,48 @@ void Hexapod::setBodyPosition(Vector3 bodyPos)
     FLleg.setBodyPosition(bodyPos);
 }
 
-
 void Hexapod::balance()
 {
     // float target_pitch = 0.0;  
     // float target_roll = 0.0;   
     float imu_pitch = imu.getPitch();
     float imu_roll = imu.getRoll();
-
     currentPitch += -imu_roll / abs(imu_roll) * ( abs(imu_roll) <= 0.02f ? 0.001f : 0.03f);
     currentRoll += -imu_pitch / abs(imu_pitch) * ( abs(imu_pitch) <= 0.02f ? 0.001f : 0.03f);
     // float c2t_pitch =  current_pitch - target_pitch;
     // float c2t_roll = current_roll - target_roll;
-    setPitch(currentPitch);
     setRoll(currentRoll);
+    setPitch(currentPitch);
+    
+}
+
+void Hexapod::balancePitch()
+{
+    // float target_pitch = 0.0;  
+    // float target_roll = 0.0;   
+    float imu_pitch = imu.getPitch();
+    float imu_roll = imu.getRoll();
+    currentPitch += -imu_roll / abs(imu_roll) * ( abs(imu_roll) <= 0.02f ? 0.001f : 0.03f);
+    currentRoll += -imu_pitch / abs(imu_pitch) * ( abs(imu_pitch) <= 0.02f ? 0.001f : 0.03f);
+    // float c2t_pitch =  current_pitch - target_pitch;
+    // float c2t_roll = current_roll - target_roll;
+    // setRoll(currentRoll);
+    setPitch(currentPitch);
+    
+}
+
+void Hexapod::balanceRoll()
+{
+    // float target_pitch = 0.0;  
+    // float target_roll = 0.0;   
+    float imu_pitch = imu.getPitch();
+    float imu_roll = imu.getRoll();
+    currentPitch += -imu_roll / abs(imu_roll) * ( abs(imu_roll) <= 0.02f ? 0.001f : 0.03f);
+    currentRoll += -imu_pitch / abs(imu_pitch) * ( abs(imu_pitch) <= 0.02f ? 0.001f : 0.03f);
+    // float c2t_pitch =  current_pitch - target_pitch;
+    // float c2t_roll = current_roll - target_roll;
+    setRoll(currentRoll);
+    // setPitch(currentPitch);
     
 }
 
