@@ -145,7 +145,7 @@ public:
     /// <param name="theta">以机器人身体中心为原点坐标系下，腿根部为原点的坐标系的旋转角</param>
     /// <returns>以腿根部为原点的相对向量(腿坐标系)</returns>
     static Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
-    void prepareNextCycle(GaitStatus moveStatus);
+    bool prepareNextCycle(GaitStatus moveStatus);
 
     void checkIsOnGround();
 };
