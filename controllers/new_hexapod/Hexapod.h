@@ -21,12 +21,12 @@ public:
     Hexapod();
     ~Hexapod() override;
 
-    LegR BRleg;
-    LegR MRleg;
-    LegR FRleg;
-    LegL BLleg;
-    LegL MLleg;
-    LegL FLleg;
+    LegR* BRleg;
+    LegR* MRleg;
+    LegR* FRleg;
+    LegL* BLleg;
+    LegL* MLleg;
+    LegL* FLleg;
 
     IMU imu;
 
@@ -67,8 +67,9 @@ public:
     int totalFrame = 32;
     float stepTheta;
     float stepLen = 0.05f;
-    
+
     int gaitGroupIndex = 0;
+    int previousGroupIndex = -1;
     int frame = totalFrame / 2;
     Vector3 velocity = Vector3(0.0f, 0.0f, 0.0f);
     float omega = 0.0f;
@@ -80,6 +81,8 @@ public:
 
     float currentPitch = 0.0f;
     float currentRoll = 0.0f;
+
+    bool isBanlanced = true;
 
 
     /// <summary>
@@ -98,8 +101,10 @@ public:
     void moveTripod();
     void moveWave();
     void moveRipple();
-    Vector3 getSwagNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget);
-    Vector3 getStandNextBodyTarget(Vector3 r0,Vector3 currentStandBodyTarget,float baseRatio = 1.0f,float ratio = 0.0f);
+    Vector3 getSwagNextBodyTarget(Leg* leg, Vector3 r0, const Vector3& currentStandBodyTarget);
+    // Vector3 getSwagNextBodyTarget(Leg* leg, Vector3 r0, const Vector3& currentStandBodyTarget);
+    Vector3 getStandNextBodyTarget(Vector3 r0, const Vector3& currentStandBodyTarget, float baseRatio = 1.0f,
+                                   float ratio = 0.0f);
 
     bool isGaitCycleFinish();
     bool isGaitCycleStart();
@@ -112,6 +117,7 @@ public:
                         Vector3 FLtarget);
 
     void reInit();
+    void reBalance();
 
     /// <summary>
     /// 设置机器人高度
@@ -122,8 +128,9 @@ public:
     void setRoll(float roll);
     void setPitch(float pitch);
     void balance();
+    bool checkBalance();
     void toGround();
-    
+
     /// <summary>
     /// 开始按照设置的角度和目标点运动
     /// </summary>
