@@ -4,7 +4,6 @@
 #include <math.h>
 #include <webots/TouchSensor.hpp>
 
-
 #include "Leg.h"
 #include "Vector3.h"
 

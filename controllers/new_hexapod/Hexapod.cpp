@@ -3,7 +3,9 @@
 Hexapod::Hexapod() : Robot()
 {
     imu = IMU(this);
+    hex_camera = HexCamera(this);
     timeStep = (float)this->getBasicTimeStep();
+    
 
     BRleg = new LegR(getMotor("M_BR_COXA"), getMotor("M_BR_FEMUR"), getMotor("M_BR_TIBIA"), ctr2BRroot,
                      ctr2BRrootTheta);
@@ -179,8 +181,8 @@ bool Hexapod::prepareNextCycle(GaitStatus moveStatus)
 {
     if (isGaitCycleStart() || gaitStatus == Stop)
     {
-        switch (moveStatus)
-        {
+        // switch (moveStatus)
+        // {
         // case Stop:
         //     MLleg->toGround(currentHeight);
         //     FRleg->toGround(currentHeight);
@@ -194,40 +196,40 @@ bool Hexapod::prepareNextCycle(GaitStatus moveStatus)
         //         return false;
         //     }
         //     break;
-        case Tripod:
-            switch (previousGroupIndex)
-            {
-            case 0:
-                MRleg->toGround(currentHeight);
-                FLleg->toGround(currentHeight);
-                BLleg->toGround(currentHeight);
-                startMove();
-                if (!MRleg->isOnGround || !FLleg->isOnGround || !BLleg->isOnGround)
-                {
-                    return false;
-                }
-                break;
-            case 1:
-                MLleg->toGround(currentHeight);
-                FRleg->toGround(currentHeight);
-                BRleg->toGround(currentHeight);
-                startMove();
-                if (!MLleg->isOnGround || !FRleg->isOnGround || !BRleg->isOnGround)
-                {
-                    return false;
-                }
-                break;
-
-            default:
-                break;
-            }
-            break;
-        case Ripple:
-            break;
-        case Wave:
-            break;
-        }
-
+        // case Tripod:
+        //     switch (previousGroupIndex)
+        //     {
+        //     case 0:
+        //         MRleg->toGround(currentHeight);
+        //         FLleg->toGround(currentHeight);
+        //         BLleg->toGround(currentHeight);
+        //         startMove();
+        //         if (!MRleg->isOnGround || !FLleg->isOnGround || !BLleg->isOnGround)
+        //         {
+        //             return false;
+        //         }
+        //         break;
+        //     case 1:
+        //         MLleg->toGround(currentHeight);
+        //         FRleg->toGround(currentHeight);
+        //         BRleg->toGround(currentHeight);
+        //         startMove();
+        //         if (!MLleg->isOnGround || !FRleg->isOnGround || !BRleg->isOnGround)
+        //         {
+        //             return false;
+        //         }
+        //         break;
+        //
+        //     default:
+        //         break;
+        //     }
+        //     break;
+        // case Ripple:
+        //     break;
+        // case Wave:
+        // break;
+        // }
+        
 
         if (velocity == Vector3() && omega == 0.0f)
         {
@@ -240,12 +242,9 @@ bool Hexapod::prepareNextCycle(GaitStatus moveStatus)
         auto w = Vector3(0.0, 0.0, lockedOmega);
         lockedVelocity = velocity;
         bool isVzero = lockedVelocity == Vector3();
-        stepLen = (isVzero
-                       ? lockedOmega * sqrt(
-                           MRleg->currentStandBodyTarget.x * MRleg->currentStandBodyTarget.x + MRleg->
-                           currentStandBodyTarget.y * MRleg->currentStandBodyTarget.y)
-                       : (lockedOmega / abs(lockedOmega)) * lockedVelocity.magnitude()) * (timeStep / 1000.0f) * (float)
-            totalFrame;
+        stepLen = (isVzero? lockedOmega * sqrt(MRleg->currentStandBodyTarget.x * MRleg->currentStandBodyTarget.x
+                        + MRleg->currentStandBodyTarget.y * MRleg->currentStandBodyTarget.y)
+                       : (lockedOmega / abs(lockedOmega)) * lockedVelocity.magnitude()) * (timeStep / 1000.0f) * (float)totalFrame;
         lockedR = lockedVelocity.cross(w) / (lockedOmega * lockedOmega);
         auto rlen = isVzero ? MRleg->currentStandBodyTarget.x : lockedR.magnitude();
         stepTheta = stepLen / rlen;
@@ -254,8 +253,8 @@ bool Hexapod::prepareNextCycle(GaitStatus moveStatus)
     return true;
 }
 
-void Hexapod::checkIsOnGround()
-{
+// void Hexapod::checkIsOnGround()
+// {
     // MLleg->checkOnGround();
     // FRleg->checkOnGround();
     // BRleg->checkOnGround();
@@ -263,211 +262,211 @@ void Hexapod::checkIsOnGround()
     // MRleg->checkOnGround();
     // FLleg->checkOnGround();
     // BLleg->checkOnGround();
+// }
+
+void Hexapod::moveRipple()
+{
+    if (!prepareNextCycle(Ripple))
+    {
+        return;
+    }
+    if (gaitGroupIndex == 0)
+    {
+        FLleg->setBodyTarget(getSwagNextBodyTarget(FLleg,lockedR, FLleg->currentStandBodyTarget));
+        MRleg->setBodyTarget(getSwagNextBodyTarget(MRleg,lockedR, MRleg->currentStandBodyTarget));
+        FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   1.0f * RIPPLE_RATIO));
+        MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   2.0f * RIPPLE_RATIO));
+        BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   2.0f * RIPPLE_RATIO));
+        BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   1.0f * RIPPLE_RATIO));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            previousGroupIndex = gaitGroupIndex;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 1)
+    {
+        MLleg->setBodyTarget(getSwagNextBodyTarget(MLleg,lockedR, MLleg->currentStandBodyTarget));
+        BRleg->setBodyTarget(getSwagNextBodyTarget(BRleg,lockedR, BRleg->currentStandBodyTarget));
+        FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   1.0f * RIPPLE_RATIO));
+        FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   2.0f * RIPPLE_RATIO));
+        MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   1.0f * RIPPLE_RATIO));
+        BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   2.0f * RIPPLE_RATIO));
+
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            previousGroupIndex = gaitGroupIndex;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 2)
+    {
+        BLleg->setBodyTarget(getSwagNextBodyTarget(BLleg,lockedR, BLleg->currentStandBodyTarget));
+        FRleg->setBodyTarget(getSwagNextBodyTarget(FRleg,lockedR, FRleg->currentStandBodyTarget));
+        MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   1.0f * RIPPLE_RATIO));
+        MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   2.0f * RIPPLE_RATIO));
+        FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   2.0f * RIPPLE_RATIO));
+        BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,RIPPLE_RATIO,
+                                                   1.0f * RIPPLE_RATIO));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            previousGroupIndex = gaitGroupIndex;
+            gaitGroupIndex -= 2;
+        }
+    }
+    startMove();
+    frame++;
 }
 
-// void Hexapod::moveRipple()
-// {
-//     if (!prepareNextCycle(Ripple))
-//     {
-//         return;
-//     }
-//     if (gaitGroupIndex == 0)
-//     {
-//         FLleg->setBodyTarget(getSwagNextBodyTarget(lockedR, FLleg->currentStandBodyTarget));
-//         MRleg->setBodyTarget(getSwagNextBodyTarget(lockedR, MRleg->currentStandBodyTarget));
-//         FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    1.0f * RIPPLE_RATIO));
-//         MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    2.0f * RIPPLE_RATIO));
-//         BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    2.0f * RIPPLE_RATIO));
-//         BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    1.0f * RIPPLE_RATIO));
-//
-//         if (isGaitCycleFinish())
-//         {
-//             frame = -1;
-//             previousGroupIndex = gaitGroupIndex;
-//             gaitGroupIndex++;
-//         }
-//     }
-//     else if (gaitGroupIndex == 1)
-//     {
-//         MLleg->setBodyTarget(getSwagNextBodyTarget(lockedR, MLleg->currentStandBodyTarget));
-//         BRleg->setBodyTarget(getSwagNextBodyTarget(lockedR, BRleg->currentStandBodyTarget));
-//         FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    1.0f * RIPPLE_RATIO));
-//         FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    2.0f * RIPPLE_RATIO));
-//         MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    1.0f * RIPPLE_RATIO));
-//         BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    2.0f * RIPPLE_RATIO));
-//
-//
-//         if (isGaitCycleFinish())
-//         {
-//             frame = -1;
-//             previousGroupIndex = gaitGroupIndex;
-//             gaitGroupIndex++;
-//         }
-//     }
-//     else if (gaitGroupIndex == 2)
-//     {
-//         BLleg->setBodyTarget(getSwagNextBodyTarget(lockedR, BLleg->currentStandBodyTarget));
-//         FRleg->setBodyTarget(getSwagNextBodyTarget(lockedR, FRleg->currentStandBodyTarget));
-//         MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    1.0f * RIPPLE_RATIO));
-//         MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    2.0f * RIPPLE_RATIO));
-//         FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    2.0f * RIPPLE_RATIO));
-//         BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,RIPPLE_RATIO,
-//                                                    1.0f * RIPPLE_RATIO));
-//
-//         if (isGaitCycleFinish())
-//         {
-//             frame = -1;
-//             previousGroupIndex = gaitGroupIndex;
-//             gaitGroupIndex -= 2;
-//         }
-//     }
-//     startMove();
-//     frame++;
-// }
+
+void Hexapod::moveWave()
+{
+    if (!prepareNextCycle(Wave))
+    {
+        return;
+    }
+    if (gaitGroupIndex == 0)
+    {
+        FLleg->setBodyTarget(getSwagNextBodyTarget(FLleg,lockedR, FLleg->currentStandBodyTarget));
+        FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   5.0f * WAVE_RATIO));
+        MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   4.0f * WAVE_RATIO));
+        MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   3.0f * WAVE_RATIO));
+        BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   2.0f * WAVE_RATIO));
+        BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   1.0f * WAVE_RATIO));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 1)
+    {
+        FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   1.0f * WAVE_RATIO));
+        FRleg->setBodyTarget(getSwagNextBodyTarget(FRleg,lockedR, FRleg->currentStandBodyTarget));
+        MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   5.0f * WAVE_RATIO));
+        MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   4.0f * WAVE_RATIO));
+        BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   3.0f * WAVE_RATIO));
+        BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   2.0f * WAVE_RATIO));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 2)
+    {
+        FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   2.0f * WAVE_RATIO));
+        FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   1.0f * WAVE_RATIO));
+        MLleg->setBodyTarget(getSwagNextBodyTarget(MLleg,lockedR, MLleg->currentStandBodyTarget));
+        MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   5.0f * WAVE_RATIO));
+        BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   4.0f * WAVE_RATIO));
+        BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   3.0f * WAVE_RATIO));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 3)
+    {
+        FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   3.0f * WAVE_RATIO));
+        FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   2.0f * WAVE_RATIO));
+        MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   1.0f * WAVE_RATIO));
+        MRleg->setBodyTarget(getSwagNextBodyTarget(MRleg,lockedR, MRleg->currentStandBodyTarget));
+        BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   5.0f * WAVE_RATIO));
+        BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   4.0f * WAVE_RATIO));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 4)
+    {
+        FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   4.0f * WAVE_RATIO));
+        FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   3.0f * WAVE_RATIO));
+        MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   2.0f * WAVE_RATIO));
+        MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   1.0f * WAVE_RATIO));
+        BLleg->setBodyTarget(getSwagNextBodyTarget(BLleg,lockedR, BLleg->currentStandBodyTarget));
+        BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   5.0f * WAVE_RATIO));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex++;
+        }
+    }
+    else if (gaitGroupIndex == 5)
+    {
+        FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   5.0f * WAVE_RATIO));
+        FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   4.0f * WAVE_RATIO));
+        MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   3.0f * WAVE_RATIO));
+        MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   2.0f * WAVE_RATIO));
+        BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,WAVE_RATIO,
+                                                   1.0f * WAVE_RATIO));
+        BRleg->setBodyTarget(getSwagNextBodyTarget(BRleg,lockedR, BRleg->currentStandBodyTarget));
+
+        if (isGaitCycleFinish())
+        {
+            frame = -1;
+            gaitGroupIndex -= 5;
+        }
+    }
 
 
-// void Hexapod::moveWave()
-// {
-//     if (!prepareNextCycle(Wave))
-//     {
-//         return;
-//     }
-//     if (gaitGroupIndex == 0)
-//     {
-//         FLleg->setBodyTarget(getSwagNextBodyTarget(lockedR, FLleg->currentStandBodyTarget));
-//         FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    5.0f * WAVE_RATIO));
-//         MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    4.0f * WAVE_RATIO));
-//         MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    3.0f * WAVE_RATIO));
-//         BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    2.0f * WAVE_RATIO));
-//         BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    1.0f * WAVE_RATIO));
-//
-//         if (isGaitCycleFinish())
-//         {
-//             frame = -1;
-//             gaitGroupIndex++;
-//         }
-//     }
-//     else if (gaitGroupIndex == 1)
-//     {
-//         FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    1.0f * WAVE_RATIO));
-//         FRleg->setBodyTarget(getSwagNextBodyTarget(lockedR, FRleg->currentStandBodyTarget));
-//         MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    5.0f * WAVE_RATIO));
-//         MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    4.0f * WAVE_RATIO));
-//         BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    3.0f * WAVE_RATIO));
-//         BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    2.0f * WAVE_RATIO));
-//
-//         if (isGaitCycleFinish())
-//         {
-//             frame = -1;
-//             gaitGroupIndex++;
-//         }
-//     }
-//     else if (gaitGroupIndex == 2)
-//     {
-//         FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    2.0f * WAVE_RATIO));
-//         FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    1.0f * WAVE_RATIO));
-//         MLleg->setBodyTarget(getSwagNextBodyTarget(lockedR, MLleg->currentStandBodyTarget));
-//         MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    5.0f * WAVE_RATIO));
-//         BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    4.0f * WAVE_RATIO));
-//         BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    3.0f * WAVE_RATIO));
-//
-//         if (isGaitCycleFinish())
-//         {
-//             frame = -1;
-//             gaitGroupIndex++;
-//         }
-//     }
-//     else if (gaitGroupIndex == 3)
-//     {
-//         FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    3.0f * WAVE_RATIO));
-//         FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    2.0f * WAVE_RATIO));
-//         MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    1.0f * WAVE_RATIO));
-//         MRleg->setBodyTarget(getSwagNextBodyTarget(lockedR, MRleg->currentStandBodyTarget));
-//         BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    5.0f * WAVE_RATIO));
-//         BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    4.0f * WAVE_RATIO));
-//
-//         if (isGaitCycleFinish())
-//         {
-//             frame = -1;
-//             gaitGroupIndex++;
-//         }
-//     }
-//     else if (gaitGroupIndex == 4)
-//     {
-//         FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    4.0f * WAVE_RATIO));
-//         FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    3.0f * WAVE_RATIO));
-//         MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    2.0f * WAVE_RATIO));
-//         MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    1.0f * WAVE_RATIO));
-//         BLleg->setBodyTarget(getSwagNextBodyTarget(lockedR, BLleg->currentStandBodyTarget));
-//         BRleg->setBodyTarget(getStandNextBodyTarget(lockedR, BRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    5.0f * WAVE_RATIO));
-//
-//         if (isGaitCycleFinish())
-//         {
-//             frame = -1;
-//             gaitGroupIndex++;
-//         }
-//     }
-//     else if (gaitGroupIndex == 5)
-//     {
-//         FLleg->setBodyTarget(getStandNextBodyTarget(lockedR, FLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    5.0f * WAVE_RATIO));
-//         FRleg->setBodyTarget(getStandNextBodyTarget(lockedR, FRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    4.0f * WAVE_RATIO));
-//         MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    3.0f * WAVE_RATIO));
-//         MRleg->setBodyTarget(getStandNextBodyTarget(lockedR, MRleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    2.0f * WAVE_RATIO));
-//         BLleg->setBodyTarget(getStandNextBodyTarget(lockedR, BLleg->currentStandBodyTarget,WAVE_RATIO,
-//                                                    1.0f * WAVE_RATIO));
-//         BRleg->setBodyTarget(getSwagNextBodyTarget(lockedR, BRleg->currentStandBodyTarget));
-//
-//         if (isGaitCycleFinish())
-//         {
-//             frame = -1;
-//             gaitGroupIndex -= 5;
-//         }
-//     }
-//
-//
-//     startMove();
-//     frame++;
-// }
+    startMove();
+    frame++;
+}
 
 void Hexapod::moveTripod()
 {
@@ -475,32 +474,32 @@ void Hexapod::moveTripod()
     {
         return;
     }
-    switch (previousGroupIndex)
-    {
-    case 0:
-        MRleg->checkIsOnGroud(currentHeight);
-        FLleg->checkIsOnGroud(currentHeight);
-        BLleg->checkIsOnGroud(currentHeight);
-        if (MLleg->isOnGround || !FRleg->isOnGround || !BRleg->isOnGround)
-        {
-            frame = -1;
-            previousGroupIndex = gaitGroupIndex;
-            gaitGroupIndex++;
-        }
-        break;
-    case 1:
-        MRleg->toGround(currentHeight);
-        FLleg->toGround(currentHeight);
-        BLleg->toGround(currentHeight);
-        startMove();
-        if (!MRleg->isOnGround || !FLleg->isOnGround || !BLleg->isOnGround)
-        {
-            return;
-        }
-        break;
-    default:
-        break;
-    }
+    // switch (previousGroupIndex)
+    // {
+    // case 0:
+    //     MRleg->checkIsOnGroud(currentHeight);
+    //     FLleg->checkIsOnGroud(currentHeight);
+    //     BLleg->checkIsOnGroud(currentHeight);
+    //     if (MLleg->isOnGround || !FRleg->isOnGround || !BRleg->isOnGround)
+    //     {
+    //         frame = -1;
+    //         previousGroupIndex = gaitGroupIndex;
+    //         gaitGroupIndex++;
+    //     }
+    //     break;
+    // case 1:
+    //     MRleg->toGround(currentHeight);
+    //     FLleg->toGround(currentHeight);
+    //     BLleg->toGround(currentHeight);
+    //     startMove();
+    //     if (!MRleg->isOnGround || !FLleg->isOnGround || !BLleg->isOnGround)
+    //     {
+    //         return;
+    //     }
+    //     break;
+    // default:
+    //     break;
+    // }
     if (gaitGroupIndex == 0)
     {
         MLleg->setBodyTarget(getStandNextBodyTarget(lockedR, MLleg->currentStandBodyTarget));
@@ -653,15 +652,15 @@ void Hexapod::setRoll(float roll)
     FLleg->setRoll(roll);
 }
 
-void Hexapod:: setPitchAndRoll(float pitch,float roll)
-{
-    BRleg->setPitchAndRoll(pitch,roll);
-    MRleg->setPitchAndRoll(pitch,roll);
-    FRleg->setPitchAndRoll(pitch,roll);
-    BLleg->setPitchAndRoll(pitch,roll);
-    MLleg->setPitchAndRoll(pitch,roll);
-    FLleg->setPitchAndRoll(pitch,roll);
-}
+// void Hexapod:: setPitchAndRoll(float pitch,float roll)
+// {
+//     BRleg->setPitchAndRoll(pitch,roll);
+//     MRleg->setPitchAndRoll(pitch,roll);
+//     FRleg->setPitchAndRoll(pitch,roll);
+//     BLleg->setPitchAndRoll(pitch,roll);
+//     MLleg->setPitchAndRoll(pitch,roll);
+//     FLleg->setPitchAndRoll(pitch,roll);
+// }
 
 void Hexapod::setBodyPosition(Vector3 bodyPos)
 {
@@ -693,16 +692,135 @@ void Hexapod::balance()
 //     return abs(imu_pitch) <= 2 * FLT_EPSILON && abs(imu_roll) <= 2 * FLT_EPSILON;
 // }
 
-void Hexapod::toGround()
-{
-    BRleg->moveToGround(currentHeight);
-    MRleg->moveToGround(currentHeight);
-    FRleg->moveToGround(currentHeight);
-    BLleg->moveToGround(currentHeight);
-    MLleg->moveToGround(currentHeight);
-    FLleg->moveToGround(currentHeight);
-}
+// void Hexapod::toGround()
+// {
+//     BRleg->moveToGround(currentHeight);
+//     MRleg->moveToGround(currentHeight);
+//     FRleg->moveToGround(currentHeight);
+//     BLleg->moveToGround(currentHeight);
+//     MLleg->moveToGround(currentHeight);
+//     FLleg->moveToGround(currentHeight);
+// }
 
+// //+++新增+++ 获取腿部引用
+// Leg* Hexapod::getLegByIndex(int index) {
+//     switch(index) {
+//     case 0: return BRleg;
+//     case 1: return MRleg;
+//     case 2: return FRleg;
+//     case 3: return BLleg;
+//     case 4: return MLleg;
+//     case 5: return FLleg;
+//     default: return nullptr;
+//     }
+// }
+//
+// //+++新增+++ 计算凸起高度（示例）
+// float Hexapod::calculateBumpHeight() {
+//     float maxZ = 0;
+//     for (auto leg : {BRleg, MRleg, FRleg, BLleg, MLleg, FLleg}) {
+//         if (leg->touchSensor->getValue() > 0) {
+//             maxZ = std::max(maxZ, leg->getCurrentPosition().z);
+//         }
+//     }
+//     return maxZ - currentHeight;
+// }
+//
+// //+++新增+++ 马尔可夫预测器实现
+// MarkovTerrainPredictor::MarkovTerrainPredictor() {
+//     transitionMatrix[FLAT] = {{FLAT,0.7}, {BUMP,0.2}, {HOLE,0.1}};
+//     transitionMatrix[BUMP] = {{FLAT,0.3}, {BUMP,0.5}, {HOLE,0.2}};
+//     transitionMatrix[HOLE] = {{FLAT,0.6}, {BUMP,0.3}, {HOLE,0.1}};
+// }
+//
+// TerrainState MarkovTerrainPredictor::predictNext(TerrainState current) {
+//     double randVal = (double)rand() / RAND_MAX;
+//     double cumulative = 0.0;
+//     for (auto& next : transitionMatrix[current]) {
+//         cumulative += next.second;
+//         if (randVal <= cumulative) return next.first;
+//     }
+//     return UNKNOWN;
+// }
+//
+// //+++新增+++ 地形检测方法（需根据实际传感器补充）
+// TerrainState Hexapod::detectTerrainFromSensors() {
+//     // 示例：通过触地力判断
+//     float forceSum = 0;
+//     for (auto leg : {BRleg, MRleg, FRleg, BLleg, MLleg, FLleg}) {
+//         forceSum += leg->touchSensor->getValue();
+//     }
+//     return (forceSum > 50) ? BUMP : FLAT; // 阈值需校准
+// }
+//
+// //+++新增+++ 凸起地形适应
+// void Hexapod::enableBumpAdaptation(float detectedHeight) {
+//     // 更新历史高度
+//     bumpHeightHistory[2] = bumpHeightHistory[1];
+//     bumpHeightHistory[1] = bumpHeightHistory[0];
+//     bumpHeightHistory[0] = detectedHeight;
+//
+//     // 马尔可夫预测
+//     TerrainState predicted = terrainPredictor.predictNext(currentTerrain);
+//     
+//     if (predicted == BUMP) {
+//         currentAdaptMode = BUMP_ADAPT;
+//         setHeight(currentHeight - 5.0f); // 调用原有高度设置
+//         for(int i=0; i<6; ++i) adjustSwingTrajectory(i);
+//     }
+// }
+//
+// //+++新增+++ 轨迹调整（整合到原有逆运动学）
+// void Hexapod::adjustSwingTrajectory(int legIndex) {
+//     Leg* targetLeg = getLegByIndex(legIndex); // 需实现getLegByIndex
+//     
+//     Vector3 originalTarget = targetLeg->getBodyTarget();
+//     float adaptHeight = bumpHeightHistory[0] * 1.2f;
+//     Vector3 adaptedTarget = originalTarget + Vector3(0.0f, 0.0f, adaptHeight);
+//     
+//     // 调用原有轨迹生成方法
+//     auto trajectory = TrajectoryGenerator::generateAdaptedTrajectory(
+//         targetLeg->getCurrentPosition(), adaptedTarget, adaptHeight
+//     );
+//     targetLeg->setBodyTarget(trajectory); // 原有方法
+// }
+//
+// //===修改点===// 智能移动入口
+// void Hexapod::smartMove(Vector3 velocity, float omega) {
+//     currentTerrain = detectTerrainFromSensors();
+//     TerrainState predicted = terrainPredictor.predictNext(currentTerrain);
+//
+//     // 地形适应决策
+//     if (predicted == BUMP && currentTerrain == BUMP) {
+//         enableBumpAdaptation(calculateBumpHeight()); // 需实现高度计算
+//     }
+//
+//     // 执行基础步态
+//     switch(gaitType) {
+//     case Tripod: moveTripod(); break;
+//         //...其他步态
+//     }
+//     
+//     balance(); // 原有平衡方法
+// }
+//
+// //===修改点===// 修改后的三脚架步态
+// void Hexapod::moveTripod() {
+//     // 新增适应逻辑
+//     if (currentAdaptMode == BUMP_ADAPT) {
+//         reduceStepLength(0.7f); 
+//         adjustSupportPhase();
+//     }
+//
+//     // 原有实现保持不变
+//     if (!prepareNextCycle(Tripod)) return;
+//     
+//     if (gaitGroupIndex == 0) {
+//         MLleg->setBodyTarget(getStandNextBodyTarget(...));
+//         //...其他原有逻辑
+//     }
+//     //...
+// }
 
 void Hexapod::startMove()
 {

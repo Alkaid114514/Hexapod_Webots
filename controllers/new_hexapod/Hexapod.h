@@ -5,6 +5,10 @@
 #include "LegR.h"
 #include "LegL.h"
 #include "Vector3.h"
+#include "map"
+#include "HexCamera.h"
+
+
 
 #define COXA_LEN (38.0f/1000.0f)
 #define FEMUR_LEN (79.2f/1000.0f)
@@ -15,8 +19,25 @@
 #define CLIP(value, lower, upper) (((value) < (lower)) ? (lower) : ((value) > (upper) ? (upper) : (value)))
 
 
+enum TerrainState { FLAT, BUMP, HOLE, UNKNOWN };
+enum GaitAdaptMode { DEFAULT, BUMP_ADAPT, HOLE_ADAPT };
+
+class MarkovTerrainPredictor {
+private:
+    std::map<TerrainState, std::map<TerrainState, double>> transitionMatrix;
+public:
+    MarkovTerrainPredictor();
+    TerrainState predictNext(TerrainState current);
+    void updateModel(TerrainState from, TerrainState to);
+};
+
 class Hexapod : public webots::Robot
 {
+    // //+++新增+++ 地形适应相关成员
+    // MarkovTerrainPredictor terrainPredictor;
+    // GaitAdaptMode currentAdaptMode = DEFAULT;
+    // float bumpHeightHistory[3] = {0};
+    // TerrainState currentTerrain = FLAT;
 public:
     Hexapod();
     ~Hexapod() override;
@@ -29,6 +50,7 @@ public:
     LegL* FLleg;
 
     IMU imu;
+    HexCamera hex_camera;
 
     enum GaitStatus : std::int8_t
     {
@@ -127,10 +149,10 @@ public:
     void setYaw(float yaw);
     void setRoll(float roll);
     void setPitch(float pitch);
-    void setPitchAndRoll(float pitch,float roll);
+    // void setPitchAndRoll(float pitch,float roll);
     void balance();
-    bool checkBalance();
-    void toGround();
+    // bool checkBalance();
+    // void toGround();
 
     /// <summary>
     /// 开始按照设置的角度和目标点运动
@@ -154,6 +176,18 @@ public:
     /// <returns>以腿根部为原点的相对向量(腿坐标系)</returns>
     static Vector3 body2legCoord(Vector3 absolute, Vector3 bias, float theta);
     bool prepareNextCycle(GaitStatus moveStatus);
-
     void checkIsOnGround();
+
+
+    
+    // //+++新增+++ 地形适应方法
+    // void enableBumpAdaptation(float detectedHeight);
+    // void adjustSwingTrajectory(int legIndex);
+    // TerrainState detectTerrainFromSensors(); // 基于传感器的地形检测
+    //
+    // //===修改点===// 在原有move方法基础上添加智能版本
+    // void smartMove(Vector3 velocity, float omega); 
+    // void moveTripod() override; // 覆盖原有方法
+    // Leg* getLegByIndex(int index);
+    // float calculateBumpHeight();
 };

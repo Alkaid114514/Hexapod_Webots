@@ -9,6 +9,8 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <webots/Keyboard.hpp>
+#include <webots/robot.h>
+
 
 using namespace webots;
 
@@ -17,7 +19,8 @@ int main(int argc, char** argv)
     auto robot = new Hexapod();
 
     int timeStep = static_cast<int>(robot->getBasicTimeStep());
-
+    
+   
     /*Vector3 rightAngles = Vector3(-0.0f, -0.0f, -0.0f);
     Vector3 leftAngles = Vector3(0.0f, 0.0f, 0.0f);
     robot->setPose(rightAngles, rightAngles, rightAngles, leftAngles, leftAngles, leftAngles);
@@ -38,7 +41,7 @@ int main(int argc, char** argv)
     
     robot->reInit();
     robot->startMove();
-    
+
 
     // float omegas[3] = {2.0f,2.0f,2.0f};
     // robot->BRleg.setOmega(omegas);
@@ -47,6 +50,7 @@ int main(int argc, char** argv)
     // robot->BLleg.setOmega(omegas);
     // robot->MLleg.setOmega(omegas);
     // robot->FLleg.setOmega(omegas);
+    
     bool typeKey = false;
     while (robot->step(timeStep) != -1)
     {
@@ -83,7 +87,7 @@ int main(int argc, char** argv)
         // robot->balance();
         // robot->reInit();
         // robot->startMove();
-        typeKey = false;
+        // typeKey = false;
         Vector3 vector3 = Vector3();
         bool arr[256] = {false};
         arr[keyboard->getKey()] = true;
@@ -122,7 +126,6 @@ int main(int argc, char** argv)
             robot->velocity = vector3;
         }
         
-        
         float omega = 0.0f;
         if (arr['Q'])
         {
@@ -139,13 +142,15 @@ int main(int argc, char** argv)
         }
         robot->omega = omega;
         
-        robot->balance();
-        robot->moveTripod();
-        std::cout << "x "  << robot->MRleg.currentStandBodyTarget.x << " y " << robot->MRleg.currentStandBodyTarget.y << std::endl;
+        // robot->balance();
+        // robot->moveTripod();
+        // robot->moveRipple();
+        // robot->moveWave();
+        // std::cout << "x "  << robot->MRleg->currentStandBodyTarget.x << " y " << robot->MRleg->currentStandBodyTarget.y << std::endl;
         // robot->checkIsOnGround();
         // robot->toGround();
         // robot->reInit();
-        // robot->startMove();
+        robot->startMove();
     }
 
     // Enter here exit cleanup code.

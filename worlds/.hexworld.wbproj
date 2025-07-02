@@ -9,3 +9,4 @@ orthographicViewHeight: 1
 textFiles: -1
 globalOptionalRendering: CoordinateSystem
 consoles: Console:All:All
+renderingDevicePerspectives: Hexapod:camera;1;1;0;0
