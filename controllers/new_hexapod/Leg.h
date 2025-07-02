@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <webots/Motor.hpp>
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -30,6 +30,7 @@ public:
     float currentYaw = 0.0f;
     float currentRoll = 0.0f;
     float currentPitch = 0.0f;
+    Vector3 currentPosition = Vector3(0.0f, 0.0f, 0.0f);
 
     Vector3 initStandBodyTarget;
     Vector3 currentStandBodyTarget;
