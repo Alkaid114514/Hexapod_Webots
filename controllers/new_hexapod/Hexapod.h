@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include <webots/Robot.hpp>
-
 #include "IMU.h"
 #include "LegR.h"
 #include "LegL.h"
@@ -16,6 +15,7 @@
 
 #define WAVE_RATIO (1.0f/5.0f)
 #define RIPPLE_RATIO (1.0f/2.0f)
+#define FOURPLUSTWO_RATIO (1.0f/3.0f)
 #define CLIP(value, lower, upper) (((value) < (lower)) ? (lower) : ((value) > (upper) ? (upper) : (value)))
 
 
@@ -58,7 +58,8 @@ public:
         Ripple,
         Wave,
         Ready,
-        Stop
+        Stop,
+        FourPlusTwo
     };
 
     /// <summary>
@@ -123,7 +124,8 @@ public:
     void moveTripod();
     void moveWave();
     void moveRipple();
-    Vector3 getSwagNextBodyTarget(Leg* leg, Vector3 r0, const Vector3& currentStandBodyTarget);
+    void move4plus2();
+    Vector3 getSwagNextBodyTarget( Vector3 r0, const Vector3& currentStandBodyTarget);
     // Vector3 getSwagNextBodyTarget(Leg* leg, Vector3 r0, const Vector3& currentStandBodyTarget);
     Vector3 getStandNextBodyTarget(Vector3 r0, const Vector3& currentStandBodyTarget, float baseRatio = 1.0f,
                                    float ratio = 0.0f);

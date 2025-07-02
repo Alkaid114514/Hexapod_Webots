@@ -1,3 +1,4 @@
+#pragma once
 #include "LegL.h"
 #include "Hexapod.h"
 

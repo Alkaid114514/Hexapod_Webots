@@ -160,7 +160,9 @@ void Leg::setPitch(float pitch)
 void Leg::setBodyPosition(Vector3 bodyPos)
 {
     bodyPos.z = 0.0f;
-    ctr2root += bodyPos;
+    ctr2root -= (bodyPos - currentPosition);
+    currentPosition = bodyPos;
+    currentStandAngles = ik(Hexapod::body2legCoord(currentStandBodyTarget, ctr2root, ctr2rootTheta));
 }
 
 void Leg::toGround(float height)
