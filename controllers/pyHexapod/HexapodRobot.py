@@ -1,9 +1,11 @@
 import math
 import numpy as np
-from controller import Robot
+from controller import Robot,Display
 from HexLeg import LegR
 from HexLeg import LegL
 from HexIMU import IMU
+from HexCamera import HexCamera
+from HexLaserLidar import LaserLidar
 
 COXA_LEN = 38.0 / 1000.0
 FEMUR_LEN = 79.2 / 1000.0
@@ -29,8 +31,21 @@ class Hexapod(Robot):
         super().__init__()
         
         self.imu = IMU(self)
+        # self.camera = HexCamera(self)
+        self.lidar = None
         self.timeStep = int(self.getBasicTimeStep())
-        
+
+        # # 获取内置显示器
+        # self.display = self.getDevice("display")
+        # if self.display:
+        #     print("内置显示器已启用")
+        # else:
+        #     print("警告: 找不到内置显示设备")
+
+        # # 初始化相机相关参数
+        # self.display_counter = 0
+        # self.display_interval = 5  # 每5个时间步更新一次显示
+
         # Initialize legs with numpy arrays
         self.BRleg = LegR(self.getDevice("M_BR_COXA"), self.getDevice("M_BR_FEMUR"), self.getDevice("M_BR_TIBIA"), 
                          self.ctr2BRroot, self.ctr2BRrootTheta)
@@ -71,8 +86,66 @@ class Hexapod(Robot):
         
         # Calculate initial height using numpy array
         leg_coords = self.body2legCoord(
-            self.FLleg.initStandBodyTarget, self.FLleg.ctr2root, self.FLleg.ctr2rootTheta)
+                self.FLleg.initStandBodyTarget, self.FLleg.ctr2root, self.FLleg.ctr2rootTheta)
         self.currentHeight = self.initHeight = leg_coords[2]
+
+    # def update_display(self):
+    #     """在Webots内置显示器上显示相机画面"""
+    #     # 如果没有显示器或没有图像数据，直接返回
+    #     if not self.display or not self.camera or not self.camera.image_data:
+    #         return
+        
+    #     # 获取图像数据
+    #     image_data = self.camera.image_data
+    #     width = self.camera.width
+    #     height = self.camera.height
+        
+        # 创建Webots图像对象
+        # image_ref = self.display.imageNew(
+        #     data=image_data,
+        #     width=width,
+        #     height=height,
+        #     width = width * 4,//这里老是击败报错补吱道什么原因，说参数数量不对
+        #     format=self.display.BGRA
+        # )
+        
+        # # 显示图像
+        # self.display.imagePaste(image_ref, 0, 0, False)
+        
+        # # 删除图像引用以释放内存
+        # self.display.imageDelete(image_ref)
+    
+    # def step(self, timestep):
+    #     """重载step方法以包含相机更新"""
+    #     result = super().step(timestep)
+        
+    #     # 更新相机显示
+    #     if self.camera:
+    #         self.camera.update()
+            
+    #         # 更新计数器
+    #         self.display_counter += 1
+    #         if self.display_counter >= self.display_interval:
+    #             self.update_display()
+    #             self.display_counter = 0
+        
+    #     return result
+    
+    def init_lidar(self, device_name="lidar_sensor"):
+        """激光雷达初始化"""
+        self.lidar = LaserLidar(device_name)
+        self.lidar.enable()
+        print(f"LiDAR enabled with {self.lidar.get_fov()['horizontal']*180/3.14:.1f}° FOV")
+    
+    def collect_sensor_data(self):
+        """传感器数据收集入口"""
+        sensor_data = {}
+        if self.lidar:
+            sensor_data['lidar'] = {
+                'points': self.lidar.get_point_cloud(),
+                'range_image': self.lidar.get_range_image()
+            }
+        return sensor_data
     
     # Constants for leg positions as numpy arrays
     ctr2BRroot = np.array([0.059, -0.083, 0.0])
