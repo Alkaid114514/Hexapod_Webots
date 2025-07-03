@@ -3,6 +3,21 @@ import numpy as np
 from controller import Robot, Keyboard
 from HexapodRobot import Hexapod  # 假设Hexapod类已经转换为Python
 
+def process_lidar_data(points):
+    """点云数据处理示例"""
+    if len(points) > 0:
+        # 转换为NumPy数组处理
+        points_arr = np.array([[p.x, p.y, p.z] for p in points if p])
+        if points_arr.size > 0:
+            # 计算最近点 (仅关注前方区域)
+            front_points = points_arr[(points_arr[:,1] > 0) & (np.abs(points_arr[:,0]) < 0.2)]
+            if front_points.size > 0:
+                closest = front_points[front_points[:,2].argmin()]
+                print(f"最近障碍物: ({closest[0]:.3f}, {closest[1]:.3f}, {closest[2]:.3f})")
+                return closest[2]  # 返回最近距离
+    return float('inf')
+
+
 def main():
     # 创建机器人实例
     robot = Hexapod()
@@ -24,6 +39,12 @@ def main():
     type_key = False
     
     while robot.step(time_step) != -1:
+
+        # 收集并处理雷达数据
+        sensor_data = robot.collect_sensor_data()
+        if 'lidar' in sensor_data:
+            closest_distance = process_lidar_data(sensor_data['lidar']['points'])
+
         # 处理键盘输入
         type_key = False
         velocity = np.array([0.0, 0.0, 0.0])
@@ -74,4 +95,4 @@ def main():
         # robot.balance()
 
 if __name__ == "__main__":
-    main()
+   main()
