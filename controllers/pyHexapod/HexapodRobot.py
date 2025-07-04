@@ -1,6 +1,6 @@
 import math
 import numpy as np
-from controller import Robot, Display
+from controller import Robot
 from HexLeg import LegR
 from HexLeg import LegL
 from HexIMU import IMU
@@ -34,20 +34,9 @@ class Hexapod(Robot):
         super().__init__()
 
         self.imu = IMU(self)
-        # self.camera = HexCamera(self)
+        self.camera = HexCamera(self)
         self.lidar = None
         self.timeStep = int(self.getBasicTimeStep())
-
-        # # 获取内置显示器
-        # self.display = self.getDevice("display")
-        # if self.display:
-        #     print("内置显示器已启用")
-        # else:
-        #     print("警告: 找不到内置显示设备")
-
-        # # 初始化相机相关参数
-        # self.display_counter = 0
-        # self.display_interval = 5  # 每5个时间步更新一次显示
 
         # Initialize legs with numpy arrays
         self.BRleg = LegR(
@@ -125,47 +114,30 @@ class Hexapod(Robot):
         )
         self.currentHeight = self.initHeight = leg_coords[2]
 
-    # def update_display(self):
-    #     """在Webots内置显示器上显示相机画面"""
-    #     # 如果没有显示器或没有图像数据，直接返回
-    #     if not self.display or not self.camera or not self.camera.image_data:
-    #         return
-
-    #     # 获取图像数据
-    #     image_data = self.camera.image_data
-    #     width = self.camera.width
-    #     height = self.camera.height
-
-    # 创建Webots图像对象
-    # image_ref = self.display.imageNew(
-    #     data=image_data,
-    #     width=width,
-    #     height=height,
-    #     width = width * 4,//这里老是击败报错补吱道什么原因，说参数数量不对
-    #     format=self.display.BGRA
-    # )
-
-    # # 显示图像
-    # self.display.imagePaste(image_ref, 0, 0, False)
-
-    # # 删除图像引用以释放内存
-    # self.display.imageDelete(image_ref)
-
-    # def step(self, timestep):
-    #     """重载step方法以包含相机更新"""
-    #     result = super().step(timestep)
-
-    #     # 更新相机显示
-    #     if self.camera:
-    #         self.camera.update()
-
-    #         # 更新计数器
-    #         self.display_counter += 1
-    #         if self.display_counter >= self.display_interval:
-    #             self.update_display()
-    #             self.display_counter = 0
-
-    #     return result
+    def get_camera_data(self):
+        """
+        获取相机数据并转换为适合传输的格式
+        返回字典包含：
+            - image_base64: Base64编码的JPEG图像
+            - width: 图像宽度
+            - height: 图像高度
+            - timestamp: 时间戳
+        """
+        if not hasattr(self, 'camera') or not self.camera:
+            return None
+            
+        # 更新相机数据
+        self.camera.update()
+        
+        # 获取Base64编码的JPEG
+        base64_image = self.camera.get_base64_jpeg(quality=85)
+        
+        return {
+            "image_base64": base64_image if base64_image else "",
+            "width": self.camera.width,
+            "height": self.camera.height,
+            "timestamp": self.getTime()
+        }
 
     def init_lidar(self, device_name="Velodyne VLP-16"):
         """激光雷达初始化"""

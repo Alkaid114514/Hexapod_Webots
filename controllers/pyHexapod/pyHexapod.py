@@ -35,6 +35,8 @@ class HexapodController:
         self.start_websocket_server()
 
         self.robot.init_lidar()
+        self.camera_send_counter = 0
+        self.camera_send_interval = 10  # 每10个时间步发送一次相机数据
 
     def process_lidar_data(self, points):
         """点云数据处理示例"""
@@ -44,6 +46,7 @@ class HexapodController:
                 front_points = points_arr[
                     (points_arr[:, 1] > 0) & (np.abs(points_arr[:, 0]) < 0.2)
                 ]
+            
                 if front_points.size > 0:
                     closest = front_points[front_points[:, 2].argmin()]
                     print(
@@ -70,9 +73,15 @@ class HexapodController:
                         await websocket.send(
                             json.dumps({"sensorData": sensor_data, "status": "ok"})
                         )
+                    elif command["type"] == "request_camera":
+                    # 立即发送相机数据
+                        camera_data = self.controller.robot.get_camera_data()
+                        await websocket.send(json.dumps({
+                        "type": "camera",
+                        "data": camera_data
+                    }))
                 except json.JSONDecodeError:
                     print("Invalid JSON received")
-
         except websockets.exceptions.ConnectionClosed:
             print("客户端断开连接")
 
@@ -141,7 +150,23 @@ class HexapodController:
 
             # 执行步态
             self.robot.moveTripod()
-
+            
+            # 更新相机数据发送计数器
+            self.camera_send_counter += 1
+            if self.camera_send_counter >= self.camera_send_interval:
+                self.camera_send_counter = 0
+                
+                # 获取相机数据
+                camera_data = self.robot.get_camera_data()
+                
+                # 通过WebSocket发送数据
+                if self.websocket_server:
+                    message = json.dumps({
+                        "type": "camera",
+                        "data": camera_data
+                    })
+                    # 使用异步方式发送
+                    asyncio.run(self.websocket_server.broadcast(message))
             # 收集并处理雷达数据
             # sensor_data = self.robot.collect_sensor_data()
             # if 'lidar' in sensor_data:
