@@ -12,3 +12,4 @@ controllers/new_hexapod/.idea/.idea.new_hexapod/.idea/projectSettingsUpdater.xml
 *.pdb
 *.
 **/x64
+**/controller

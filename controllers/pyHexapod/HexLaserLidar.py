@@ -3,7 +3,9 @@ from controller import Lidar
 class LaserLidar:
     def __init__(self, device_name):
         self.lidar = Lidar(device_name)
-        self.enable(False)  # 默认禁用
+        self.enable(True)  # 默认禁用
+        self.lidar.enablePointCloud()
+        
     
     def enable(self, sampling_period=32):
         """启用雷达并设置采样周期"""
@@ -23,6 +25,5 @@ class LaserLidar:
     def get_fov(self):
         """获取视场角参数"""
         return {
-            'horizontal': self.lidar.getHorizontalFov(),
             'vertical': self.lidar.getVerticalFov() if self.lidar.getNumberOfLayers() > 1 else 0
         }
