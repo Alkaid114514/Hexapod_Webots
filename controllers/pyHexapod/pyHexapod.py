@@ -7,6 +7,11 @@ import json
 import asyncio
 import threading
 from websockets.asyncio.server import serve
+import cv2
+import subprocess
+
+
+# 使用 FFmpeg 将帧流编码为 Ogg Theora
 
 
 class HexapodController:
@@ -14,6 +19,7 @@ class HexapodController:
         print("Initializing Hexapod Controller...")
         self.robot = Hexapod()
         self.time_step = int(self.robot.getBasicTimeStep())
+        self.enable_camera = True
 
         # 初始化键盘控制
         self.keyboard = self.robot.getKeyboard()
@@ -38,6 +44,8 @@ class HexapodController:
         self.camera_send_counter = 0
         self.camera_send_interval = 10  # 每10个时间步发送一次相机数据
 
+
+
     def process_lidar_data(self, points):
         """点云数据处理示例"""
         if len(points) > 0:
@@ -58,8 +66,13 @@ class HexapodController:
     async def handle_connection(self, websocket):
         print("客户端已连接")
         try:
+            if self.enable_camera:
+                await websocket.send(self.jpeg_data.tobytes())
+
+
             async for message in websocket:
                 try:
+
                     command = json.loads(message)
                     # print(message)
                     if command["type"] == "move":
@@ -74,12 +87,9 @@ class HexapodController:
                             json.dumps({"sensorData": sensor_data, "status": "ok"})
                         )
                     elif command["type"] == "request_camera":
-                    # 立即发送相机数据
-                        camera_data = self.robot.get_camera_data()
-                        await websocket.send(json.dumps({
-                        "type": "camera",
-                        "data": camera_data
-                    }))
+                        self.enable_camera = command["enable"] == "true"
+                        
+                    
                 except json.JSONDecodeError:
                     print("Invalid JSON received")
         except websockets.exceptions.ConnectionClosed:
@@ -108,6 +118,18 @@ class HexapodController:
         """主控制循环"""
         print("Starting main control loop...")
         while self.robot.step(self.time_step) != -1:
+
+            if self.enable_camera:
+                # 立即发送相机数据
+                frame  = self.robot.camera.camera.getImage()
+                # 转换为 OpenCV 格式（BGR）
+                self.img_rgb = np.frombuffer(frame, np.uint8).reshape((self.robot.camera.camera.getHeight(), self.robot.camera.camera.getWidth(), 4))
+                # self.img_rgb = cv2.cvtColor(img, cv2.COLOR_BGRA2RGB)
+                _, self.jpeg_data = cv2.imencode(".jpg", self.img_rgb, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
+
+            
+
+
             # 处理键盘输入
             self.type_key = False
             velocity = np.array([0.0, 0.0, 0.0])
@@ -151,22 +173,22 @@ class HexapodController:
             # 执行步态
             self.robot.moveTripod()
             
-            # 更新相机数据发送计数器
-            self.camera_send_counter += 1
-            if self.camera_send_counter >= self.camera_send_interval:
-                self.camera_send_counter = 0
+            # # 更新相机数据发送计数器
+            # self.camera_send_counter += 1
+            # if self.camera_send_counter >= self.camera_send_interval:
+            #     self.camera_send_counter = 0
                 
-                # 获取相机数据
-                camera_data = self.robot.get_camera_data()
+            #     # 获取相机数据
+            #     camera_data = self.robot.get_camera_data()
                 
-                # 通过WebSocket发送数据
-                if self.websocket_server:
-                    message = json.dumps({
-                        "type": "camera",
-                        "data": camera_data
-                    })
-                    # 使用异步方式发送
-                    asyncio.run(self.websocket_server.broadcast(message))
+            #     # 通过WebSocket发送数据
+            #     if self.websocket_server:
+            #         message = json.dumps({
+            #             "type": "camera",
+            #             "data": camera_data
+            #         })
+            #         # 使用异步方式发送
+            #         asyncio.run(self.websocket_server.broadcast(message))
 
 
             # 收集并处理雷达数据

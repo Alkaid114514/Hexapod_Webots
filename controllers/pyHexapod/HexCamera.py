@@ -1,21 +1,20 @@
 from controller import Robot, Camera
 import numpy as np
-from PIL import Image
 import base64
 import io
 
 class HexCamera:
-    def __init__(self, robot, device_name="camera"):
+    def __init__(self, robot: Robot, device_name="camera"):
         """
         简化的相机控制器，仅用于显示画面
         :param robot: Webots机器人实例
         :param device_name: 相机设备名称
         """
         # 获取相机设备
-        self.camera = robot.getDevice(device_name)
+        self.camera = robot.getCamera(device_name)
         if not self.camera:
             raise RuntimeError(f"找不到相机设备 '{device_name}'")
-            
+
         self.timestep = int(robot.getBasicTimeStep())
         
         # 启用基础图像采集
