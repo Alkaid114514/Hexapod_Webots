@@ -75,7 +75,7 @@ class HexapodController:
                         )
                     elif command["type"] == "request_camera":
                     # 立即发送相机数据
-                        camera_data = self.controller.robot.get_camera_data()
+                        camera_data = self.robot.get_camera_data()
                         await websocket.send(json.dumps({
                         "type": "camera",
                         "data": camera_data
@@ -167,6 +167,8 @@ class HexapodController:
                     })
                     # 使用异步方式发送
                     asyncio.run(self.websocket_server.broadcast(message))
+
+
             # 收集并处理雷达数据
             # sensor_data = self.robot.collect_sensor_data()
             # if 'lidar' in sensor_data:
